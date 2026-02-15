@@ -1,0 +1,9 @@
+{
+  "sites": [
+    {
+      "name": "Hello World",
+      "path": "sites/hello-world/",
+      "description": "First micro-site with a simple greeting page."
+    }
+  ]
+}
