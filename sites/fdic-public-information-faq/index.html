@@ -12,92 +12,102 @@
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
-      <div class="header-brand-row">
-        <div class="header-inner">
-          <a class="brand" href="https://www.fdic.gov" target="_blank" rel="noopener noreferrer">
-            <span class="brand-mark">FDIC</span>
-            <span class="brand-text">Federal Deposit Insurance Corporation</span>
+    <header class="usa-header usa-header--basic" role="banner">
+      <div class="grid-container header-inner">
+        <div class="usa-logo site-logo" id="logo">
+          <a class="logo-img" href="https://www.fdic.gov" target="_blank" rel="noopener noreferrer" aria-label="FDIC Home">
+            <img src="https://www.fdic.gov/themes/custom/fdic_theme/fdic-logo-white-noseal.svg" alt="FDIC" />
           </a>
-          <nav class="utility-nav" aria-label="Utility">
-            <a href="https://www.fdic.gov/contact" target="_blank" rel="noopener noreferrer">Contact</a>
-            <a href="https://www.fdic.gov/about/careers" target="_blank" rel="noopener noreferrer">Careers</a>
-            <a href="https://www.fdic.gov/news" target="_blank" rel="noopener noreferrer">News</a>
-          </nav>
         </div>
+        <nav class="tbm tbm-main tbm-no-arrows" id="tbm-main" aria-label="Main navigation">
+          <ul class="tbm-nav level-0 items-5">
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/about" target="_blank" rel="noopener noreferrer">About</a></li>
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/resources/consumers" target="_blank" rel="noopener noreferrer">Consumers</a></li>
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/resources/bankers" target="_blank" rel="noopener noreferrer">Bankers</a></li>
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/resources" target="_blank" rel="noopener noreferrer">Resources</a></li>
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/news" target="_blank" rel="noopener noreferrer">News</a></li>
+          </ul>
+        </nav>
       </div>
-
-      <nav class="primary-nav" aria-label="Primary">
-        <div class="header-inner top-nav">
-          <a href="https://www.fdic.gov/resources/consumers" target="_blank" rel="noopener noreferrer">Consumers</a>
-          <a href="https://www.fdic.gov/resources/deposit-insurance" target="_blank" rel="noopener noreferrer">Deposit Insurance</a>
-          <a href="https://www.fdic.gov/resources/bankers" target="_blank" rel="noopener noreferrer">Bankers</a>
-          <a href="https://www.fdic.gov/about" target="_blank" rel="noopener noreferrer">About FDIC</a>
-        </div>
-      </nav>
     </header>
 
-    <main id="main-content" class="page-wrap">
-      <section class="hero" aria-labelledby="page-title">
-        <p class="eyebrow">Public Information</p>
-        <h1 id="page-title">Frequently Asked Questions</h1>
-        <p class="lede">Browse by topic or search across all questions and answers from the FDIC Information and Support Center.</p>
+    <div class="grid-container bg-fdic-white">
+      <div class="ds-region-abovecontent">
+        <nav class="fdic-breadcrumb" aria-label="Breadcrumb">
+          <span class="fdic-breadcrumb__item"><a class="fdic-breadcrumb__item__link" href="https://www.fdic.gov" target="_blank" rel="noopener noreferrer">Home</a></span>
+          <span class="fdic-breadcrumb__item"><a class="fdic-breadcrumb__item__link" href="https://www.fdic.gov/resources" target="_blank" rel="noopener noreferrer">Resources</a></span>
+          <span class="fdic-breadcrumb__item"><a class="fdic-breadcrumb__item__link" href="https://www.fdic.gov/resources/deposit-insurance" target="_blank" rel="noopener noreferrer">Deposit Insurance</a></span>
+        </nav>
 
-        <div class="search-row">
-          <label for="faq-search" class="visually-hidden">Search FAQs</label>
-          <input id="faq-search" type="search" placeholder="Search by keyword, topic, or phrase" autocomplete="off" />
-          <button id="clear-search" type="button">Clear</button>
-        </div>
+        <div class="content-subtitle">Public Information</div>
+        <h1>Frequently Asked Questions</h1>
+      </div>
 
-        <div class="meta-row">
-          <p id="result-count" aria-live="polite">Loading FAQs...</p>
-          <a class="source-link" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/public-information?language=en_US" target="_blank" rel="noopener noreferrer">View source experience</a>
-        </div>
-      </section>
+      <div class="faq-controls" aria-label="FAQ Search and filters">
+        <label for="faq-search" class="visually-hidden">Search FAQs</label>
+        <input id="faq-search" type="search" placeholder="Search by keyword, topic, or phrase" autocomplete="off" />
+        <button id="clear-search" type="button">Clear</button>
+        <p id="result-count" aria-live="polite">Loading FAQs...</p>
+        <a class="source-link" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/public-information?language=en_US" target="_blank" rel="noopener noreferrer">View source experience</a>
+      </div>
 
-      <section class="content-grid" aria-label="FAQ content">
-        <aside class="sidebar" aria-labelledby="category-heading">
-          <h2 id="category-heading">Topics</h2>
-          <div id="active-filters" class="active-filters" aria-live="polite"></div>
-          <button id="clear-topics" class="clear-topics" type="button">Clear selected topics</button>
-          <div id="category-tree" class="category-tree" role="tree"></div>
+      <div class="ds-region-content">
+        <aside class="ds-region-left" aria-labelledby="category-heading">
+          <div class="sidebar-container navigation">
+            <h2 id="category-heading">Topics</h2>
+            <div id="active-filters" class="active-filters" aria-live="polite"></div>
+            <button id="clear-topics" class="clear-topics" type="button">Clear selected topics</button>
+            <div id="category-tree" class="category-tree" role="tree"></div>
+          </div>
         </aside>
 
-        <section class="results" aria-labelledby="questions-heading">
+        <main id="main-content" class="ds-region-middle" aria-labelledby="questions-heading">
           <h2 id="questions-heading">Questions and Answers</h2>
           <div id="faq-list" class="faq-list"></div>
-        </section>
-      </section>
-    </main>
+        </main>
+      </div>
+    </div>
 
-    <footer class="site-footer">
-      <div class="footer-top">
-        <div class="footer-inner">
-          <div class="footer-brand">
-            <p class="footer-title">Federal Deposit Insurance Corporation</p>
-            <p class="footer-sub">Each depositor insured to at least $250,000 per insured bank.</p>
-          </div>
-          <nav aria-label="Footer top">
-            <a href="https://www.fdic.gov/resources/consumers" target="_blank" rel="noopener noreferrer">Consumers</a>
-            <a href="https://www.fdic.gov/resources/deposit-insurance" target="_blank" rel="noopener noreferrer">Deposit Insurance</a>
-            <a href="https://www.fdic.gov/resources/bankers" target="_blank" rel="noopener noreferrer">Bankers</a>
-            <a href="https://www.fdic.gov/about" target="_blank" rel="noopener noreferrer">About</a>
-          </nav>
+    <footer class="usa-footer usa-footer--medium">
+      <div class="footer-primary">
+        <div class="grid-container footer-primary-grid">
+          <section>
+            <p class="footer-title">CONTACT THE FDIC</p>
+            <a class="usa-button" href="https://www.fdic.gov/contact" target="_blank" rel="noopener noreferrer">Contact Us</a>
+          </section>
+          <section>
+            <p class="footer-title">STAY INFORMED</p>
+            <form class="subscribe-form" action="https://public.govdelivery.com/accounts/USFDIC/subscribers/qualify" method="post" target="_blank">
+              <label for="email" class="visually-hidden">Enter your email address</label>
+              <input id="email" name="email" type="email" placeholder="Enter your email address" />
+              <button class="usa-button" type="submit">Subscribe</button>
+            </form>
+          </section>
+          <section>
+            <p class="footer-title">HOW CAN WE HELP YOU?</p>
+            <a class="usa-button" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/?language=en_US" target="_blank" rel="noopener noreferrer">Get Started</a>
+          </section>
         </div>
       </div>
-      <div class="footer-bottom">
-        <div class="footer-inner">
-          <nav aria-label="Footer bottom">
-            <a href="https://www.fdic.gov/policies" target="_blank" rel="noopener noreferrer">Policies</a>
-            <a href="https://www.fdic.gov/privacy" target="_blank" rel="noopener noreferrer">Privacy</a>
-            <a href="https://www.fdic.gov/accessibility" target="_blank" rel="noopener noreferrer">Accessibility</a>
-            <a href="https://www.fdic.gov/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+
+      <div class="footer-secondary">
+        <div class="grid-container">
+          <nav class="footer-secondary-menu" aria-label="Footer Secondary Menu">
+            <ul class="menu menu--footer-secondary-menu nav">
+              <li><a href="https://www.fdic.gov/about/website-policies" target="_blank" rel="noopener noreferrer">Policies</a></li>
+              <li><a href="https://www.fdic.gov/help" target="_blank" rel="noopener noreferrer">Help</a></li>
+              <li><a href="https://www.fdic.gov/foia" target="_blank" rel="noopener noreferrer">FOIA</a></li>
+              <li><a href="https://www.fdic.gov/espanol" target="_blank" rel="noopener noreferrer">En Español</a></li>
+              <li><a href="https://www.fdic.gov/about/fdic-accessibility-statement" target="_blank" rel="noopener noreferrer">Accessibility</a></li>
+              <li><a href="https://www.fdic.gov/about/open-government" target="_blank" rel="noopener noreferrer">Open Government</a></li>
+              <li><a href="https://www.usa.gov" target="_blank" rel="noopener noreferrer">usa.gov</a></li>
+              <li><a href="https://www.fdic.gov/about/contact-fdic" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+              <li><a href="https://www.fdic.gov/about/privacy-program" target="_blank" rel="noopener noreferrer">Privacy</a></li>
+              <li><a href="https://www.fdic.gov/about/plain-writing-act-2010" target="_blank" rel="noopener noreferrer">Plain Writing</a></li>
+              <li><a href="https://www.fdic.gov/about/no-fear-act" target="_blank" rel="noopener noreferrer">No Fear Act Data</a></li>
+              <li><a href="https://www.fdicoig.gov" target="_blank" rel="noopener noreferrer">Inspector General</a></li>
+            </ul>
           </nav>
-          <span class="footer-copy">FDIC.gov</span>
-        </div>
-      </div>
-      <div class="footer-back">
-        <div class="footer-inner">
           <a class="back-link" href="../../index.html">Back to all sites</a>
         </div>
       </div>
