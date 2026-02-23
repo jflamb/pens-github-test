@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FDIC Public Information FAQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="header-brand-row">
+        <div class="header-inner">
+          <a class="brand" href="https://www.fdic.gov" target="_blank" rel="noopener noreferrer">
+            <span class="brand-mark">FDIC</span>
+            <span class="brand-text">Federal Deposit Insurance Corporation</span>
+          </a>
+          <nav class="utility-nav" aria-label="Utility">
+            <a href="https://www.fdic.gov/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+            <a href="https://www.fdic.gov/about/careers" target="_blank" rel="noopener noreferrer">Careers</a>
+            <a href="https://www.fdic.gov/news" target="_blank" rel="noopener noreferrer">News</a>
+          </nav>
+        </div>
+      </div>
+
+      <nav class="primary-nav" aria-label="Primary">
+        <div class="header-inner top-nav">
+          <a href="https://www.fdic.gov/resources/consumers" target="_blank" rel="noopener noreferrer">Consumers</a>
+          <a href="https://www.fdic.gov/resources/deposit-insurance" target="_blank" rel="noopener noreferrer">Deposit Insurance</a>
+          <a href="https://www.fdic.gov/resources/bankers" target="_blank" rel="noopener noreferrer">Bankers</a>
+          <a href="https://www.fdic.gov/about" target="_blank" rel="noopener noreferrer">About FDIC</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content" class="page-wrap">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Public Information</p>
+        <h1 id="page-title">Frequently Asked Questions</h1>
+        <p class="lede">Browse by topic or search across all questions and answers from the FDIC Information and Support Center.</p>
+
+        <div class="search-row">
+          <label for="faq-search" class="visually-hidden">Search FAQs</label>
+          <input id="faq-search" type="search" placeholder="Search by keyword, topic, or phrase" autocomplete="off" />
+          <button id="clear-search" type="button">Clear</button>
+        </div>
+
+        <div class="meta-row">
+          <p id="result-count" aria-live="polite">Loading FAQs...</p>
+          <a class="source-link" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/public-information?language=en_US" target="_blank" rel="noopener noreferrer">View source experience</a>
+        </div>
+      </section>
+
+      <section class="content-grid" aria-label="FAQ content">
+        <aside class="sidebar" aria-labelledby="category-heading">
+          <h2 id="category-heading">Topics</h2>
+          <div id="active-filters" class="active-filters" aria-live="polite"></div>
+          <button id="clear-topics" class="clear-topics" type="button">Clear selected topics</button>
+          <div id="category-tree" class="category-tree" role="tree"></div>
+        </aside>
+
+        <section class="results" aria-labelledby="questions-heading">
+          <h2 id="questions-heading">Questions and Answers</h2>
+          <div id="faq-list" class="faq-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <p class="footer-title">Federal Deposit Insurance Corporation</p>
+            <p class="footer-sub">Each depositor insured to at least $250,000 per insured bank.</p>
+          </div>
+          <nav aria-label="Footer top">
+            <a href="https://www.fdic.gov/resources/consumers" target="_blank" rel="noopener noreferrer">Consumers</a>
+            <a href="https://www.fdic.gov/resources/deposit-insurance" target="_blank" rel="noopener noreferrer">Deposit Insurance</a>
+            <a href="https://www.fdic.gov/resources/bankers" target="_blank" rel="noopener noreferrer">Bankers</a>
+            <a href="https://www.fdic.gov/about" target="_blank" rel="noopener noreferrer">About</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-inner">
+          <nav aria-label="Footer bottom">
+            <a href="https://www.fdic.gov/policies" target="_blank" rel="noopener noreferrer">Policies</a>
+            <a href="https://www.fdic.gov/privacy" target="_blank" rel="noopener noreferrer">Privacy</a>
+            <a href="https://www.fdic.gov/accessibility" target="_blank" rel="noopener noreferrer">Accessibility</a>
+            <a href="https://www.fdic.gov/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+          </nav>
+          <span class="footer-copy">FDIC.gov</span>
+        </div>
+      </div>
+      <div class="footer-back">
+        <div class="footer-inner">
+          <a class="back-link" href="../../index.html">Back to all sites</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
