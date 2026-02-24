@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FDIC Report a Problem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600;700&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="usa-header usa-header--basic" role="banner">
+      <div class="grid-container header-inner">
+        <div class="usa-logo site-logo" id="logo">
+          <a class="logo-img" href="https://www.fdic.gov" target="_blank" rel="noopener noreferrer" aria-label="FDIC Home">
+            <img src="https://www.fdic.gov/themes/custom/fdic_theme/fdic-logo-white-noseal.svg" alt="FDIC" />
+          </a>
+        </div>
+        <nav class="tbm tbm-main tbm-no-arrows" id="tbm-main" aria-label="Main navigation">
+          <ul class="tbm-nav level-0 items-4">
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/about" target="_blank" rel="noopener noreferrer">About</a></li>
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/resources" target="_blank" rel="noopener noreferrer">Resources</a></li>
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/analysis" target="_blank" rel="noopener noreferrer">Analysis</a></li>
+            <li class="tbm-item level-1"><a class="tbm-link level-1" href="https://www.fdic.gov/news" target="_blank" rel="noopener noreferrer">News</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="grid-container bg-fdic-white">
+      <div class="ds-region-abovecontent">
+        <nav class="fdic-breadcrumb" aria-label="Breadcrumb">
+          <span class="fdic-breadcrumb__item"><a class="fdic-breadcrumb__item__link" href="https://www.fdic.gov" target="_blank" rel="noopener noreferrer">Home</a></span>
+          <span class="fdic-breadcrumb__item"><a class="fdic-breadcrumb__item__link" href="index.html">Information and Support Center</a></span>
+          <span class="fdic-breadcrumb__item"><span aria-current="page">Report a Problem or Concern</span></span>
+        </nav>
+
+        <h1>Information and Support Center</h1>
+        <p class="support-intro">Get help with questions, concerns, or issues involving FDIC-insured banks, deposit insurance, or bank failures</p>
+
+        <div class="share-bar" aria-label="Share this page">
+          <span class="share-label">Share This:</span>
+          <a class="share-action" href="#" aria-label="Share on Facebook"><span class="share-icon fa-brands fa-facebook-f" aria-hidden="true"></span><span class="visually-hidden">Share on Facebook</span></a>
+          <a class="share-action" href="#" aria-label="Share on X"><span class="share-icon fa-brands fa-x-twitter" aria-hidden="true"></span><span class="visually-hidden">Share on X</span></a>
+          <a class="share-action" href="#" aria-label="Share on LinkedIn"><span class="share-icon fa-brands fa-linkedin-in" aria-hidden="true"></span><span class="visually-hidden">Share on LinkedIn</span></a>
+          <a class="share-action" href="#" aria-label="Share through email"><span class="share-icon fa-solid fa-envelope" aria-hidden="true"></span><span class="visually-hidden">Share through email</span></a>
+          <a class="share-action" href="#" aria-label="Print this page"><span class="share-icon fa-solid fa-print" aria-hidden="true"></span><span class="visually-hidden">Print this page</span></a>
+        </div>
+      </div>
+
+      <main id="main-content" class="report-layout report-layout--single" aria-label="Report a problem flow">
+        <section class="report-main">
+          <h2 id="intake-heading">What do you need help with?</h2>
+          <p id="intake-subcopy" class="support-subcopy">We’ll ask only the questions needed to route your request.</p>
+          <p class="report-required-note"><span aria-hidden="true">*</span> Required fields</p>
+          <div class="report-content-grid">
+            <div class="report-form-pane">
+              <div id="form-errors" class="report-error-summary" role="alert" aria-live="assertive" hidden></div>
+
+              <form id="support-intake-form" novalidate>
+                <fdic-choice-group id="intent-group"></fdic-choice-group>
+
+                <div id="topic-wrapper" class="report-section" hidden>
+                  <fdic-choice-group id="topic-group"></fdic-choice-group>
+                </div>
+
+                <div id="details-wrapper" class="report-section" hidden>
+                  <fieldset class="report-fieldset">
+                    <legend id="details-legend">Briefly describe your issue or question <span class="report-required-marker" aria-hidden="true">*</span></legend>
+                    <p id="details-help" class="report-subcopy">Use plain language and include only details needed to understand your issue. Do not include Social Security numbers or full account numbers.</p>
+                    <label for="details-input" class="visually-hidden">Briefly describe your issue or question</label>
+                    <textarea id="details-input" class="report-textarea" required aria-required="true" aria-describedby="details-help"></textarea>
+                  </fieldset>
+                </div>
+
+                <div id="outcome-wrapper" class="report-section" hidden>
+                  <fdic-choice-group id="outcome-group"></fdic-choice-group>
+                </div>
+
+                <div id="state-wrapper" class="report-section" hidden>
+                  <fieldset class="report-fieldset">
+                    <legend>What state do you live in? <span class="report-required-marker" aria-hidden="true">*</span></legend>
+                    <p class="report-subcopy">Select your primary state or territory of residence.</p>
+                    <label for="state-input" class="visually-hidden">What state do you live in?</label>
+                    <select id="state-input" class="report-select" required aria-required="true">
+                      <option value="">Select a state or territory</option>
+                    </select>
+                  </fieldset>
+                </div>
+
+                <div id="contact-wrapper" class="report-section" hidden>
+                  <fdic-choice-group id="contact-group"></fdic-choice-group>
+                  <div id="contact-value-wrapper" class="report-section report-section--compact" hidden>
+                    <label id="contact-value-label" for="contact-value-input" class="report-label">Contact details <span class="report-required-marker" aria-hidden="true">*</span></label>
+                    <p id="contact-value-help" class="report-subcopy">Use contact information where we can reach you for follow-up questions.</p>
+                    <input id="contact-value-input" class="report-input" type="text" autocomplete="off" required aria-required="true" aria-describedby="contact-value-help" />
+                  </div>
+                </div>
+
+                <div id="endpoint-wrapper" class="report-section" hidden>
+                  <h3 class="report-endpoint-title">Routing destination</h3>
+                  <p id="endpoint-copy" class="report-subcopy"></p>
+                  <p id="endpoint-link-wrap" class="report-endpoint-link-wrap"></p>
+                </div>
+
+                <div class="report-actions" aria-label="Form actions">
+                  <a class="step-btn prev" href="index.html"><span class="icon" aria-hidden="true">&#8249;</span>Back</a>
+                  <button id="review-submission-btn" type="submit" class="step-btn next">Review your submission<span class="icon" aria-hidden="true">&#8250;</span></button>
+                </div>
+              </form>
+            </div>
+
+            <aside class="report-progress-aside" aria-label="Form progress">
+              <div class="report-progress" aria-live="polite">
+                <h3 class="report-progress-title">Your progress</h3>
+                <ul id="progress-list" class="report-progress-list">
+                  <li id="progress-intent" class="progress-item is-incomplete"><span class="progress-label">What you need help with</span></li>
+                  <li id="progress-topic" class="progress-item is-incomplete"><span class="progress-label">Concern topic</span></li>
+                  <li id="progress-details" class="progress-item is-incomplete"><span class="progress-label">Issue details</span></li>
+                  <li id="progress-outcome" class="progress-item is-incomplete"><span class="progress-label">Desired outcome</span></li>
+                  <li id="progress-state" class="progress-item is-incomplete"><span class="progress-label">State of residence</span></li>
+                  <li id="progress-contact" class="progress-item is-incomplete"><span class="progress-label">Follow-up contact</span></li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+          <div id="intake-status" class="visually-hidden" aria-live="polite"></div>
+          <div id="flow-summary" class="report-summary" hidden>
+            <h3>Draft summary</h3>
+            <p id="flow-summary-copy"></p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="usa-footer usa-footer--medium">
+      <div class="footer-primary">
+        <div class="grid-container footer-primary-grid">
+          <section>
+            <p class="footer-title">CONTACT THE FDIC</p>
+            <a class="usa-button" href="https://www.fdic.gov/contact" target="_blank" rel="noopener noreferrer">Contact Us</a>
+          </section>
+          <section>
+            <p class="footer-title">STAY INFORMED</p>
+            <form class="subscribe-form" action="https://public.govdelivery.com/accounts/USFDIC/subscribers/qualify" method="post" target="_blank">
+              <label for="email" class="visually-hidden">Enter your email address</label>
+              <input id="email" name="email" type="email" placeholder="Enter your email address" />
+              <button class="usa-button" type="submit">Subscribe</button>
+            </form>
+          </section>
+          <section>
+            <p class="footer-title">HOW CAN WE HELP YOU?</p>
+            <a class="usa-button" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/?language=en_US" target="_blank" rel="noopener noreferrer">Get Started</a>
+          </section>
+        </div>
+      </div>
+
+      <div class="footer-secondary">
+        <div class="grid-container">
+          <nav class="footer-secondary-menu" aria-label="Footer Secondary Menu">
+            <ul class="menu menu--footer-secondary-menu nav">
+              <li><a href="https://www.fdic.gov/about/website-policies" target="_blank" rel="noopener noreferrer">Policies</a></li>
+              <li><a href="https://www.fdic.gov/help" target="_blank" rel="noopener noreferrer">Help</a></li>
+              <li><a href="https://www.fdic.gov/foia" target="_blank" rel="noopener noreferrer">FOIA</a></li>
+              <li><a href="https://www.fdic.gov/espanol" target="_blank" rel="noopener noreferrer">En Español</a></li>
+              <li><a href="https://www.fdic.gov/about/fdic-accessibility-statement" target="_blank" rel="noopener noreferrer">Accessibility</a></li>
+              <li><a href="https://www.fdic.gov/about/open-government" target="_blank" rel="noopener noreferrer">Open Government</a></li>
+              <li><a href="https://www.usa.gov" target="_blank" rel="noopener noreferrer">usa.gov</a></li>
+              <li><a href="https://www.fdic.gov/about/contact-fdic" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+              <li><a href="https://www.fdic.gov/about/privacy-program" target="_blank" rel="noopener noreferrer">Privacy</a></li>
+              <li><a href="https://www.fdic.gov/about/plain-writing-act-2010" target="_blank" rel="noopener noreferrer">Plain Writing</a></li>
+              <li><a href="https://www.fdic.gov/about/no-fear-act" target="_blank" rel="noopener noreferrer">No Fear Act Data</a></li>
+              <li><a href="https://www.fdicoig.gov" target="_blank" rel="noopener noreferrer">Inspector General</a></li>
+            </ul>
+          </nav>
+          <a class="back-link" href="../../index.html">Back to all sites</a>
+        </div>
+      </div>
+    </footer>
+    <script type="module" src="support-intake.js"></script>
+  </body>
+</html>

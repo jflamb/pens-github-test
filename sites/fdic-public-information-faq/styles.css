@@ -13,6 +13,17 @@
   --fdic-gray-200: #dfe1e2;
   --fdic-gray-100: #f0f0f0;
   --fdic-white: #ffffff;
+  --type-h1-size: 2.25rem;
+  --type-h1-line: 1.25;
+  --type-h2-size: 1.5rem;
+  --type-h2-line: 1.25;
+  --type-h3-size: 1.25rem;
+  --type-h3-line: 1.25;
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
 }
 
 * {
@@ -37,16 +48,23 @@ h3 {
 
 h1 {
   margin: 0.75rem 0 1.125rem;
-  font-size: 2.25rem;
-  line-height: 2.8125rem;
+  font-size: var(--type-h1-size);
+  line-height: var(--type-h1-line);
   font-weight: 400;
   text-align: center;
 }
 
 h2 {
-  margin: 0 0 0.65rem;
-  font-size: 1.35rem;
-  line-height: 1.6875rem;
+  margin: 0 0 0.75rem;
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-line);
+  font-weight: 400;
+}
+
+h3 {
+  margin: 0 0 0.55rem;
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-line);
   font-weight: 400;
 }
 
@@ -142,7 +160,8 @@ a {
 }
 
 .ds-region-abovecontent {
-  padding-top: 1.05rem;
+  padding-top: 1.25rem;
+  padding-bottom: 0.25rem;
   text-align: left;
 }
 
@@ -180,7 +199,7 @@ a {
   font-size: 1.25rem;
   line-height: 1.6rem;
   font-weight: 300;
-  margin-bottom: 0;
+  margin-bottom: 0.2rem;
   text-align: center;
 }
 
@@ -249,7 +268,7 @@ a {
   grid-template-columns: 1fr auto;
   gap: 0.75rem;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   border-top: 1px solid var(--fdic-gray-200);
   border-bottom: 1px solid var(--fdic-gray-200);
   padding: 0.9rem 0;
@@ -345,6 +364,7 @@ button,
   grid-template-columns: 300px minmax(0, 1fr);
   gap: 2rem;
   align-items: start;
+  padding-top: 0.5rem;
   padding-bottom: 2rem;
 }
 
@@ -478,8 +498,8 @@ button,
 
 .faq-head h3 {
   margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.72rem;
+  font-size: var(--type-h3-size);
+  line-height: 1.25;
   font-weight: 400;
   transition: color 150ms ease;
 }
@@ -637,7 +657,9 @@ button,
 }
 
 .usa-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   background: var(--fdic-gold);
   color: var(--fdic-white);
@@ -646,6 +668,7 @@ button,
   min-height: 2.6rem;
   min-width: 180px;
   font-weight: 700;
+  line-height: 1.2;
   cursor: pointer;
   border-radius: 0;
 }
@@ -721,6 +744,565 @@ button,
   font-weight: 600;
 }
 
+.support-intro {
+  max-width: 42rem;
+  margin: 0 auto 1rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.support-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 1.8rem;
+  padding-top: 0.75rem;
+  padding-bottom: 2.5rem;
+}
+
+.support-sidenav {
+  border: 1px solid #cfdfe9;
+  align-self: start;
+}
+
+.support-nav-item {
+  display: block;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #cfdfe9;
+  color: var(--fdic-blue-900);
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.support-nav-item:last-child {
+  border-bottom: 0;
+}
+
+.support-nav-item.selected {
+  position: relative;
+  font-weight: 600;
+}
+
+.support-nav-item.selected::before {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--fdic-blue-700);
+}
+
+.support-main h2 {
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.support-main h3 {
+  margin: 0 0 0.5rem;
+}
+
+.support-subcopy {
+  margin: 0 0 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.support-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.support-card {
+  border: 1px solid #cfdfe9;
+  border-radius: 4px;
+  background: var(--fdic-white);
+}
+
+.support-card-link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  padding: 1rem 1.1rem 1.15rem;
+  border-radius: 4px;
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.support-card h3 {
+  margin-bottom: 0.6rem;
+}
+
+.support-card p {
+  margin: 0 0 0.75rem;
+  line-height: 1.4;
+}
+
+.support-card-cta {
+  color: var(--fdic-blue-800);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.support-card-link:hover,
+.support-card-link:focus-visible {
+  background: #f5f9ff;
+  box-shadow: inset 0 0 0 2px #c2d6ee;
+}
+
+.support-card-link:focus-visible {
+  outline: 2px solid var(--fdic-blue-700);
+  outline-offset: 2px;
+}
+
+.support-secondary-action {
+  margin-top: 2.2rem;
+}
+
+.support-secondary-action h3 {
+  margin-bottom: 0.35rem;
+}
+
+.report-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 1.35rem;
+  padding-top: 0.9rem;
+  padding-bottom: 2.5rem;
+}
+
+.report-layout--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.report-layout--single .report-main {
+  max-width: 58rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.report-main h2 {
+  margin-top: 0.3rem;
+  margin-bottom: 0.85rem;
+}
+
+.report-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18.5rem;
+  grid-template-areas: "main aside";
+  gap: 0.95rem 1.25rem;
+}
+
+.report-form-pane {
+  grid-area: main;
+}
+
+.report-progress-aside {
+  grid-area: aside;
+  align-self: start;
+  position: sticky;
+  top: 0.9rem;
+}
+
+.report-required-note {
+  margin: 0 0 1rem;
+  font-size: 0.94rem;
+  color: #3d4551;
+}
+
+.report-progress {
+  margin: 0;
+  padding: 0.85rem 0.95rem 0.9rem;
+  border: 1px solid #b7cde1;
+  border-left: 4px solid var(--fdic-blue-700);
+  border-radius: 4px;
+  background: linear-gradient(180deg, #f8fbff 0%, #f3f7fb 100%);
+  box-shadow: 0 1px 2px rgba(0, 43, 73, 0.08);
+}
+
+.report-progress-title {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-weight: 700;
+  color: #3d4551;
+}
+
+.report-progress-list {
+  margin: 0;
+  padding-left: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  list-style: none;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.25rem;
+  color: #1f2934;
+}
+
+.progress-item::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 2px solid #6b7785;
+  border-radius: 2px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.progress-item.is-complete::before {
+  border-color: #1e5f3f;
+  color: #1e5f3f;
+  content: "\2713";
+}
+
+.progress-item.is-incomplete::before {
+  background: transparent;
+  color: transparent;
+}
+
+.progress-item.is-complete .progress-label {
+  color: #5a6675;
+}
+
+.progress-label {
+  color: #1f2934;
+}
+
+.report-required-marker {
+  color: #a21b1b;
+}
+
+.report-error-summary {
+  border-left: 4px solid #b50909;
+  background: #fff3f2;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.report-error-summary p {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+}
+
+.report-error-summary ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.report-error-summary a {
+  color: #7d1020;
+}
+
+.report-section {
+  margin-top: 1.75rem;
+}
+
+.report-subcopy {
+  margin: 0 0 0.9rem;
+  font-size: 1.02rem;
+  line-height: 1.4;
+  color: #3d4551;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 0.85rem;
+}
+
+.report-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  background: #f0f2f5;
+  border: 1px solid transparent;
+  color: #30363f;
+  padding: 0.55rem 0.65rem;
+  min-height: 2.45rem;
+}
+
+.report-option input[type="radio"] {
+  margin: 0.15rem 0 0;
+}
+
+.report-option__text {
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.report-option__text strong {
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.report-option-detail {
+  display: block;
+}
+
+.report-option.is-selected {
+  border-color: #70b6f1;
+  background: #eef6ff;
+}
+
+.report-textarea {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  border: 1px solid #c9cdd1;
+  padding: 0.7rem;
+  font: inherit;
+  line-height: 1.45;
+  background: #fff;
+}
+
+.report-input,
+.report-select {
+  width: 100%;
+  min-height: 2.7rem;
+  border: 1px solid #c9cdd1;
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+  line-height: 1.35;
+  background: #fff;
+}
+
+.report-label {
+  display: block;
+  margin: 0 0 0.4rem;
+  font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: var(--type-h2-size);
+  line-height: 1.25;
+  color: var(--fdic-gray-900);
+}
+
+.report-textarea:focus-visible {
+  outline: 2px solid var(--fdic-blue-700);
+  outline-offset: 1px;
+}
+
+.report-input:focus-visible,
+.report-select:focus-visible {
+  outline: 2px solid var(--fdic-blue-700);
+  outline-offset: 1px;
+}
+
+.report-section--compact {
+  margin-top: 0.9rem;
+}
+
+.report-stepper {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border-top: 1px solid #dfe1e2;
+  margin-top: 1.4rem;
+  padding-top: 1.35rem;
+}
+
+.report-stepper .step-center {
+  font-size: 0.92rem;
+  color: #3d4551;
+}
+
+.step-btn {
+  font: inherit;
+  border: 0;
+  background: #f0f2f5;
+  color: #2f3540;
+  text-decoration: none;
+  min-height: 2.2rem;
+  min-width: 7.2rem;
+  padding: 0.45rem 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.step-btn .icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.step-btn.next {
+  justify-self: end;
+  background: #0d7cb8;
+  color: #fff;
+  cursor: pointer;
+}
+
+.step-btn.next:disabled {
+  background: #8ca7bc;
+  color: #f3f4f6;
+  cursor: not-allowed;
+}
+
+.step-btn.next:disabled:hover,
+.step-btn.next:disabled:focus-visible {
+  filter: none;
+}
+
+.step-btn:hover,
+.step-btn:focus-visible {
+  filter: brightness(0.97);
+}
+
+.report-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid #dfe1e2;
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+}
+
+fieldset.report-fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+fieldset.report-fieldset legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 0.45rem;
+  font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: var(--type-h2-size);
+  line-height: 1.25;
+  color: var(--fdic-gray-900);
+}
+
+fieldset.report-fieldset .report-grid {
+  clear: both;
+}
+
+fdic-choice-group {
+  display: block;
+}
+
+.report-endpoint-title {
+  margin: 0 0 0.35rem;
+}
+
+.report-endpoint-link-wrap {
+  margin: 0;
+}
+
+.report-summary {
+  margin-top: 1.2rem;
+  border-top: 1px solid #dfe1e2;
+  padding-top: 1rem;
+}
+
+.report-summary h3 {
+  margin: 0 0 0.4rem;
+}
+
+.report-summary p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.review-summary {
+  margin: 0;
+  border: 1px solid #dfe1e2;
+  background: #f9fafb;
+}
+
+.review-summary > div {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #dfe1e2;
+}
+
+.review-summary > div:last-child {
+  border-bottom: 0;
+}
+
+.review-summary dt {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+  color: #3d4551;
+  font-weight: 700;
+}
+
+.review-summary dd {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.review-actions {
+  margin-top: 1.15rem;
+}
+
+.review-faq-suggestions {
+  margin-top: 1.25rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid #d7e3ef;
+  background: #f8fbff;
+}
+
+.review-faq-suggestions h3 {
+  margin: 0 0 0.45rem;
+}
+
+.review-faq-list {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.review-faq-list li {
+  margin-bottom: 0.25rem;
+}
+
+.cases-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  border: 1px solid #dfe1e2;
+}
+
+.cases-table th,
+.cases-table td {
+  border-bottom: 1px solid #dfe1e2;
+  padding: 0.6rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.cases-table th {
+  background: #f6f8fa;
+  font-weight: 700;
+}
+
+.confirm-banner {
+  margin: 0 0 0.65rem;
+  padding: 0.7rem 0.9rem;
+  border-left: 4px solid #1e5f3f;
+  border: 1px solid #b4d5c0;
+  border-left-width: 4px;
+  background: #f3fbf6;
+  font-weight: 700;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -771,6 +1353,56 @@ button,
 
   .footer-primary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .support-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .report-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .support-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-content-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "aside"
+      "main";
+  }
+
+  .report-progress-aside {
+    position: static;
+  }
+
+  .report-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .report-actions .step-btn {
+    justify-content: center;
+  }
+
+  .report-stepper {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .report-stepper .step-center {
+    justify-self: center;
+  }
+
+  .step-btn.next {
+    justify-self: start;
   }
 
   .footer-primary section:nth-child(2) {

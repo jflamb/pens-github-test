@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FDIC Public Information FAQ</title>
+    <title>FDIC Information and Support Center</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600;700&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet" />
@@ -35,60 +35,66 @@
       <div class="ds-region-abovecontent">
         <nav class="fdic-breadcrumb" aria-label="Breadcrumb">
           <span class="fdic-breadcrumb__item"><a class="fdic-breadcrumb__item__link" href="https://www.fdic.gov" target="_blank" rel="noopener noreferrer">Home</a></span>
-          <span class="fdic-breadcrumb__item"><a class="fdic-breadcrumb__item__link" href="https://www.fdic.gov/resources" target="_blank" rel="noopener noreferrer">Resources</a></span>
-          <span class="fdic-breadcrumb__item"><a class="fdic-breadcrumb__item__link" href="https://www.fdic.gov/resources/deposit-insurance" target="_blank" rel="noopener noreferrer">Deposit Insurance</a></span>
         </nav>
 
         <div class="content-subtitle">Public Information</div>
-        <h1>Frequently Asked Questions</h1>
+        <h1>Information and Support Center</h1>
+        <p class="support-intro">
+          Get help with questions, concerns, or issues involving FDIC-insured banks, deposit insurance, or bank failures.
+        </p>
         <div class="share-bar" aria-label="Share this page">
           <span class="share-label">Share This:</span>
-          <a class="share-action" href="#" aria-label="Share on Facebook">
-            <span class="share-icon fa-brands fa-facebook-f" aria-hidden="true"></span>
-            <span class="visually-hidden">Share on Facebook</span>
-          </a>
-          <a class="share-action" href="#" aria-label="Share on X">
-            <span class="share-icon fa-brands fa-x-twitter" aria-hidden="true"></span>
-            <span class="visually-hidden">Share on X</span>
-          </a>
-          <a class="share-action" href="#" aria-label="Share on LinkedIn">
-            <span class="share-icon fa-brands fa-linkedin-in" aria-hidden="true"></span>
-            <span class="visually-hidden">Share on LinkedIn</span>
-          </a>
-          <a class="share-action" href="#" aria-label="Share through email">
-            <span class="share-icon fa-solid fa-envelope" aria-hidden="true"></span>
-            <span class="visually-hidden">Share through email</span>
-          </a>
-          <a class="share-action" href="#" aria-label="Print this page">
-            <span class="share-icon fa-solid fa-print" aria-hidden="true"></span>
-            <span class="visually-hidden">Print this page</span>
-          </a>
+          <a class="share-action" href="#" aria-label="Share on Facebook"><span class="share-icon fa-brands fa-facebook-f" aria-hidden="true"></span><span class="visually-hidden">Share on Facebook</span></a>
+          <a class="share-action" href="#" aria-label="Share on X"><span class="share-icon fa-brands fa-x-twitter" aria-hidden="true"></span><span class="visually-hidden">Share on X</span></a>
+          <a class="share-action" href="#" aria-label="Share on LinkedIn"><span class="share-icon fa-brands fa-linkedin-in" aria-hidden="true"></span><span class="visually-hidden">Share on LinkedIn</span></a>
+          <a class="share-action" href="#" aria-label="Share through email"><span class="share-icon fa-solid fa-envelope" aria-hidden="true"></span><span class="visually-hidden">Share through email</span></a>
+          <a class="share-action" href="#" aria-label="Print this page"><span class="share-icon fa-solid fa-print" aria-hidden="true"></span><span class="visually-hidden">Print this page</span></a>
         </div>
       </div>
 
-      <div class="faq-controls" aria-label="FAQ Search and filters">
-        <label for="faq-search" class="visually-hidden">Search FAQs</label>
-        <div class="search-input-wrap">
-          <input id="faq-search" type="search" placeholder="Search by keyword, topic, or phrase" autocomplete="off" />
-          <button id="faq-search-inline-clear" class="faq-search-inline-clear" type="button" aria-label="Clear search text" hidden></button>
-        </div>
-        <button id="clear-search" type="button">Clear</button>
-        <p id="result-count" aria-live="polite">Loading FAQs...</p>
-        <a class="source-link" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/public-information?language=en_US" target="_blank" rel="noopener noreferrer">View source experience</a>
-      </div>
-
-      <div class="ds-region-content">
-        <aside class="ds-region-left" aria-label="Topic navigation">
-          <div class="sidebar-container navigation">
-            <div id="category-tree" class="category-tree" role="tree"></div>
-          </div>
+      <main id="main-content" class="support-layout" aria-label="Support options">
+        <aside class="support-sidenav" aria-label="Support navigation">
+          <a class="support-nav-item selected" href="index.html">Information and Support Center</a>
+          <a class="support-nav-item" href="report-problem.html?mode=report">Report a Problem</a>
+          <a class="support-nav-item" href="report-problem.html?mode=ask">Ask a Question</a>
+          <a class="support-nav-item" href="report-problem.html?mode=failed">Get Help with a Failed Bank</a>
+          <a class="support-nav-item" href="view-cases.html">View My Cases</a>
         </aside>
 
-        <main id="main-content" class="ds-region-middle" aria-labelledby="questions-heading">
-          <h2 id="questions-heading">Questions and Answers</h2>
-          <div id="faq-list" class="faq-list"></div>
-        </main>
-      </div>
+        <section class="support-main">
+          <h2>What do you need help with?</h2>
+          <p class="support-subcopy">Choose the option that best matches your situation. We’ll take you to the right place.</p>
+
+          <div class="support-cards">
+            <article class="support-card">
+              <a class="support-card-link" href="report-problem.html?mode=report">
+                <h3>Report a problem or concern</h3>
+                <p>Use this if you had an issue with a bank, believe something was handled unfairly, or need a concern reviewed.</p>
+                <span class="support-card-cta">Start a complaint</span>
+              </a>
+            </article>
+            <article class="support-card">
+              <a class="support-card-link" href="report-problem.html?mode=ask">
+                <h3>Ask a question or get guidance</h3>
+                <p>Use this if you’re looking for information, aren’t sure which option applies, or need help understanding FDIC services.</p>
+                <span class="support-card-cta">Ask a question</span>
+              </a>
+            </article>
+            <article class="support-card">
+              <a class="support-card-link" href="report-problem.html?mode=failed">
+                <h3>My bank has closed or failed</h3>
+                <p>Use this option if your bank has closed or is in FDIC receivership and you need information about deposits, claims, or next steps.</p>
+                <span class="support-card-cta">Get help with a failed bank</span>
+              </a>
+            </article>
+          </div>
+
+          <div class="support-secondary-action">
+            <h3>Need self-service answers?</h3>
+            <a href="faq.html">Browse frequently asked questions</a>
+          </div>
+        </section>
+      </main>
     </div>
 
     <footer class="usa-footer usa-footer--medium">
@@ -135,7 +141,5 @@
         </div>
       </div>
     </footer>
-
-    <script src="script.js"></script>
   </body>
 </html>

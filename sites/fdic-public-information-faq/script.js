@@ -23,8 +23,15 @@ async function init() {
     const response = await fetch("data.json");
     state.data = await response.json();
     state.allTopics = flattenTopics(state.data.categories);
+    const params = new URLSearchParams(window.location.search);
+    const initialQuery = params.get("q");
+    if (initialQuery) {
+      state.query = initialQuery.trim();
+      els.search.value = state.query;
+    }
 
     wireEvents();
+    updateInlineClearVisibility();
     render();
     openByHash();
   } catch (error) {
@@ -581,6 +588,11 @@ function openByHash() {
 
   const details = target.querySelector("details");
   if (details) details.open = true;
+
+  // Ensure deep-linked FAQs are brought into view after expansion.
+  requestAnimationFrame(() => {
+    target.scrollIntoView({ block: "start", behavior: "auto" });
+  });
 }
 
 function escapeHtml(value) {
