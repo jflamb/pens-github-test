@@ -36,6 +36,5 @@ git push
    - Branch: `main`
    - Folder: `/ (root)`
 
-Your site will be available at:
-
-`https://<your-username>.github.io/<repo-name>/`
+Site is available at:
+https://jflamb.github.io/pens-github-test/
