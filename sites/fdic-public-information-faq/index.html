@@ -69,7 +69,10 @@
 
       <div class="faq-controls" aria-label="FAQ Search and filters">
         <label for="faq-search" class="visually-hidden">Search FAQs</label>
-        <input id="faq-search" type="search" placeholder="Search by keyword, topic, or phrase" autocomplete="off" />
+        <div class="search-input-wrap">
+          <input id="faq-search" type="search" placeholder="Search by keyword, topic, or phrase" autocomplete="off" />
+          <button id="faq-search-inline-clear" class="faq-search-inline-clear" type="button" aria-label="Clear search text" hidden></button>
+        </div>
         <button id="clear-search" type="button">Clear</button>
         <p id="result-count" aria-live="polite">Loading FAQs...</p>
         <a class="source-link" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/public-information?language=en_US" target="_blank" rel="noopener noreferrer">View source experience</a>

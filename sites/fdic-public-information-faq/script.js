@@ -8,6 +8,7 @@ const state = {
 
 const els = {
   search: document.getElementById("faq-search"),
+  searchInlineClear: document.getElementById("faq-search-inline-clear"),
   clear: document.getElementById("clear-search"),
   resultCount: document.getElementById("result-count"),
   categoryTree: document.getElementById("category-tree"),
@@ -36,19 +37,33 @@ function wireEvents() {
     if (state.searchDebounceId) {
       clearTimeout(state.searchDebounceId);
     }
+    updateInlineClearVisibility();
     state.searchDebounceId = setTimeout(() => {
       state.query = els.search.value.trim();
       render();
     }, 200);
   });
 
+  els.searchInlineClear.addEventListener("click", () => {
+    els.search.value = "";
+    state.query = "";
+    updateInlineClearVisibility();
+    render();
+    els.search.focus();
+  });
+
   els.clear.addEventListener("click", () => {
     els.search.value = "";
     state.query = "";
+    updateInlineClearVisibility();
     render();
   });
 
   window.addEventListener("hashchange", openByHash);
+}
+
+function updateInlineClearVisibility() {
+  els.searchInlineClear.hidden = !els.search.value;
 }
 
 function flattenTopics(items, depth = 0, parentId = null, list = []) {
