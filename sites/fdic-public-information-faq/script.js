@@ -359,9 +359,7 @@ function renderCategoryTree(counts) {
   for (const button of els.categoryTree.querySelectorAll(".category-row")) {
     button.addEventListener("click", () => {
       const topicId = button.dataset.topicId || "__all__";
-      state.selectedTopicId = topicId;
-      state.activeTreeItemId = topicId;
-      render();
+      selectTopic(topicId, false);
     });
   }
 }
@@ -422,7 +420,19 @@ function handleCategoryTreeKeydown(event) {
 
   if (key === "Enter" || key === " ") {
     event.preventDefault();
-    target.click();
+    selectTopic(target.dataset.topicId || "__all__", true);
+  }
+}
+
+function selectTopic(topicId, restoreFocus) {
+  state.selectedTopicId = topicId;
+  state.activeTreeItemId = topicId;
+  render();
+
+  if (!restoreFocus) return;
+  const next = els.categoryTree.querySelector(`.category-row[data-topic-id="${cssEscape(topicId)}"]`);
+  if (next instanceof HTMLElement) {
+    next.focus();
   }
 }
 
@@ -458,6 +468,13 @@ function parentIndexOf(buttons, currentIndex) {
     if (depth === currentDepth - 1) return i;
   }
   return -1;
+}
+
+function cssEscape(value) {
+  if (window.CSS && typeof window.CSS.escape === "function") {
+    return window.CSS.escape(value);
+  }
+  return String(value).replace(/["\\]/g, "\\$&");
 }
 
 function renderFaqList(articles) {
