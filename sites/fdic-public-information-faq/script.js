@@ -1,9 +1,8 @@
 const state = {
   data: null,
   query: "",
-  selectedTopics: new Set(),
+  selectedTopicId: "__all__",
   allTopics: [],
-  topicLabelById: new Map(),
   searchDebounceId: null,
 };
 
@@ -12,8 +11,6 @@ const els = {
   clear: document.getElementById("clear-search"),
   resultCount: document.getElementById("result-count"),
   categoryTree: document.getElementById("category-tree"),
-  activeFilters: document.getElementById("active-filters"),
-  clearTopics: document.getElementById("clear-topics"),
   faqList: document.getElementById("faq-list"),
 };
 
@@ -24,9 +21,6 @@ async function init() {
     const response = await fetch("data.json");
     state.data = await response.json();
     state.allTopics = flattenTopics(state.data.categories);
-    for (const topic of state.allTopics) {
-      state.topicLabelById.set(topic.id, topic.label);
-    }
 
     wireEvents();
     render();
@@ -51,12 +45,6 @@ function wireEvents() {
   els.clear.addEventListener("click", () => {
     els.search.value = "";
     state.query = "";
-    state.selectedTopics.clear();
-    render();
-  });
-
-  els.clearTopics.addEventListener("click", () => {
-    state.selectedTopics.clear();
     render();
   });
 
@@ -237,11 +225,11 @@ function filterArticles() {
   const query = state.query;
   const tokens = tokenizeQuery(query);
   const normalizedQuery = normalizeText(query);
-  const hasTopicFilter = state.selectedTopics.size > 0;
+  const hasTopicFilter = state.selectedTopicId !== "__all__";
   const ranked = [];
 
   for (const article of state.data.articles) {
-    const matchesTopic = !hasTopicFilter || article.topics.some((topic) => state.selectedTopics.has(topic.id));
+    const matchesTopic = !hasTopicFilter || article.topics.some((topic) => topic.id === state.selectedTopicId);
     if (!matchesTopic) continue;
 
     const { matches, score } = evaluateQueryMatch(article, tokens, normalizedQuery);
@@ -279,7 +267,6 @@ function topicCountsForQuery() {
 function render() {
   const filteredArticles = filterArticles();
   renderResultCount(filteredArticles.length);
-  renderActiveFilters();
   renderCategoryTree(topicCountsForQuery());
   renderFaqList(filteredArticles);
 }
@@ -289,27 +276,11 @@ function renderResultCount(count) {
   els.resultCount.textContent = `${count} of ${total} FAQs`;
 }
 
-function renderActiveFilters() {
-  const chips = [];
-
-  if (state.query) {
-    chips.push(`<span class="filter-chip">Search: ${escapeHtml(state.query)}</span>`);
-  }
-
-  for (const topicId of state.selectedTopics) {
-    const label = state.topicLabelById.get(topicId);
-    if (label) chips.push(`<span class="filter-chip">${escapeHtml(label)}</span>`);
-  }
-
-  els.activeFilters.innerHTML = chips.join("");
-  els.clearTopics.disabled = state.selectedTopics.size === 0;
-}
-
 function renderCategoryTree(counts) {
   const rows = [];
 
   rows.push(`
-    <button class="category-row ${state.selectedTopics.size === 0 ? "selected" : ""}" type="button" data-topic-id="__all__" role="treeitem" aria-selected="${state.selectedTopics.size === 0}">
+    <button class="category-row ${state.selectedTopicId === "__all__" ? "selected" : ""}" type="button" data-topic-id="__all__" role="treeitem" aria-selected="${state.selectedTopicId === "__all__"}">
       <span>All topics</span>
       <span class="category-count">${state.data.articles.length}</span>
     </button>
@@ -317,7 +288,7 @@ function renderCategoryTree(counts) {
 
   for (const topic of state.allTopics) {
     const count = counts.get(topic.id) || 0;
-    const isSelected = state.selectedTopics.has(topic.id);
+    const isSelected = state.selectedTopicId === topic.id;
     const indent = topic.depth * 16;
 
     rows.push(`
@@ -339,20 +310,7 @@ function renderCategoryTree(counts) {
 
   for (const button of els.categoryTree.querySelectorAll(".category-row")) {
     button.addEventListener("click", () => {
-      const topicId = button.dataset.topicId;
-
-      if (topicId === "__all__") {
-        state.selectedTopics.clear();
-        render();
-        return;
-      }
-
-      if (state.selectedTopics.has(topicId)) {
-        state.selectedTopics.delete(topicId);
-      } else {
-        state.selectedTopics.add(topicId);
-      }
-
+      state.selectedTopicId = button.dataset.topicId || "__all__";
       render();
     });
   }
@@ -363,7 +321,7 @@ function renderFaqList(articles) {
     els.faqList.innerHTML = `
       <div class="empty-state">
         <p><strong>No matching FAQs.</strong></p>
-        <p>Try a different keyword or clear one or more topic filters.</p>
+        <p>Try a different keyword or choose a different topic.</p>
       </div>
     `;
     return;

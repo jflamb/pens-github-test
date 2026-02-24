@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600;700&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -41,6 +42,29 @@
 
         <div class="content-subtitle">Public Information</div>
         <h1>Frequently Asked Questions</h1>
+        <div class="share-bar" aria-label="Share this page">
+          <span class="share-label">Share This:</span>
+          <a class="share-action" href="#" aria-label="Share on Facebook">
+            <span class="share-icon fa-brands fa-facebook-f" aria-hidden="true"></span>
+            <span class="visually-hidden">Share on Facebook</span>
+          </a>
+          <a class="share-action" href="#" aria-label="Share on X">
+            <span class="share-icon fa-brands fa-x-twitter" aria-hidden="true"></span>
+            <span class="visually-hidden">Share on X</span>
+          </a>
+          <a class="share-action" href="#" aria-label="Share on LinkedIn">
+            <span class="share-icon fa-brands fa-linkedin-in" aria-hidden="true"></span>
+            <span class="visually-hidden">Share on LinkedIn</span>
+          </a>
+          <a class="share-action" href="#" aria-label="Share through email">
+            <span class="share-icon fa-solid fa-envelope" aria-hidden="true"></span>
+            <span class="visually-hidden">Share through email</span>
+          </a>
+          <a class="share-action" href="#" aria-label="Print this page">
+            <span class="share-icon fa-solid fa-print" aria-hidden="true"></span>
+            <span class="visually-hidden">Print this page</span>
+          </a>
+        </div>
       </div>
 
       <div class="faq-controls" aria-label="FAQ Search and filters">
@@ -52,11 +76,8 @@
       </div>
 
       <div class="ds-region-content">
-        <aside class="ds-region-left" aria-labelledby="category-heading">
+        <aside class="ds-region-left" aria-label="Topic navigation">
           <div class="sidebar-container navigation">
-            <h2 id="category-heading">Topics</h2>
-            <div id="active-filters" class="active-filters" aria-live="polite"></div>
-            <button id="clear-topics" class="clear-topics" type="button">Clear selected topics</button>
             <div id="category-tree" class="category-tree" role="tree"></div>
           </div>
         </aside>
