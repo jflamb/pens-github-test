@@ -295,7 +295,7 @@ function renderCategoryTree(counts) {
       <button
         class="category-row ${isSelected ? "selected" : ""}"
         type="button"
-        style="padding-left:${8 + indent}px"
+        style="padding-left:${16 + indent}px"
         data-topic-id="${topic.id}"
         role="treeitem"
         aria-selected="${isSelected}"
