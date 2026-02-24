@@ -2,6 +2,7 @@ const state = {
   data: null,
   query: "",
   selectedTopicId: "__all__",
+  activeTreeItemId: "__all__",
   allTopics: [],
   searchDebounceId: null,
 };
@@ -60,6 +61,7 @@ function wireEvents() {
   });
 
   window.addEventListener("hashchange", openByHash);
+  els.categoryTree.addEventListener("keydown", handleCategoryTreeKeydown);
 }
 
 function updateInlineClearVisibility() {
@@ -83,6 +85,10 @@ function flattenTopics(items, depth = 0, parentId = null, list = []) {
 
 function stripHtml(html) {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function stripQuestionPrefix(text) {
+  return (text || "").replace(/^\s*Q:\s*/i, "").trim();
 }
 
 function isBulletLine(text) {
@@ -149,6 +155,7 @@ function buildSemanticFragmentFromLines(lineParts) {
 function semanticizeAnswerHtml(answerHtml) {
   const root = document.createElement("div");
   root.innerHTML = answerHtml || "";
+  stripLeadingAnswerPrefix(root);
 
   for (const paragraph of root.querySelectorAll("p")) {
     const lineParts = paragraph.innerHTML.split(/<br\s*\/?>/i).map((line) => line.trim());
@@ -183,6 +190,20 @@ function semanticizeAnswerHtml(answerHtml) {
   }
 
   return root.innerHTML;
+}
+
+function stripLeadingAnswerPrefix(root) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  let node = walker.nextNode();
+
+  while (node) {
+    const value = node.nodeValue || "";
+    if (value.trim()) {
+      node.nodeValue = value.replace(/^\s*A:\s*/i, "");
+      break;
+    }
+    node = walker.nextNode();
+  }
 }
 
 function normalizeText(value) {
@@ -295,7 +316,16 @@ function renderCategoryTree(counts) {
   const rows = [];
 
   rows.push(`
-    <button class="category-row ${state.selectedTopicId === "__all__" ? "selected" : ""}" type="button" data-topic-id="__all__" role="treeitem" aria-selected="${state.selectedTopicId === "__all__"}">
+    <button
+      class="category-row ${state.selectedTopicId === "__all__" ? "selected" : ""}"
+      type="button"
+      data-topic-id="__all__"
+      data-depth="0"
+      role="treeitem"
+      aria-level="1"
+      aria-selected="${state.selectedTopicId === "__all__"}"
+      tabindex="${state.activeTreeItemId === "__all__" ? "0" : "-1"}"
+    >
       <span>All topics</span>
       <span class="category-count">${state.data.articles.length}</span>
     </button>
@@ -312,8 +342,11 @@ function renderCategoryTree(counts) {
         type="button"
         style="padding-left:${16 + indent}px"
         data-topic-id="${topic.id}"
+        data-depth="${topic.depth}"
         role="treeitem"
+        aria-level="${topic.depth + 1}"
         aria-selected="${isSelected}"
+        tabindex="${state.activeTreeItemId === topic.id ? "0" : "-1"}"
       >
         <span>${escapeHtml(topic.label)}</span>
         <span class="category-count">${count}</span>
@@ -325,10 +358,106 @@ function renderCategoryTree(counts) {
 
   for (const button of els.categoryTree.querySelectorAll(".category-row")) {
     button.addEventListener("click", () => {
-      state.selectedTopicId = button.dataset.topicId || "__all__";
+      const topicId = button.dataset.topicId || "__all__";
+      state.selectedTopicId = topicId;
+      state.activeTreeItemId = topicId;
       render();
     });
   }
+}
+
+function handleCategoryTreeKeydown(event) {
+  const target = event.target;
+  if (!(target instanceof HTMLElement) || !target.classList.contains("category-row")) return;
+
+  const buttons = getTreeButtons();
+  if (!buttons.length) return;
+
+  const currentIndex = buttons.indexOf(target);
+  if (currentIndex < 0) return;
+
+  const key = event.key;
+
+  if (key === "ArrowDown") {
+    event.preventDefault();
+    focusTreeButtonByIndex(buttons, Math.min(currentIndex + 1, buttons.length - 1));
+    return;
+  }
+
+  if (key === "ArrowUp") {
+    event.preventDefault();
+    focusTreeButtonByIndex(buttons, Math.max(currentIndex - 1, 0));
+    return;
+  }
+
+  if (key === "Home") {
+    event.preventDefault();
+    focusTreeButtonByIndex(buttons, 0);
+    return;
+  }
+
+  if (key === "End") {
+    event.preventDefault();
+    focusTreeButtonByIndex(buttons, buttons.length - 1);
+    return;
+  }
+
+  if (key === "ArrowRight") {
+    event.preventDefault();
+    const childIndex = firstChildIndex(buttons, currentIndex);
+    if (childIndex !== -1) {
+      focusTreeButtonByIndex(buttons, childIndex);
+    }
+    return;
+  }
+
+  if (key === "ArrowLeft") {
+    event.preventDefault();
+    const parentIndex = parentIndexOf(buttons, currentIndex);
+    if (parentIndex !== -1) {
+      focusTreeButtonByIndex(buttons, parentIndex);
+    }
+    return;
+  }
+
+  if (key === "Enter" || key === " ") {
+    event.preventDefault();
+    target.click();
+  }
+}
+
+function getTreeButtons() {
+  return Array.from(els.categoryTree.querySelectorAll(".category-row"));
+}
+
+function focusTreeButtonByIndex(buttons, index) {
+  const button = buttons[index];
+  if (!button) return;
+  state.activeTreeItemId = button.dataset.topicId || "__all__";
+  for (const candidate of buttons) {
+    candidate.tabIndex = candidate === button ? 0 : -1;
+  }
+  button.focus();
+}
+
+function firstChildIndex(buttons, currentIndex) {
+  const currentDepth = Number(buttons[currentIndex].dataset.depth || "0");
+  for (let i = currentIndex + 1; i < buttons.length; i += 1) {
+    const depth = Number(buttons[i].dataset.depth || "0");
+    if (depth === currentDepth + 1) return i;
+    if (depth <= currentDepth) return -1;
+  }
+  return -1;
+}
+
+function parentIndexOf(buttons, currentIndex) {
+  const currentDepth = Number(buttons[currentIndex].dataset.depth || "0");
+  if (currentDepth === 0) return -1;
+  for (let i = currentIndex - 1; i >= 0; i -= 1) {
+    const depth = Number(buttons[i].dataset.depth || "0");
+    if (depth === currentDepth - 1) return i;
+  }
+  return -1;
 }
 
 function renderFaqList(articles) {
@@ -351,11 +480,18 @@ function renderFaqList(articles) {
 
       return `
         <article class="faq-item" id="${safeId}">
+          <button
+            class="copy-link-btn"
+            type="button"
+            data-link="#${safeId}"
+            aria-label="Copy link to this question"
+          >
+            Copy link
+          </button>
           <details>
             <summary>
               <div class="faq-head">
-                <h3>${escapeHtml(article.question)}</h3>
-                <a class="deep-link" href="#${safeId}" aria-label="Direct link to this question">Link</a>
+                <h3>${escapeHtml(stripQuestionPrefix(article.question))}</h3>
               </div>
               <div class="topic-tags">${topicTags}</div>
             </summary>
@@ -372,7 +508,53 @@ function renderFaqList(articles) {
     }
   }
 
+  for (const button of els.faqList.querySelectorAll(".copy-link-btn")) {
+    button.addEventListener("click", async () => {
+      const hash = button.dataset.link;
+      if (!hash) return;
+
+      const url = new URL(hash, window.location.href).href;
+      const copied = await copyToClipboard(url);
+
+      if (copied) {
+        button.textContent = "Copied";
+        button.setAttribute("aria-label", "Link copied to clipboard");
+        setTimeout(() => {
+          button.textContent = "Copy link";
+          button.setAttribute("aria-label", "Copy link to this question");
+        }, 1300);
+      }
+    });
+  }
+
   openByHash();
+}
+
+async function copyToClipboard(value) {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
+  } catch (error) {
+    // Fall through to legacy approach.
+  }
+
+  try {
+    const tempInput = document.createElement("input");
+    tempInput.value = value;
+    tempInput.setAttribute("readonly", "");
+    tempInput.style.position = "absolute";
+    tempInput.style.left = "-9999px";
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    const ok = document.execCommand("copy");
+    tempInput.remove();
+    return ok;
+  } catch (error) {
+    console.error("Unable to copy link:", error);
+    return false;
+  }
 }
 
 function openByHash() {
