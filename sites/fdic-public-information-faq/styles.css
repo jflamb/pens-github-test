@@ -157,7 +157,7 @@ a {
   font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
   font-size: 1.2rem;
   font-weight: 400;
-  letter-spacing: 0.083em;
+  letter-spacing: normal;
   text-transform: uppercase;
   line-height: 1.5;
   padding: 1rem 1.25rem;
@@ -185,7 +185,7 @@ a {
   line-height: 1.15;
   font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
   font-style: italic;
-  letter-spacing: 0.1em;
+  letter-spacing: normal;
 }
 
 .fdic-breadcrumb__list {
@@ -692,7 +692,7 @@ button,
   margin: 0 0 0.85rem;
   font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
   font-size: 1.15rem;
-  letter-spacing: 0.01em;
+  letter-spacing: normal;
 }
 
 .usa-button {
@@ -768,7 +768,7 @@ button,
   font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-size: 0.7rem;
   line-height: 1.5;
-  letter-spacing: 1.2px;
+  letter-spacing: normal;
   text-transform: uppercase;
 }
 
@@ -964,11 +964,11 @@ button,
 }
 
 .report-progress-title {
-  margin: 0 0 0.35rem;
+  margin: 0 0 var(--space-1);
   font-size: 1rem;
   line-height: 1.25;
   font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   color: #3d4551;
 }
 
@@ -1130,7 +1130,8 @@ button,
   display: block;
   font-size: 1.05rem;
   line-height: 1.35;
-  font-weight: 700;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
 }
 
 .report-option-detail {
