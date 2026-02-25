@@ -167,16 +167,26 @@ a {
 }
 
 .fdic-breadcrumb {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 0.25rem;
   margin: 0 0 0.75rem;
   font-size: 0.85rem;
   line-height: 1.15;
   font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
   font-style: italic;
   letter-spacing: 0.1em;
+}
+
+.fdic-breadcrumb__list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fdic-breadcrumb__item {
+  display: inline-flex;
 }
 
 .fdic-breadcrumb__item:not(:last-child)::after {
@@ -1238,6 +1248,10 @@ button,
 .step-btn.next:disabled:hover,
 .step-btn.next:disabled:focus-visible {
   filter: none;
+}
+
+.step-btn.is-loading {
+  cursor: progress;
 }
 
 .step-btn:hover,

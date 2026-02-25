@@ -10,6 +10,7 @@ const missing = document.getElementById("review-missing");
 const backLink = document.getElementById("review-back");
 const submitButton = document.getElementById("submit-request");
 const submitStatus = document.getElementById("submit-status");
+const reviewMain = document.querySelector(".review-main");
 
 const intentNode = document.getElementById("review-intent");
 const topicNode = document.getElementById("review-topic");
@@ -24,6 +25,8 @@ const endpointNode = document.getElementById("review-endpoint");
 const faqSuggestions = document.getElementById("faq-suggestions");
 const faqSuggestionsList = document.getElementById("faq-suggestions-list");
 const FAQ_DATA_PATH = "data.json";
+const SUBMIT_BUTTON_DEFAULT_LABEL = submitButton?.textContent?.trim() || "Submit request";
+let isSubmitting = false;
 
 const FAQ_HINTS = {
   bank_issue: [
@@ -216,6 +219,18 @@ function renderMissingState() {
   summary.hidden = true;
   missing.hidden = false;
   submitButton.disabled = true;
+  submitButton.setAttribute("aria-disabled", "true");
+}
+
+function setSubmitting(submitting) {
+  isSubmitting = submitting;
+  submitButton.disabled = submitting;
+  submitButton.setAttribute("aria-disabled", submitting ? "true" : "false");
+  submitButton.classList.toggle("is-loading", submitting);
+  submitButton.textContent = submitting ? "Submitting..." : SUBMIT_BUTTON_DEFAULT_LABEL;
+  if (reviewMain) {
+    reviewMain.setAttribute("aria-busy", submitting ? "true" : "false");
+  }
 }
 
 function formatName(draft) {
@@ -261,11 +276,18 @@ if (
 }
 
 submitButton.addEventListener("click", () => {
+  if (isSubmitting) {
+    return;
+  }
+
   const latestDraft = loadDraft();
   if (!latestDraft) {
     submitStatus.textContent = "No complete draft found. Return to the form and try again.";
     return;
   }
+
+  setSubmitting(true);
+  submitStatus.textContent = "Submitting your request...";
 
   const now = new Date();
   const datePart = now.toISOString().slice(0, 10).replaceAll("-", "");
@@ -297,5 +319,12 @@ submitButton.addEventListener("click", () => {
   } catch {
     // Ignore localStorage failures in prototype mode.
   }
-  window.location.href = `submission-confirmation.html?mode=${encodeURIComponent(mode)}`;
+  try {
+    window.setTimeout(() => {
+      window.location.href = `submission-confirmation.html?mode=${encodeURIComponent(mode)}`;
+    }, 150);
+  } catch {
+    setSubmitting(false);
+    submitStatus.textContent = "We could not submit your request. Please try again.";
+  }
 });
