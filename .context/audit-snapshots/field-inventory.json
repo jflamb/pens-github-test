@@ -1,0 +1,3512 @@
+[
+  {
+    "file": "fdicbusinessassistanceform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/fdicbusinessassistanceform",
+    "title": "FDIC: Information and Support Center - Business Assistance Form",
+    "totalControls": 45,
+    "requiredCount": 9,
+    "disabledCount": 26,
+    "checkboxCount": 1,
+    "radioCount": 10,
+    "fields": [
+      {
+        "role": "radio",
+        "label": "Consumer",
+        "required": false,
+        "disabled": false,
+        "checked": true
+      },
+      {
+        "role": "radio",
+        "label": "Banker",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Street Address, line 2",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Zip Ext",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Mail",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "E-Mail",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Morning",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Afternoon",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Evening",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Yes",
+        "required": false,
+        "disabled": true,
+        "checked": true
+      },
+      {
+        "role": "radio",
+        "label": "No",
+        "required": false,
+        "disabled": true,
+        "checked": true
+      },
+      {
+        "role": "textbox",
+        "label": "Relationship",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "search..",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing State/Province",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Institution Phone Number",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "FI: Type of accounts",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Resolve: How",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Resolve: Other",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Resolve: When",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Resolve: Contact Name",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Resolve:Title",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Gov Agency: Agency Name",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Nature of Complaint or Inquiry",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Desired Resolution",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Authorize FDIC to investigate",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "fdiccommentform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/fdiccommentform",
+    "title": "FDIC: Information and Support Center - Comment Form",
+    "totalControls": 7,
+    "requiredCount": 2,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 2,
+    "fields": [
+      {
+        "role": "radio",
+        "label": "Consumer",
+        "required": false,
+        "disabled": false,
+        "checked": true
+      },
+      {
+        "role": "radio",
+        "label": "Banker",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Nature of Complaint or Inquiry",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Desired Resolution",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "State",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "fdiccustomerassistanceform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/fdiccustomerassistanceform",
+    "title": "FDIC: Information and Support Center - Customer Assistance Form",
+    "totalControls": 36,
+    "requiredCount": 9,
+    "disabledCount": 9,
+    "checkboxCount": 1,
+    "radioCount": 10,
+    "fields": [
+      {
+        "role": "radio",
+        "label": "Consumer",
+        "required": false,
+        "disabled": false,
+        "checked": true
+      },
+      {
+        "role": "radio",
+        "label": "Banker",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Street Address, line 2",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Zip/Postal Code",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Zip Ext",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Mail",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "E-Mail",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Morning",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Afternoon",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Evening",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Yes",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "No",
+        "required": false,
+        "disabled": false,
+        "checked": true
+      },
+      {
+        "role": "textbox",
+        "label": "search..",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing State/Province",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Institution Phone Number",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "FI: Type of accounts",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Nature of Complaint or Inquiry",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Desired Resolution",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Authorize FDIC to investigate",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "fdicdepositinsuranceform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/fdicdepositinsuranceform",
+    "title": "FDIC: Information and Support Center - Deposit Insurance Form",
+    "totalControls": 33,
+    "requiredCount": 8,
+    "disabledCount": 19,
+    "checkboxCount": 1,
+    "radioCount": 10,
+    "fields": [
+      {
+        "role": "radio",
+        "label": "Consumer",
+        "required": false,
+        "disabled": false,
+        "checked": true
+      },
+      {
+        "role": "radio",
+        "label": "Banker",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Street Address, line 2",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Zip Ext",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Mail",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "E-Mail",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Morning",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Afternoon",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Evening",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Yes",
+        "required": false,
+        "disabled": true,
+        "checked": true
+      },
+      {
+        "role": "radio",
+        "label": "No",
+        "required": false,
+        "disabled": true,
+        "checked": true
+      },
+      {
+        "role": "textbox",
+        "label": "Financial Institution",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing State/Province",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Nature of Complaint or Inquiry",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Authorize FDIC to investigate",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "fdicdimcomplaintform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/fdicdimcomplaintform",
+    "title": "FDIC: Information and Support Center - DIM Complaint Form",
+    "totalControls": 4,
+    "requiredCount": 2,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "textbox",
+        "label": "Nature of Complaint or Inquiry",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Desired Resolution",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "fdicdirform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/fdicdirform",
+    "title": "FDIC: Information and Support Center - DIR Form",
+    "totalControls": 18,
+    "requiredCount": 4,
+    "disabledCount": 4,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Source",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "State",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Fax",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Description",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "FDIC Previously Contacted?",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "search..",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "CERT#",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "City",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "State",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "fdicinteragencyform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/fdicinteragencyform",
+    "title": "FDIC: Information and Support Center - Interagency Form",
+    "totalControls": 45,
+    "requiredCount": 11,
+    "disabledCount": 8,
+    "checkboxCount": 12,
+    "radioCount": 4,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Street Address, line 2",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Zip Ext",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Who Are You?",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Who Are You: Other",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Appraiser",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Appraisal Management Company",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Lender",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Other",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Complain About: Other",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Yes",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "No",
+        "required": false,
+        "disabled": false,
+        "checked": true
+      },
+      {
+        "role": "checkbox",
+        "label": "RET - Retaliation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Appraiser independence",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Non-compliance with Uniform Standards of Professional Appraisal Practice",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Improper(or attempted improper) influencing of an appraiser or the appraisal process",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Removal or exclusion from an approved appraiser list of addition to a ",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Appraisal-fee related issue",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Appraisal report Inaccruate",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Nature of Complaint Other",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Residential 1-to-4 Family",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "radio",
+        "label": "Commercial or Multi-Family (over 4 units)",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Street Address, Line 1",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "State",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Address of Property: Zip",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Address of Property: Zip Ext",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Resolve: When",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Resolve: Contact Name",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Gov Agency: Agency Name",
+        "required": false,
+        "disabled": true,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Nature of Complaint or Inquiry",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "checkbox",
+        "label": "Authorize FDIC to investigate",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "powerofattorneyform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/powerofattorneyform",
+    "title": "FDIC: Information and Support Center - Power Of Attorney",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "search..",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "recordsdestructionform.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/recordsdestructionform",
+    "title": "FDIC: Information and Support Center - Records Destruction Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "search..",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_change_of_address_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=Change%20of%20Address&type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_depositors_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=Depositors&type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_inquiry_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=Inquiry&type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_ira_transfer_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=IRA%20Transfer&type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_locating_deposit_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=Locating%20Deposit&type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_name_change_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=Name%20Change&type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_ore_deed_request_type_asset_management.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=ORE%20Deed%20Request&type=Asset%20Management",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_retained_loan_type_asset_management.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=Retained%20Loan&type=Asset%20Management",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_unclaimed_dividends_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=Unclaimed%20Dividends&type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_sub_uninsured_deposit_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?sub=Uninsured%20Deposit&type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_type_asset_management.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?type=Asset%20Management",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_type_depositor_claims.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?type=Depositor%20Claims",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 17,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_type_lien_release.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?type=Lien%20Release",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 18,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "search..",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "file": "requestform_type_records_research.snapshot.txt",
+    "url": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/requestform?type=Records%20Research",
+    "title": "FDIC: Information and Support Center - Request Form",
+    "totalControls": 18,
+    "requiredCount": 7,
+    "disabledCount": 0,
+    "checkboxCount": 0,
+    "radioCount": 0,
+    "fields": [
+      {
+        "role": "combobox",
+        "label": "Salutation",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Title",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "First Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Middle Name",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Last Name",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Email",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Confirm E-mail Address",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Business Phone",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mobile Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Home Phone",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing Street Address (Address where documents will be sent.)",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "Mailing City",
+        "required": true,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing State/Province Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "*Mailing Zip/Postal Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Mailing Country Code",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "textbox",
+        "label": "search..",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "DEFINE “I AM A . . . ” TO LEARN MORE SPECIFIC INFORMATION",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      },
+      {
+        "role": "combobox",
+        "label": "Select the information you wish to explore based on who you are",
+        "required": false,
+        "disabled": false,
+        "checked": false
+      }
+    ]
+  }
+]

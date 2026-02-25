@@ -7,8 +7,11 @@ const summaryNode = document.getElementById("confirm-summary");
 const intentNode = document.getElementById("confirm-intent");
 const topicNode = document.getElementById("confirm-topic");
 const outcomeNode = document.getElementById("confirm-outcome");
-const stateNode = document.getElementById("confirm-state");
-const contactNode = document.getElementById("confirm-contact");
+const nameNode = document.getElementById("confirm-name");
+const emailNode = document.getElementById("confirm-email");
+const phoneNode = document.getElementById("confirm-phone");
+const addressNode = document.getElementById("confirm-address");
+const resolutionNode = document.getElementById("confirm-resolution");
 const endpointNode = document.getElementById("confirm-endpoint");
 
 function loadSubmitted() {
@@ -34,8 +37,11 @@ function renderSubmitted(data) {
   intentNode.textContent = data.workflowHeading || "Not provided";
   topicNode.textContent = data.topicTitle || "Not provided";
   outcomeNode.textContent = data.outcomeTitle || "Not provided";
-  stateNode.textContent = data.residentState || "Not provided";
-  contactNode.textContent = formatContact(data);
+  nameNode.textContent = formatName(data);
+  emailNode.textContent = data.email || "Not provided";
+  phoneNode.textContent = data.businessPhone || "Not provided";
+  addressNode.textContent = formatAddress(data);
+  resolutionNode.textContent = data.desiredResolution || "Not provided";
   endpointNode.textContent = data.endpointLabel
     ? `${data.endpointLabel}${data.queueCode ? ` (${data.queueCode})` : ""}`
     : "Not provided";
@@ -43,18 +49,22 @@ function renderSubmitted(data) {
   summaryNode.hidden = false;
 }
 
-function formatContact(data) {
-  const value = data.contactValue || "";
-  if (!value) {
-    return "Not provided";
-  }
-  if (data.contactMethod === "email") {
-    return `Email: ${value}`;
-  }
-  if (data.contactMethod === "phone") {
-    return `Phone: ${value}`;
-  }
-  return value;
+function formatName(data) {
+  const first = (data.firstName || "").trim();
+  const last = (data.lastName || "").trim();
+  return [first, last].filter(Boolean).join(" ") || "Not provided";
+}
+
+function formatAddress(data) {
+  const parts = [
+    data.mailingStreet,
+    [data.mailingCity, data.mailingState].filter(Boolean).join(", "),
+    data.mailingPostal,
+    data.mailingCountry,
+  ]
+    .map((part) => (part || "").trim())
+    .filter(Boolean);
+  return parts.join(" • ") || "Not provided";
 }
 
 const submitted = loadSubmitted();

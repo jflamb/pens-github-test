@@ -81,24 +81,78 @@
                   <fdic-choice-group id="outcome-group"></fdic-choice-group>
                 </div>
 
-                <div id="state-wrapper" class="report-section" hidden>
+                <div id="identity-wrapper" class="report-section" hidden>
                   <fieldset class="report-fieldset">
-                    <legend>What state do you live in? <span class="report-required-marker" aria-hidden="true">*</span></legend>
-                    <p class="report-subcopy">Select your primary state or territory of residence.</p>
-                    <label for="state-input" class="visually-hidden">What state do you live in?</label>
-                    <select id="state-input" class="report-select" required aria-required="true">
-                      <option value="">Select a state or territory</option>
-                    </select>
+                    <legend>Your contact information <span class="report-required-marker" aria-hidden="true">*</span></legend>
+                    <p class="report-subcopy">We use this information only to follow up on your request.</p>
+                    <div class="report-inline-grid">
+                      <div>
+                        <label class="report-label report-label--compact" for="first-name-input">First name <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <input id="first-name-input" class="report-input" type="text" autocomplete="given-name" required aria-required="true" />
+                      </div>
+                      <div>
+                        <label class="report-label report-label--compact" for="last-name-input">Last name <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <input id="last-name-input" class="report-input" type="text" autocomplete="family-name" required aria-required="true" />
+                      </div>
+                      <div>
+                        <label class="report-label report-label--compact" for="email-input">Email <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <input id="email-input" class="report-input" type="email" autocomplete="email" required aria-required="true" />
+                      </div>
+                      <div>
+                        <label class="report-label report-label--compact" for="email-confirm-input">Confirm email <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <input id="email-confirm-input" class="report-input" type="email" autocomplete="email" required aria-required="true" />
+                      </div>
+                    </div>
                   </fieldset>
                 </div>
 
-                <div id="contact-wrapper" class="report-section" hidden>
-                  <fdic-choice-group id="contact-group"></fdic-choice-group>
-                  <div id="contact-value-wrapper" class="report-section report-section--compact" hidden>
-                    <label id="contact-value-label" for="contact-value-input" class="report-label">Contact details <span class="report-required-marker" aria-hidden="true">*</span></label>
-                    <p id="contact-value-help" class="report-subcopy">Use contact information where we can reach you for follow-up questions.</p>
-                    <input id="contact-value-input" class="report-input" type="text" autocomplete="off" required aria-required="true" aria-describedby="contact-value-help" />
-                  </div>
+                <div id="mailing-wrapper" class="report-section" hidden>
+                  <fieldset class="report-fieldset">
+                    <legend>Mailing address <span class="report-required-marker" aria-hidden="true">*</span></legend>
+                    <p class="report-subcopy">Required for request follow-up and document delivery when needed.</p>
+                    <div class="report-inline-grid">
+                      <div class="report-inline-grid__full">
+                        <label class="report-label report-label--compact" for="mailing-street-input">Street address <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <input id="mailing-street-input" class="report-input" type="text" autocomplete="address-line1" required aria-required="true" />
+                      </div>
+                      <div>
+                        <label class="report-label report-label--compact" for="mailing-city-input">City <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <input id="mailing-city-input" class="report-input" type="text" autocomplete="address-level2" required aria-required="true" />
+                      </div>
+                      <div>
+                        <label class="report-label report-label--compact" for="mailing-state-input">State or territory <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <select id="mailing-state-input" class="report-select" required aria-required="true">
+                          <option value="">Select a state or territory</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="report-label report-label--compact" for="mailing-postal-input">ZIP or postal code <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <input id="mailing-postal-input" class="report-input" type="text" autocomplete="postal-code" required aria-required="true" />
+                      </div>
+                      <div>
+                        <label class="report-label report-label--compact" for="mailing-country-input">Country <span class="report-required-marker" aria-hidden="true">*</span></label>
+                        <select id="mailing-country-input" class="report-select" required aria-required="true">
+                          <option value="United States">United States</option>
+                          <option value="Puerto Rico">Puerto Rico</option>
+                          <option value="U.S. Virgin Islands">U.S. Virgin Islands</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="report-label report-label--compact" for="business-phone-input">Business phone <span id="business-phone-required-marker" class="report-required-marker" aria-hidden="true" hidden>*</span></label>
+                        <input id="business-phone-input" class="report-input" type="tel" autocomplete="tel" />
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <div id="resolution-wrapper" class="report-section" hidden>
+                  <fieldset class="report-fieldset">
+                    <legend>What is your desired resolution? <span class="report-required-marker" aria-hidden="true">*</span></legend>
+                    <p class="report-subcopy">Describe the outcome you want in your own words.</p>
+                    <label for="resolution-input" class="visually-hidden">What is your desired resolution?</label>
+                    <textarea id="resolution-input" class="report-textarea report-textarea--short" required aria-required="true"></textarea>
+                  </fieldset>
                 </div>
 
                 <div id="endpoint-wrapper" class="report-section" hidden>
@@ -122,8 +176,9 @@
                   <li id="progress-topic" class="progress-item is-incomplete"><span class="progress-label">Concern topic</span></li>
                   <li id="progress-details" class="progress-item is-incomplete"><span class="progress-label">Issue details</span></li>
                   <li id="progress-outcome" class="progress-item is-incomplete"><span class="progress-label">Desired outcome</span></li>
-                  <li id="progress-state" class="progress-item is-incomplete"><span class="progress-label">State of residence</span></li>
-                  <li id="progress-contact" class="progress-item is-incomplete"><span class="progress-label">Follow-up contact</span></li>
+                  <li id="progress-identity" class="progress-item is-incomplete"><span class="progress-label">Contact information</span></li>
+                  <li id="progress-mailing" class="progress-item is-incomplete"><span class="progress-label">Mailing address</span></li>
+                  <li id="progress-resolution" class="progress-item is-incomplete"><span class="progress-label">Desired resolution details</span></li>
                 </ul>
               </div>
             </aside>

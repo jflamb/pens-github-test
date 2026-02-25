@@ -15,8 +15,11 @@ const intentNode = document.getElementById("review-intent");
 const topicNode = document.getElementById("review-topic");
 const detailsNode = document.getElementById("review-details");
 const outcomeNode = document.getElementById("review-outcome");
-const stateNode = document.getElementById("review-state");
-const contactNode = document.getElementById("review-contact");
+const nameNode = document.getElementById("review-name");
+const emailNode = document.getElementById("review-email");
+const phoneNode = document.getElementById("review-phone");
+const addressNode = document.getElementById("review-address");
+const resolutionNode = document.getElementById("review-resolution");
 const endpointNode = document.getElementById("review-endpoint");
 const faqSuggestions = document.getElementById("faq-suggestions");
 const faqSuggestionsList = document.getElementById("faq-suggestions-list");
@@ -80,8 +83,11 @@ function renderDraft(draft) {
   topicNode.textContent = draft.topicTitle || "Not provided";
   detailsNode.textContent = draft.details || "Not provided";
   outcomeNode.textContent = draft.outcomeTitle || "Not provided";
-  stateNode.textContent = draft.residentState || "Not provided";
-  contactNode.textContent = formatContact(draft);
+  nameNode.textContent = formatName(draft);
+  emailNode.textContent = draft.email || "Not provided";
+  phoneNode.textContent = draft.businessPhone || "Not provided";
+  addressNode.textContent = formatAddress(draft);
+  resolutionNode.textContent = draft.desiredResolution || "Not provided";
   endpointNode.textContent = draft.endpointLabel
     ? `${draft.endpointLabel}${draft.queueCode ? ` (${draft.queueCode})` : ""}`
     : "Not provided";
@@ -212,18 +218,22 @@ function renderMissingState() {
   submitButton.disabled = true;
 }
 
-function formatContact(draft) {
-  const value = draft.contactValue || "";
-  if (!value) {
-    return "Not provided";
-  }
-  if (draft.contactMethod === "email") {
-    return `Email: ${value}`;
-  }
-  if (draft.contactMethod === "phone") {
-    return `Phone: ${value}`;
-  }
-  return value;
+function formatName(draft) {
+  const first = (draft.firstName || "").trim();
+  const last = (draft.lastName || "").trim();
+  return [first, last].filter(Boolean).join(" ") || "Not provided";
+}
+
+function formatAddress(draft) {
+  const parts = [
+    draft.mailingStreet,
+    [draft.mailingCity, draft.mailingState].filter(Boolean).join(", "),
+    draft.mailingPostal,
+    draft.mailingCountry,
+  ]
+    .map((part) => (part || "").trim())
+    .filter(Boolean);
+  return parts.join(" • ") || "Not provided";
 }
 
 backLink.setAttribute("href", `report-problem.html?mode=${encodeURIComponent(mode)}`);
@@ -235,9 +245,15 @@ if (
   !draft.topic ||
   !draft.details ||
   !draft.outcome ||
-  !draft.residentState ||
-  !draft.contactMethod ||
-  !draft.contactValue
+  !draft.firstName ||
+  !draft.lastName ||
+  !draft.email ||
+  !draft.mailingStreet ||
+  !draft.mailingCity ||
+  !draft.mailingState ||
+  !draft.mailingPostal ||
+  !draft.mailingCountry ||
+  !draft.desiredResolution
 ) {
   renderMissingState();
 } else {

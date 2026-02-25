@@ -42,19 +42,6 @@ const OUTCOME_OPTIONS = [
   { value: "other", title: "Other or not sure" },
 ];
 
-const CONTACT_OPTIONS = [
-  {
-    value: "email",
-    title: "Email",
-    detail: "Best when you want written updates and links.",
-  },
-  {
-    value: "phone",
-    title: "Phone",
-    detail: "Best when follow-up may need quick clarification.",
-  },
-];
-
 const US_STATES_AND_TERRITORIES = [
   "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
   "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
@@ -154,25 +141,6 @@ class FDICChoiceGroup extends HTMLElement {
     this.render();
   }
 
-  get value() {
-    const checked = this.querySelector('input[type="radio"]:checked');
-    return checked ? checked.value : "";
-  }
-
-  focusControl() {
-    const target = this.querySelector('input[type="radio"]:checked') || this.querySelector('input[type="radio"]');
-    if (target) {
-      target.focus();
-    }
-  }
-
-  validate() {
-    if (!this.config?.required) {
-      return true;
-    }
-    return Boolean(this.value);
-  }
-
   connectedCallback() {
     this.addEventListener("change", (event) => {
       if (!(event.target instanceof HTMLInputElement)) {
@@ -195,6 +163,7 @@ class FDICChoiceGroup extends HTMLElement {
         }),
       );
     });
+
     if (this.config) {
       this.render();
     }
@@ -205,18 +174,14 @@ class FDICChoiceGroup extends HTMLElement {
       return;
     }
 
-    const legendRequired = this.config.required
-      ? ' <span class="report-required-marker" aria-hidden="true">*</span>'
-      : "";
+    const legendRequired = this.config.required ? ' <span class="report-required-marker" aria-hidden="true">*</span>' : "";
 
     const radios = this.config.options
       .map((option, index) => {
         const checked = option.value === this.selectedValue;
         const id = `${this.config.name}-${index}`;
         const selectedClass = checked ? " is-selected" : "";
-        const detail = option.detail
-          ? `<span class="report-option-detail">${option.detail}</span>`
-          : "";
+        const detail = option.detail ? `<span class="report-option-detail">${option.detail}</span>` : "";
 
         return `<label class="report-option${selectedClass}" for="${id}">
             <input id="${id}" type="radio" name="${this.config.name}" value="${option.value}" ${checked ? "checked" : ""} ${this.config.required ? 'aria-required="true"' : ""} />
@@ -246,9 +211,17 @@ const state = {
   topic: "",
   details: "",
   outcome: "",
-  residentState: "",
-  contactMethod: "",
-  contactValue: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  emailConfirm: "",
+  businessPhone: "",
+  mailingStreet: "",
+  mailingCity: "",
+  mailingState: "",
+  mailingPostal: "",
+  mailingCountry: "United States",
+  desiredResolution: "",
 };
 
 const heading = document.getElementById("intake-heading");
@@ -256,21 +229,29 @@ const subcopy = document.getElementById("intake-subcopy");
 const intentGroup = document.getElementById("intent-group");
 const topicGroup = document.getElementById("topic-group");
 const outcomeGroup = document.getElementById("outcome-group");
-const contactGroup = document.getElementById("contact-group");
 const topicWrapper = document.getElementById("topic-wrapper");
 const detailsWrapper = document.getElementById("details-wrapper");
 const outcomeWrapper = document.getElementById("outcome-wrapper");
-const stateWrapper = document.getElementById("state-wrapper");
-const contactWrapper = document.getElementById("contact-wrapper");
-const contactValueWrapper = document.getElementById("contact-value-wrapper");
+const identityWrapper = document.getElementById("identity-wrapper");
+const mailingWrapper = document.getElementById("mailing-wrapper");
+const resolutionWrapper = document.getElementById("resolution-wrapper");
 const endpointWrapper = document.getElementById("endpoint-wrapper");
 const endpointCopy = document.getElementById("endpoint-copy");
 const endpointLinkWrap = document.getElementById("endpoint-link-wrap");
 const detailsLegend = document.getElementById("details-legend");
 const detailsInput = document.getElementById("details-input");
-const stateInput = document.getElementById("state-input");
-const contactValueLabel = document.getElementById("contact-value-label");
-const contactValueInput = document.getElementById("contact-value-input");
+const firstNameInput = document.getElementById("first-name-input");
+const lastNameInput = document.getElementById("last-name-input");
+const emailInput = document.getElementById("email-input");
+const emailConfirmInput = document.getElementById("email-confirm-input");
+const businessPhoneInput = document.getElementById("business-phone-input");
+const businessPhoneRequiredMarker = document.getElementById("business-phone-required-marker");
+const mailingStreetInput = document.getElementById("mailing-street-input");
+const mailingCityInput = document.getElementById("mailing-city-input");
+const mailingStateInput = document.getElementById("mailing-state-input");
+const mailingPostalInput = document.getElementById("mailing-postal-input");
+const mailingCountryInput = document.getElementById("mailing-country-input");
+const resolutionInput = document.getElementById("resolution-input");
 const form = document.getElementById("support-intake-form");
 const reviewSubmissionButton = document.getElementById("review-submission-btn");
 const errorSummary = document.getElementById("form-errors");
@@ -281,23 +262,57 @@ const progressIntent = document.getElementById("progress-intent");
 const progressTopic = document.getElementById("progress-topic");
 const progressDetails = document.getElementById("progress-details");
 const progressOutcome = document.getElementById("progress-outcome");
-const progressState = document.getElementById("progress-state");
-const progressContact = document.getElementById("progress-contact");
+const progressIdentity = document.getElementById("progress-identity");
+const progressMailing = document.getElementById("progress-mailing");
+const progressResolution = document.getElementById("progress-resolution");
 
 function getCurrentWorkflow() {
   return WORKFLOWS[state.intent] || WORKFLOWS.report;
 }
 
+function isBusinessPhoneRequired() {
+  return state.intent === "failed";
+}
+
+function isIdentityComplete() {
+  return Boolean(
+    state.firstName.trim() &&
+      state.lastName.trim() &&
+      state.email.trim() &&
+      state.emailConfirm.trim() &&
+      state.email.trim().toLowerCase() === state.emailConfirm.trim().toLowerCase() &&
+      (!isBusinessPhoneRequired() || state.businessPhone.trim()),
+  );
+}
+
+function isMailingComplete() {
+  return Boolean(
+    state.mailingStreet.trim() &&
+      state.mailingCity.trim() &&
+      state.mailingState &&
+      state.mailingPostal.trim() &&
+      state.mailingCountry,
+  );
+}
+
 function isFormComplete() {
   return Boolean(
     state.intent &&
-    state.topic &&
-    state.details.trim() &&
-    state.outcome &&
-    state.residentState &&
-    state.contactMethod &&
-    state.contactValue.trim(),
+      state.topic &&
+      state.details.trim() &&
+      state.outcome &&
+      isIdentityComplete() &&
+      isMailingComplete() &&
+      state.desiredResolution.trim(),
   );
+}
+
+function populateStateOptions() {
+  if (!mailingStateInput || mailingStateInput.options.length > 1) {
+    return;
+  }
+  const options = US_STATES_AND_TERRITORIES.map((name) => `<option value="${name}">${name}</option>`).join("");
+  mailingStateInput.insertAdjacentHTML("beforeend", options);
 }
 
 function renderIntentGroup() {
@@ -355,63 +370,21 @@ function renderTopicAndOutcome() {
     state.outcome,
   );
 
-  contactGroup.setConfig(
-    {
-      name: "contact-method",
-      legend: "How can we contact you if we need more information?",
-      required: true,
-      options: CONTACT_OPTIONS,
-      help: "Select one contact method. We only use this to follow up about your request.",
-    },
-    state.contactMethod,
-  );
-
+  const showFollowups = Boolean(state.topic);
   topicWrapper.hidden = false;
-  detailsWrapper.hidden = !state.topic;
-  outcomeWrapper.hidden = !state.topic;
-  stateWrapper.hidden = !state.topic;
-  contactWrapper.hidden = !state.topic;
-  contactValueWrapper.hidden = !(state.topic && state.contactMethod);
-  endpointWrapper.hidden = !(state.topic && state.outcome && state.residentState && state.contactValue.trim());
+  detailsWrapper.hidden = !showFollowups;
+  outcomeWrapper.hidden = !showFollowups;
+  identityWrapper.hidden = !showFollowups;
+  mailingWrapper.hidden = !showFollowups;
+  resolutionWrapper.hidden = !showFollowups;
+  endpointWrapper.hidden = !(state.topic && state.outcome);
+
+  businessPhoneInput.required = isBusinessPhoneRequired();
+  businessPhoneInput.setAttribute("aria-required", businessPhoneInput.required ? "true" : "false");
+  businessPhoneRequiredMarker.hidden = !businessPhoneInput.required;
 
   updateEndpoint();
-  updateContactField();
   updateStepState();
-}
-
-function populateStateOptions() {
-  if (!stateInput || stateInput.options.length > 1) {
-    return;
-  }
-  const options = US_STATES_AND_TERRITORIES.map((name) => `<option value="${name}">${name}</option>`).join("");
-  stateInput.insertAdjacentHTML("beforeend", options);
-}
-
-function updateContactField() {
-  if (!contactValueInput || !contactValueLabel) {
-    return;
-  }
-  if (!state.contactMethod) {
-    contactValueWrapper.hidden = true;
-    contactValueInput.value = "";
-    contactValueInput.type = "text";
-    contactValueInput.placeholder = "";
-    contactValueInput.removeAttribute("pattern");
-    return;
-  }
-
-  contactValueWrapper.hidden = false;
-  if (state.contactMethod === "email") {
-    contactValueLabel.innerHTML = 'Email address <span class="report-required-marker" aria-hidden="true">*</span>';
-    contactValueInput.type = "email";
-    contactValueInput.placeholder = "name@example.gov";
-    contactValueInput.pattern = "";
-  } else {
-    contactValueLabel.innerHTML = 'Phone number <span class="report-required-marker" aria-hidden="true">*</span>';
-    contactValueInput.type = "tel";
-    contactValueInput.placeholder = "555-555-5555";
-    contactValueInput.pattern = "^[0-9+()\\-\\s.]{7,}$";
-  }
 }
 
 function updateEndpoint() {
@@ -441,14 +414,17 @@ function updateEndpoint() {
 function updateStepState() {
   const workflow = getCurrentWorkflow();
   const selectedTopic = workflow.topics.find((topic) => topic.value === state.topic);
-  const completeCount = [
+
+  const checks = [
     Boolean(state.intent),
-    Boolean(state.topic),
+    Boolean(selectedTopic),
     Boolean(state.details.trim()),
     Boolean(state.outcome),
-    Boolean(state.residentState),
-    Boolean(state.contactMethod && state.contactValue.trim()),
-  ].filter(Boolean).length;
+    isIdentityComplete(),
+    isMailingComplete(),
+    Boolean(state.desiredResolution.trim()),
+  ];
+  const completeCount = checks.filter(Boolean).length;
 
   const setProgressItem = (node, label, complete) => {
     if (!node) {
@@ -464,10 +440,11 @@ function updateStepState() {
   setProgressItem(progressTopic, "Concern topic", Boolean(selectedTopic));
   setProgressItem(progressDetails, "Issue details", Boolean(state.details.trim()));
   setProgressItem(progressOutcome, "Desired outcome", Boolean(state.outcome));
-  setProgressItem(progressState, "State of residence", Boolean(state.residentState));
-  setProgressItem(progressContact, "Follow-up contact", Boolean(state.contactMethod && state.contactValue.trim()));
+  setProgressItem(progressIdentity, "Contact information", isIdentityComplete());
+  setProgressItem(progressMailing, "Mailing address", isMailingComplete());
+  setProgressItem(progressResolution, "Desired resolution details", Boolean(state.desiredResolution.trim()));
 
-  liveStatus.textContent = `Progress updated. ${completeCount} of 6 required sections complete.`;
+  liveStatus.textContent = `Progress updated. ${completeCount} of 7 required sections complete.`;
 
   if (reviewSubmissionButton) {
     const complete = isFormComplete();
@@ -511,20 +488,56 @@ function validateForm() {
     issues.push({ id: "outcome-group", label: "Select your desired outcome" });
   }
 
-  if (!state.residentState) {
-    issues.push({ id: "state-input", label: "Select your state of residence" });
+  if (!state.firstName.trim()) {
+    issues.push({ id: "first-name-input", label: "Enter your first name" });
   }
 
-  if (!state.contactMethod) {
-    issues.push({ id: "contact-group", label: "Select a follow-up contact method" });
+  if (!state.lastName.trim()) {
+    issues.push({ id: "last-name-input", label: "Enter your last name" });
   }
 
-  if (!state.contactValue.trim()) {
-    issues.push({ id: "contact-value-input", label: "Provide your follow-up contact details" });
-  } else if (state.contactMethod === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.contactValue.trim())) {
-    issues.push({ id: "contact-value-input", label: "Enter a valid email address for follow-up" });
-  } else if (state.contactMethod === "phone" && !/^[0-9+()\-\s.]{7,}$/.test(state.contactValue.trim())) {
-    issues.push({ id: "contact-value-input", label: "Enter a valid phone number for follow-up" });
+  if (!state.email.trim()) {
+    issues.push({ id: "email-input", label: "Enter your email address" });
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email.trim())) {
+    issues.push({ id: "email-input", label: "Enter a valid email address" });
+  }
+
+  if (!state.emailConfirm.trim()) {
+    issues.push({ id: "email-confirm-input", label: "Confirm your email address" });
+  } else if (state.email.trim().toLowerCase() !== state.emailConfirm.trim().toLowerCase()) {
+    issues.push({ id: "email-confirm-input", label: "Email confirmation must match your email address" });
+  }
+
+  if (isBusinessPhoneRequired() && !state.businessPhone.trim()) {
+    issues.push({ id: "business-phone-input", label: "Enter a business phone number" });
+  }
+
+  if (state.businessPhone.trim() && !/^[0-9+()\-\s.]{7,}$/.test(state.businessPhone.trim())) {
+    issues.push({ id: "business-phone-input", label: "Enter a valid phone number" });
+  }
+
+  if (!state.mailingStreet.trim()) {
+    issues.push({ id: "mailing-street-input", label: "Enter your mailing street address" });
+  }
+
+  if (!state.mailingCity.trim()) {
+    issues.push({ id: "mailing-city-input", label: "Enter your mailing city" });
+  }
+
+  if (!state.mailingState) {
+    issues.push({ id: "mailing-state-input", label: "Select your mailing state or territory" });
+  }
+
+  if (!state.mailingPostal.trim()) {
+    issues.push({ id: "mailing-postal-input", label: "Enter your ZIP or postal code" });
+  }
+
+  if (!state.mailingCountry) {
+    issues.push({ id: "mailing-country-input", label: "Select your mailing country" });
+  }
+
+  if (!state.desiredResolution.trim()) {
+    issues.push({ id: "resolution-input", label: "Describe your desired resolution" });
   }
 
   return issues;
@@ -535,27 +548,24 @@ function showSummary() {
   const workflow = getCurrentWorkflow();
   const topic = workflow.topics.find((item) => item.value === state.topic);
   const outcome = OUTCOME_OPTIONS.find((item) => item.value === state.outcome);
-  const contactLabel = state.contactMethod === "email" ? "Email" : state.contactMethod === "phone" ? "Phone" : "Not selected";
-  summaryCopy.textContent = `You are requesting to ${workflow.heading.toLowerCase()}. Topic: ${topic?.title || "Not selected"}. Desired outcome: ${outcome?.title || "Not selected"}. State: ${state.residentState || "Not selected"}. Follow-up: ${contactLabel}.`;
+
+  summaryCopy.textContent = `You are requesting to ${workflow.heading.toLowerCase()}. Topic: ${topic?.title || "Not selected"}. Desired outcome: ${outcome?.title || "Not selected"}.`; 
+}
+
+function handleIntentChange(value) {
+  state.intent = value;
+  state.topic = "";
+  state.outcome = "";
+  clearValidationMessage();
+  summary.hidden = true;
+  renderTopicAndOutcome();
 }
 
 intentGroup.addEventListener("choicechange", (event) => {
   if (event.detail.name !== "intent") {
     return;
   }
-  state.intent = event.detail.value;
-  state.topic = "";
-  state.outcome = "";
-  state.details = "";
-  state.residentState = "";
-  state.contactMethod = "";
-  state.contactValue = "";
-  detailsInput.value = "";
-  stateInput.value = "";
-  contactValueInput.value = "";
-  clearValidationMessage();
-  summary.hidden = true;
-  renderTopicAndOutcome();
+  handleIntentChange(event.detail.value);
 });
 
 topicGroup.addEventListener("choicechange", (event) => {
@@ -579,41 +589,43 @@ outcomeGroup.addEventListener("choicechange", (event) => {
   renderTopicAndOutcome();
 });
 
-contactGroup.addEventListener("choicechange", (event) => {
-  if (event.detail.name !== "contact-method") {
-    return;
-  }
-  state.contactMethod = event.detail.value;
-  state.contactValue = "";
-  contactValueInput.value = "";
-  clearValidationMessage();
-  summary.hidden = true;
-  updateContactField();
-  updateStepState();
-});
-
-detailsInput.addEventListener("input", () => {
+const syncTextState = () => {
   state.details = detailsInput.value;
+  state.firstName = firstNameInput.value;
+  state.lastName = lastNameInput.value;
+  state.email = emailInput.value;
+  state.emailConfirm = emailConfirmInput.value;
+  state.businessPhone = businessPhoneInput.value;
+  state.mailingStreet = mailingStreetInput.value;
+  state.mailingCity = mailingCityInput.value;
+  state.mailingState = mailingStateInput.value;
+  state.mailingPostal = mailingPostalInput.value;
+  state.mailingCountry = mailingCountryInput.value;
+  state.desiredResolution = resolutionInput.value;
   updateStepState();
-});
+};
 
-stateInput.addEventListener("change", () => {
-  state.residentState = stateInput.value;
-  updateEndpoint();
-  updateStepState();
-});
-
-contactValueInput.addEventListener("input", () => {
-  state.contactValue = contactValueInput.value;
-  updateEndpoint();
-  updateStepState();
+[
+  detailsInput,
+  firstNameInput,
+  lastNameInput,
+  emailInput,
+  emailConfirmInput,
+  businessPhoneInput,
+  mailingStreetInput,
+  mailingCityInput,
+  mailingStateInput,
+  mailingPostalInput,
+  mailingCountryInput,
+  resolutionInput,
+].forEach((el) => {
+  el.addEventListener("input", syncTextState);
+  el.addEventListener("change", syncTextState);
 });
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  state.details = detailsInput.value;
-  state.residentState = stateInput.value;
-  state.contactValue = contactValueInput.value;
+  syncTextState();
 
   const issues = validateForm();
   if (issues.length > 0) {
@@ -640,9 +652,16 @@ form.addEventListener("submit", (event) => {
     details: state.details.trim(),
     outcome: state.outcome,
     outcomeTitle: outcome?.title || "",
-    residentState: state.residentState,
-    contactMethod: state.contactMethod,
-    contactValue: state.contactValue.trim(),
+    firstName: state.firstName.trim(),
+    lastName: state.lastName.trim(),
+    email: state.email.trim(),
+    businessPhone: state.businessPhone.trim(),
+    mailingStreet: state.mailingStreet.trim(),
+    mailingCity: state.mailingCity.trim(),
+    mailingState: state.mailingState,
+    mailingPostal: state.mailingPostal.trim(),
+    mailingCountry: state.mailingCountry,
+    desiredResolution: state.desiredResolution.trim(),
     endpointLabel: endpoint?.label || "",
     queueCode: endpoint?.queueCode || "",
     savedAt: new Date().toISOString(),
@@ -655,3 +674,4 @@ form.addEventListener("submit", (event) => {
 renderIntentGroup();
 populateStateOptions();
 renderTopicAndOutcome();
+syncTextState();

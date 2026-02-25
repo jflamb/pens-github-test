@@ -1,15 +1,23 @@
 # TODO
 
 ## Current Task
-- [x] Audit vertical spacing and heading rhythm across support home, FAQ, intake, review, and confirmation pages.
-- [x] Implement a consistent spacing pass in shared CSS (avoid page-specific one-off fixes).
-- [x] Verify no JavaScript regressions after style changes.
+- [x] Define Phase 1 implementation scope from gap-closure plan.
+- [x] Add Phase 1 baseline fields to intake UI (identity, contact verification, mailing block, desired resolution).
+- [x] Update intake state, validation, and progressive gating for new required fields.
+- [x] Update review and confirmation pages/scripts to display new fields.
+- [x] Keep case-history storage non-sensitive while preserving submission summary.
+- [x] Run JS syntax checks and verify no broken references.
 
 ## Review / Results
-- Applied consistent vertical rhythm updates in `sites/fdic-public-information-faq/styles.css` for:
-  - Above-content region spacing
-  - Section spacing in support/form/review layouts
-  - Heading and subcopy spacing
-  - FAQ controls and content region spacing
-- Primary issue addressed: tight space above “Review your submission” heading.
-- Verification: JS syntax checks passed for all support/FAQ scripts.
+- Replaced prior state/contact-method sections with Phase 1 baseline fields:
+  - First/last name
+  - Email + confirm email
+  - Mailing street/city/state/postal/country
+  - Desired resolution free-text
+  - Business phone (required for failed-bank intent)
+- Updated validation/progress gating to 7 required sections.
+- Updated review and confirmation summaries to include new baseline fields.
+- Preserved non-sensitive case-history storage in `localStorage` summary records.
+- Verification:
+  - `node --check` passed for all support/FAQ scripts.
+  - Reference grep confirmed old removed field IDs are no longer referenced.
