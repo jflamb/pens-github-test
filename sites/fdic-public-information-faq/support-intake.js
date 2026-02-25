@@ -200,8 +200,6 @@ class FDICChoiceGroup extends HTMLElement {
         ${this.config.help ? `<p class="report-subcopy">${this.config.help}</p>` : ""}
         <div class="report-grid">${radios}</div>
       </fieldset>`;
-    this.setAttribute("role", "group");
-    this.setAttribute("aria-labelledby", `${this.config.name}-legend`);
     this.setAttribute("aria-required", this.config.required ? "true" : "false");
   }
 }
