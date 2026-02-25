@@ -503,9 +503,6 @@ function renderFaqList(articles) {
   const listItems = articles
     .map((article) => {
       const safeId = `faq-${article.urlName}`;
-      const topicTags = article.topics
-        .map((topic) => `<span class="topic-tag">${escapeHtml(topic.label)}</span>`)
-        .join("");
 
       return `
         <li class="faq-list-item">
@@ -515,7 +512,6 @@ function renderFaqList(articles) {
                 <div class="faq-head">
                   <h3>${escapeHtml(stripQuestionPrefix(article.question))}</h3>
                 </div>
-                <div class="topic-tags">${topicTags}</div>
               </summary>
               <div class="answer">${semanticizeAnswerHtml(article.answerHtml)}</div>
             </details>
@@ -703,13 +699,4 @@ function openByHash() {
   requestAnimationFrame(() => {
     target.scrollIntoView({ block: "start", behavior: "auto" });
   });
-}
-
-function escapeHtml(value) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
 }

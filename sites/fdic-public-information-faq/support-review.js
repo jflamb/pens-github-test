@@ -4,6 +4,8 @@ const CASE_HISTORY_STORAGE_KEY = "fdicSupportCaseHistory";
 
 const search = new URLSearchParams(window.location.search);
 const mode = search.get("mode") || "report";
+// Depends on components.js loading first on this page.
+const routes = window.ROUTES;
 
 const summary = document.getElementById("review-summary");
 const missing = document.getElementById("review-missing");
@@ -27,6 +29,7 @@ const faqSuggestionsList = document.getElementById("faq-suggestions-list");
 const FAQ_DATA_PATH = "data.json";
 const SUBMIT_BUTTON_DEFAULT_LABEL = submitButton?.textContent?.trim() || "Submit request";
 let isSubmitting = false;
+let faqSuggestionsController = null;
 
 const FAQ_HINTS = {
   bank_issue: [
@@ -104,10 +107,14 @@ function renderFaqSuggestions(draft) {
   if (!faqSuggestions || !faqSuggestionsList) {
     return;
   }
+  if (faqSuggestionsController) {
+    faqSuggestionsController.abort();
+  }
+  faqSuggestionsController = new AbortController();
   faqSuggestionsList.innerHTML = '<li><span>Loading related FAQs...</span></li>';
   faqSuggestions.hidden = false;
 
-  fetch(FAQ_DATA_PATH)
+  fetch(FAQ_DATA_PATH, { signal: faqSuggestionsController.signal })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Unable to load FAQ data.");
@@ -126,13 +133,14 @@ function renderFaqSuggestions(draft) {
       faqSuggestionsList.innerHTML = matches
         .map((article) => {
           const hash = `faq-${article.urlName || article.id}`;
-          const href = `faq.html#${hash}`;
-          const label = escapeHtml(stripQuestionPrefix(article.question || "Untitled FAQ"));
+          const href = `${routes.faq}#${hash}`;
+          const label = window.escapeHtml(window.stripQuestionPrefix(article.question || "Untitled FAQ"));
           return `<li><a href="${href}">${label}</a></li>`;
         })
         .join("");
     })
-    .catch(() => {
+    .catch((err) => {
+      if (err?.name === "AbortError") return;
       renderFallbackTopicHints(draft);
     });
 }
@@ -147,7 +155,7 @@ function renderFallbackTopicHints(draft) {
 
   faqSuggestionsList.innerHTML = suggestions
     .slice(0, 3)
-    .map((query) => `<li><a href="faq.html?q=${encodeURIComponent(query)}">${escapeHtml(query)}</a></li>`)
+    .map((query) => `<li><a href="${routes.faq}?q=${encodeURIComponent(query)}">${window.escapeHtml(query)}</a></li>`)
     .join("");
 }
 
@@ -202,19 +210,6 @@ function getFaqSuggestions(articles, draft, limit = 3) {
   return deduped;
 }
 
-function stripQuestionPrefix(text) {
-  return (text || "").replace(/^\s*Q:\s*/i, "").trim();
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
 function renderMissingState() {
   summary.hidden = true;
   missing.hidden = false;
@@ -251,7 +246,7 @@ function formatAddress(draft) {
   return parts.join(" • ") || "Not provided";
 }
 
-backLink.setAttribute("href", `report-problem.html?mode=${encodeURIComponent(mode)}`);
+backLink.setAttribute("href", routes.reportMode(mode));
 
 const draft = loadDraft();
 if (
@@ -321,10 +316,17 @@ submitButton.addEventListener("click", () => {
   }
   try {
     window.setTimeout(() => {
-      window.location.href = `submission-confirmation.html?mode=${encodeURIComponent(mode)}`;
+      window.location.href = `${routes.submissionConfirmation}?mode=${encodeURIComponent(mode)}`;
     }, 150);
   } catch {
     setSubmitting(false);
     submitStatus.textContent = "We could not submit your request. Please try again.";
+  }
+});
+
+window.addEventListener("pagehide", () => {
+  if (faqSuggestionsController) {
+    faqSuggestionsController.abort();
+    faqSuggestionsController = null;
   }
 });

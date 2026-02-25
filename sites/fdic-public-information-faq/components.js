@@ -7,6 +7,19 @@ function parseJsonAttribute(raw, fallback) {
   }
 }
 
+const ROUTES = {
+  home: "index.html",
+  reportProblem: "report-problem.html",
+  reportMode: (mode) => `report-problem.html?mode=${encodeURIComponent(mode)}`,
+  askQuestion: "report-problem.html?mode=ask",
+  failedBank: "report-problem.html?mode=failed",
+  viewCases: "view-cases.html",
+  faq: "faq.html",
+  reviewSubmission: "review-submission.html",
+  submissionConfirmation: "submission-confirmation.html",
+};
+window.ROUTES = ROUTES;
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -14,6 +27,10 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function stripQuestionPrefix(text) {
+  return (text || "").replace(/^\s*Q:\s*/i, "").trim();
 }
 
 function externalLinkAttrs(href) {
@@ -54,8 +71,7 @@ class FDICSiteFooter extends HTMLElement {
           <section>
             <p class="footer-title">STAY INFORMED</p>
             <form class="subscribe-form" action="https://public.govdelivery.com/accounts/USFDIC/subscribers/qualify" method="post" target="_blank">
-              <label for="email" class="visually-hidden">Enter your email address</label>
-              <input id="email" name="email" type="email" placeholder="Enter your email address" />
+              <label><span class="visually-hidden">Enter your email address</span><input name="email" type="email" placeholder="Enter your email address" /></label>
               <button class="usa-button" type="submit">Subscribe</button>
             </form>
           </section>
@@ -112,11 +128,11 @@ class FDICShareBar extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `<div class="share-bar" aria-label="Share this page">
       <span class="share-label">Share This:</span>
-      <a class="share-action" href="#" aria-label="Share on Facebook"><span class="share-icon fa-brands fa-facebook-f" aria-hidden="true"></span><span class="visually-hidden">Share on Facebook</span></a>
-      <a class="share-action" href="#" aria-label="Share on X"><span class="share-icon fa-brands fa-x-twitter" aria-hidden="true"></span><span class="visually-hidden">Share on X</span></a>
-      <a class="share-action" href="#" aria-label="Share on LinkedIn"><span class="share-icon fa-brands fa-linkedin-in" aria-hidden="true"></span><span class="visually-hidden">Share on LinkedIn</span></a>
-      <a class="share-action" href="#" aria-label="Share through email"><span class="share-icon fa-solid fa-envelope" aria-hidden="true"></span><span class="visually-hidden">Share through email</span></a>
-      <a class="share-action" href="#" aria-label="Print this page"><span class="share-icon fa-solid fa-print" aria-hidden="true"></span><span class="visually-hidden">Print this page</span></a>
+      <button type="button" class="share-action" aria-label="Share on Facebook"><span class="share-icon fa-brands fa-facebook-f" aria-hidden="true"></span><span class="visually-hidden">Share on Facebook</span></button>
+      <button type="button" class="share-action" aria-label="Share on X"><span class="share-icon fa-brands fa-x-twitter" aria-hidden="true"></span><span class="visually-hidden">Share on X</span></button>
+      <button type="button" class="share-action" aria-label="Share on LinkedIn"><span class="share-icon fa-brands fa-linkedin-in" aria-hidden="true"></span><span class="visually-hidden">Share on LinkedIn</span></button>
+      <button type="button" class="share-action" aria-label="Share through email"><span class="share-icon fa-solid fa-envelope" aria-hidden="true"></span><span class="visually-hidden">Share through email</span></button>
+      <button type="button" class="share-action" aria-label="Print this page"><span class="share-icon fa-solid fa-print" aria-hidden="true"></span><span class="visually-hidden">Print this page</span></button>
     </div>`;
   }
 }
@@ -124,17 +140,31 @@ class FDICShareBar extends HTMLElement {
 class FDICSupportNav extends HTMLElement {
   connectedCallback() {
     const active = this.getAttribute("active") || "";
+    const getPath = (href) => {
+      if (!href) return "";
+      try {
+        const parsed = new URL(href, window.location.href);
+        const current = new URL(window.location.href);
+        if (parsed.origin === current.origin) {
+          return parsed.pathname.split("/").pop() || "";
+        }
+      } catch {
+        // Fall through to query-stripping fallback.
+      }
+      return href.split("?")[0];
+    };
+    const activePath = getPath(active);
     const items = [
-      { label: "Information and Support Center", href: "index.html" },
-      { label: "Report a Problem", href: "report-problem.html?mode=report" },
-      { label: "Ask a Question", href: "report-problem.html?mode=ask" },
-      { label: "Get Help with a Failed Bank", href: "report-problem.html?mode=failed" },
-      { label: "View My Cases", href: "view-cases.html" },
+      { label: "Information and Support Center", href: ROUTES.home },
+      { label: "Report a Problem", href: ROUTES.reportMode("report") },
+      { label: "Ask a Question", href: ROUTES.askQuestion },
+      { label: "Get Help with a Failed Bank", href: ROUTES.failedBank },
+      { label: "View My Cases", href: ROUTES.viewCases },
     ];
 
-    this.innerHTML = `<aside class="support-sidenav" aria-label="Support navigation">${items
-      .map((item) => `<a class="support-nav-item${item.href === active ? " selected" : ""}" href="${item.href}">${item.label}</a>`)
-      .join("")}</aside>`;
+    this.innerHTML = `<nav class="support-sidenav" aria-label="Support navigation">${items
+      .map((item) => `<a class="support-nav-item${getPath(item.href) === activePath ? " selected" : ""}" href="${item.href}">${item.label}</a>`)
+      .join("")}</nav>`;
   }
 }
 
@@ -167,6 +197,7 @@ class FDICLabeledInput extends HTMLElement {
     const isSelect = (this.getAttribute("input-tag") || "").toLowerCase() === "select" || type.toLowerCase() === "select";
     const markerId = this.getAttribute("required-marker-id");
     const markerHidden = this.hasAttribute("required-marker-hidden");
+    const describedby = this.getAttribute("describedby");
 
     const requiredMarker = required || markerId
       ? ` <span${markerId ? ` id="${escapeHtml(markerId)}"` : ""} class="report-required-marker" aria-hidden="true"${markerHidden ? " hidden" : ""}>*</span>`
@@ -175,6 +206,7 @@ class FDICLabeledInput extends HTMLElement {
     const autocompleteAttr = autocomplete ? ` autocomplete="${escapeHtml(autocomplete)}"` : "";
     const placeholderAttr = placeholder ? ` placeholder="${escapeHtml(placeholder)}"` : "";
     const classAttr = wrapperClass ? ` class="${escapeHtml(wrapperClass)}"` : "";
+    const describedbyAttr = describedby ? ` aria-describedby="${escapeHtml(describedby)}"` : "";
 
     let control = "";
     if (isSelect) {
@@ -184,9 +216,9 @@ class FDICLabeledInput extends HTMLElement {
             .map((opt) => `<option value="${escapeHtml(opt?.value ?? "")}">${escapeHtml(opt?.label ?? "")}</option>`)
             .join("")
         : "";
-      control = `<select id="${escapeHtml(inputId)}" class="report-select" data-fdic-input${requiredAttrs}>${optionMarkup}</select>`;
+      control = `<select id="${escapeHtml(inputId)}" class="report-select" data-fdic-input${requiredAttrs}${describedbyAttr}>${optionMarkup}</select>`;
     } else {
-      control = `<input id="${escapeHtml(inputId)}" class="report-input" type="${escapeHtml(type)}" data-fdic-input${autocompleteAttr}${placeholderAttr}${requiredAttrs} />`;
+      control = `<input id="${escapeHtml(inputId)}" class="report-input" type="${escapeHtml(type)}" data-fdic-input${autocompleteAttr}${placeholderAttr}${requiredAttrs}${describedbyAttr} />`;
     }
 
     this.innerHTML = `<div${classAttr}>

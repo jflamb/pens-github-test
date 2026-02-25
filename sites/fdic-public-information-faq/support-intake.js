@@ -181,12 +181,14 @@ class FDICChoiceGroup extends HTMLElement {
         const checked = option.value === this.selectedValue;
         const id = `${this.config.name}-${index}`;
         const selectedClass = checked ? " is-selected" : "";
-        const detail = option.detail ? `<span class="report-option-detail">${option.detail}</span>` : "";
+        const safeTitle = escapeHtml(option.title || "");
+        const safeDetail = option.detail ? escapeHtml(option.detail) : "";
+        const detail = safeDetail ? `<span class="report-option-detail">${safeDetail}</span>` : "";
 
         return `<label class="report-option${selectedClass}" for="${id}">
             <input id="${id}" type="radio" name="${this.config.name}" value="${option.value}" ${checked ? "checked" : ""} ${this.config.required ? 'aria-required="true"' : ""} />
             <span class="report-option__text">
-              <strong>${option.title}</strong>
+              <strong>${safeTitle}</strong>
               ${detail}
             </span>
           </label>`;
@@ -435,10 +437,9 @@ function updateStepState() {
     }
     node.classList.toggle("is-complete", complete);
     node.classList.toggle("is-incomplete", !complete);
+    node.removeAttribute("aria-current");
     if (isCurrentStep) {
       node.setAttribute("aria-current", "step");
-    } else {
-      node.removeAttribute("aria-current");
     }
     node.setAttribute("aria-label", `${label}: ${complete ? "Complete" : "Not started"}`);
     node.innerHTML = `<span class="progress-label">${label}</span>`;
@@ -454,11 +455,10 @@ function updateStepState() {
     { node: progressResolution, label: "Desired resolution details", complete: Boolean(state.desiredResolution.trim()) },
   ];
   const firstIncompleteIndex = progressItems.findIndex((item) => !item.complete);
-  const currentStepIndex = firstIncompleteIndex === -1 ? progressItems.length - 1 : firstIncompleteIndex;
 
   for (let index = 0; index < progressItems.length; index += 1) {
     const item = progressItems[index];
-    setProgressItem(item.node, item.label, item.complete, index === currentStepIndex);
+    setProgressItem(item.node, item.label, item.complete, index === firstIncompleteIndex);
   }
 
   liveStatus.textContent = `Progress updated. ${completeCount} of 7 required sections complete.`;
