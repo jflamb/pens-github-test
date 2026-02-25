@@ -8,6 +8,18 @@ const state = {
   searchDebounceId: null,
 };
 
+const SEARCH_DEBOUNCE_MS = 200;
+const TREE_BASE_INDENT_PX = 16;
+const TREE_DEPTH_INDENT_PX = 16;
+const SEARCH_SCORE_WEIGHTS = {
+  questionToken: 7,
+  topicToken: 5,
+  summaryToken: 3,
+  answerToken: 1,
+  questionExact: 12,
+  topicExact: 8,
+};
+
 const els = {
   search: document.getElementById("faq-search"),
   searchInlineClear: document.getElementById("faq-search-inline-clear"),
@@ -50,7 +62,7 @@ function wireEvents() {
     state.searchDebounceId = setTimeout(() => {
       state.query = els.search.value.trim();
       render();
-    }, 200);
+    }, SEARCH_DEBOUNCE_MS);
   });
 
   els.searchInlineClear.addEventListener("click", () => {
@@ -96,10 +108,6 @@ function flattenTopics(items, depth = 0, parentId = null, list = []) {
 
 function stripHtml(html) {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function stripQuestionPrefix(text) {
-  return (text || "").replace(/^\s*Q:\s*/i, "").trim();
 }
 
 function isBulletLine(text) {
@@ -256,14 +264,14 @@ function evaluateQueryMatch(article, tokens, normalizedQuery) {
 
   let score = 0;
   for (const token of tokens) {
-    if (fields.question.includes(token)) score += 7;
-    if (fields.topicText.includes(token)) score += 5;
-    if (fields.summary.includes(token)) score += 3;
-    if (fields.answer.includes(token)) score += 1;
+    if (fields.question.includes(token)) score += SEARCH_SCORE_WEIGHTS.questionToken;
+    if (fields.topicText.includes(token)) score += SEARCH_SCORE_WEIGHTS.topicToken;
+    if (fields.summary.includes(token)) score += SEARCH_SCORE_WEIGHTS.summaryToken;
+    if (fields.answer.includes(token)) score += SEARCH_SCORE_WEIGHTS.answerToken;
   }
 
-  if (normalizedQuery && fields.question.includes(normalizedQuery)) score += 12;
-  if (normalizedQuery && fields.topicText.includes(normalizedQuery)) score += 8;
+  if (normalizedQuery && fields.question.includes(normalizedQuery)) score += SEARCH_SCORE_WEIGHTS.questionExact;
+  if (normalizedQuery && fields.topicText.includes(normalizedQuery)) score += SEARCH_SCORE_WEIGHTS.topicExact;
 
   return { matches: true, score };
 }
@@ -345,13 +353,13 @@ function renderCategoryTree(counts) {
   for (const topic of state.allTopics) {
     const count = counts.get(topic.id) || 0;
     const isSelected = state.selectedTopicId === topic.id;
-    const indent = topic.depth * 16;
+    const indent = topic.depth * TREE_DEPTH_INDENT_PX;
 
     rows.push(`
       <button
         class="category-row ${isSelected ? "selected" : ""}"
         type="button"
-        style="padding-left:${16 + indent}px"
+        style="padding-left:${TREE_BASE_INDENT_PX + indent}px"
         data-topic-id="${topic.id}"
         data-depth="${topic.depth}"
         role="treeitem"
