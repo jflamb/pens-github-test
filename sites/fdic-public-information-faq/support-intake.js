@@ -198,6 +198,9 @@ class FDICChoiceGroup extends HTMLElement {
         ${this.config.help ? `<p class="report-subcopy">${this.config.help}</p>` : ""}
         <div class="report-grid">${radios}</div>
       </fieldset>`;
+    this.setAttribute("role", "group");
+    this.setAttribute("aria-labelledby", `${this.config.name}-legend`);
+    this.setAttribute("aria-required", this.config.required ? "true" : "false");
   }
 }
 
@@ -426,23 +429,37 @@ function updateStepState() {
   ];
   const completeCount = checks.filter(Boolean).length;
 
-  const setProgressItem = (node, label, complete) => {
+  const setProgressItem = (node, label, complete, isCurrentStep) => {
     if (!node) {
       return;
     }
     node.classList.toggle("is-complete", complete);
     node.classList.toggle("is-incomplete", !complete);
+    if (isCurrentStep) {
+      node.setAttribute("aria-current", "step");
+    } else {
+      node.removeAttribute("aria-current");
+    }
     node.setAttribute("aria-label", `${label}: ${complete ? "Complete" : "Not started"}`);
     node.innerHTML = `<span class="progress-label">${label}</span>`;
   };
 
-  setProgressItem(progressIntent, "What you need help with", Boolean(state.intent));
-  setProgressItem(progressTopic, "Concern topic", Boolean(selectedTopic));
-  setProgressItem(progressDetails, "Issue details", Boolean(state.details.trim()));
-  setProgressItem(progressOutcome, "Desired outcome", Boolean(state.outcome));
-  setProgressItem(progressIdentity, "Contact information", isIdentityComplete());
-  setProgressItem(progressMailing, "Mailing address", isMailingComplete());
-  setProgressItem(progressResolution, "Desired resolution details", Boolean(state.desiredResolution.trim()));
+  const progressItems = [
+    { node: progressIntent, label: "What you need help with", complete: Boolean(state.intent) },
+    { node: progressTopic, label: "Concern topic", complete: Boolean(selectedTopic) },
+    { node: progressDetails, label: "Issue details", complete: Boolean(state.details.trim()) },
+    { node: progressOutcome, label: "Desired outcome", complete: Boolean(state.outcome) },
+    { node: progressIdentity, label: "Contact information", complete: isIdentityComplete() },
+    { node: progressMailing, label: "Mailing address", complete: isMailingComplete() },
+    { node: progressResolution, label: "Desired resolution details", complete: Boolean(state.desiredResolution.trim()) },
+  ];
+  const firstIncompleteIndex = progressItems.findIndex((item) => !item.complete);
+  const currentStepIndex = firstIncompleteIndex === -1 ? progressItems.length - 1 : firstIncompleteIndex;
+
+  for (let index = 0; index < progressItems.length; index += 1) {
+    const item = progressItems[index];
+    setProgressItem(item.node, item.label, item.complete, index === currentStepIndex);
+  }
 
   liveStatus.textContent = `Progress updated. ${completeCount} of 7 required sections complete.`;
 
@@ -465,6 +482,13 @@ function showValidationMessage(issues) {
   const first = issues[0];
   const target = document.getElementById(first.id);
   if (target) {
+    if (target.matches("fdic-choice-group")) {
+      const firstOption = target.querySelector('input[type="radio"]');
+      if (firstOption instanceof HTMLElement) {
+        firstOption.focus();
+        return;
+      }
+    }
     target.focus();
   }
 }
