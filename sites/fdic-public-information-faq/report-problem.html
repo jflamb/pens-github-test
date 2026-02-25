@@ -44,6 +44,10 @@
                   <fieldset class="report-fieldset">
                     <legend id="details-legend">Briefly describe your issue or question <span class="report-required-marker" aria-hidden="true">*</span></legend>
                     <p id="details-help" class="report-subcopy">Use plain language and include only details needed to understand your issue. Do not include Social Security numbers or full account numbers.</p>
+                    <section class="legal-note legal-note--compact" aria-label="Privacy and records notice">
+                      <p><strong>Privacy and records notice:</strong> Submit only information needed to review and respond to your request. Your submission may become an agency record and may be disclosed if required by law, including FOIA.</p>
+                      <p>Read our <a href="https://www.fdic.gov/about/privacy-program" target="_blank" rel="noopener noreferrer">Privacy Program</a>, <a href="https://www.fdic.gov/foia" target="_blank" rel="noopener noreferrer">FOIA information</a>, and <a href="https://www.fdic.gov/about/website-policies" target="_blank" rel="noopener noreferrer">Website Policies</a>.</p>
+                    </section>
                     <label for="details-input" class="visually-hidden">Briefly describe your issue or question</label>
                     <textarea id="details-input" class="report-textarea" required aria-required="true" aria-describedby="details-help"></textarea>
                   </fieldset>
@@ -57,6 +61,7 @@
                   <fieldset class="report-fieldset">
                     <legend>Your contact information <span class="report-required-marker" aria-hidden="true">*</span></legend>
                     <p class="report-subcopy">We use this information only to follow up on your request.</p>
+                    <p class="report-subcopy report-subcopy--tight">Providing contact information is voluntary, but we may not be able to follow up if required details are missing.</p>
                     <div class="report-inline-grid">
                       <fdic-labeled-input label="First name" input-id="first-name-input" input-type="text" autocomplete="given-name" required></fdic-labeled-input>
                       <fdic-labeled-input label="Last name" input-id="last-name-input" input-type="text" autocomplete="family-name" required></fdic-labeled-input>
@@ -110,6 +115,10 @@
                     <textarea id="resolution-input" class="report-textarea report-textarea--short" required aria-required="true"></textarea>
                   </fieldset>
                 </div>
+
+                <section id="submission-disclosure" class="legal-note report-section">
+                  <p>By selecting <strong>Review your submission</strong>, you confirm that the information provided is accurate to the best of your knowledge and you understand this request may be retained as a federal record.</p>
+                </section>
 
                 <div id="endpoint-wrapper" class="report-section" hidden>
                   <h3 class="report-endpoint-title">Routing destination</h3>

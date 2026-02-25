@@ -1055,6 +1055,10 @@ button,
   color: var(--fdic-gray-700);
 }
 
+.report-subcopy--tight {
+  margin-bottom: 0.6rem;
+}
+
 .report-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1381,6 +1385,29 @@ fdic-choice-group {
 
 .review-faq-list li {
   margin-bottom: 0.25rem;
+}
+
+.legal-note {
+  margin: 0.9rem 0 1rem;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--border-subtle);
+  background: #f9fafb;
+  max-width: 68ch;
+}
+
+.legal-note--compact {
+  margin-top: 0.75rem;
+}
+
+.legal-note p {
+  margin: 0 0 0.55rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--fdic-gray-700);
+}
+
+.legal-note p:last-child {
+  margin-bottom: 0;
 }
 
 .cases-table {
