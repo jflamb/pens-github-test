@@ -578,7 +578,8 @@ button,
 @media (prefers-reduced-motion: reduce) {
   .faq-item summary,
   .faq-head h3,
-  .copy-link-btn {
+  .copy-link-btn,
+  .support-card-link {
     transition: none;
   }
 }
@@ -606,7 +607,7 @@ button,
 
 .answer,
 .answer * {
-  text-align: left !important;
+  text-align: left;
 }
 
 .answer p {
@@ -1232,6 +1233,12 @@ button,
   transform: translateY(-2px);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .step-btn .icon {
+    transform: none;
+  }
+}
+
 .step-btn.next {
   justify-self: end;
   background: #0d7cb8;
@@ -1276,8 +1283,7 @@ fieldset.report-fieldset {
 }
 
 fieldset.report-fieldset legend {
-  float: left;
-  width: 100%;
+  display: block;
   padding: 0;
   margin: 0 0 0.45rem;
   font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
@@ -1287,7 +1293,7 @@ fieldset.report-fieldset legend {
 }
 
 fieldset.report-fieldset .report-grid {
-  clear: both;
+  clear: none;
 }
 
 fdic-choice-group {
@@ -1323,17 +1329,9 @@ fdic-choice-group {
   background: #f9fafb;
 }
 
-.review-summary > div {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid #dfe1e2;
-}
-
-.review-summary > div:last-child {
-  border-bottom: 0;
-}
-
 .review-summary dt {
-  margin: 0 0 0.25rem;
+  margin: 0;
+  padding: 0.85rem 1rem 0.25rem;
   font-size: 0.95rem;
   color: #3d4551;
   font-weight: 700;
@@ -1341,7 +1339,13 @@ fdic-choice-group {
 
 .review-summary dd {
   margin: 0;
+  padding: 0 1rem 0.85rem;
+  border-bottom: 1px solid #dfe1e2;
   line-height: 1.45;
+}
+
+.review-summary dd:last-child {
+  border-bottom: 0;
 }
 
 .review-actions {
