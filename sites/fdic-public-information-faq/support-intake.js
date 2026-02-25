@@ -34,6 +34,7 @@ const ENDPOINTS = {
 };
 
 const DRAFT_STORAGE_KEY = "fdicSupportIntakeDraft";
+const FAQ_DATA_PATH = "data.json";
 
 const OUTCOME_OPTIONS = [
   { value: "info", title: "Information or clarification" },
@@ -207,7 +208,7 @@ class FDICChoiceGroup extends HTMLElement {
 customElements.define("fdic-choice-group", FDICChoiceGroup);
 
 const modeParam = new URLSearchParams(window.location.search).get("mode");
-const initialMode = modeParam && WORKFLOWS[modeParam] ? modeParam : "report";
+const initialMode = modeParam && WORKFLOWS[modeParam] ? modeParam : "";
 
 const state = {
   intent: initialMode,
@@ -229,6 +230,8 @@ const state = {
 
 const heading = document.getElementById("intake-heading");
 const subcopy = document.getElementById("intake-subcopy");
+const defaultHeading = heading?.textContent || "What do you need help with?";
+const defaultSubcopy = subcopy?.textContent || "We’ll ask only the questions needed to route your request.";
 const intentGroup = document.getElementById("intent-group");
 const topicGroup = document.getElementById("topic-group");
 const outcomeGroup = document.getElementById("outcome-group");
@@ -255,12 +258,16 @@ const mailingStateInput = document.getElementById("mailing-state-input");
 const mailingPostalInput = document.getElementById("mailing-postal-input");
 const mailingCountryInput = document.getElementById("mailing-country-input");
 const resolutionInput = document.getElementById("resolution-input");
+const contextualFaqWrapper = document.getElementById("contextual-faq-wrapper");
+const contextualFaqList = document.getElementById("contextual-faq-list");
 const form = document.getElementById("support-intake-form");
 const reviewSubmissionButton = document.getElementById("review-submission-btn");
+const reviewSubmitHelper = document.getElementById("review-submit-helper");
 const errorSummary = document.getElementById("form-errors");
 const liveStatus = document.getElementById("intake-status");
 const summary = document.getElementById("flow-summary");
 const summaryCopy = document.getElementById("flow-summary-copy");
+const progressTracker = document.querySelector("fdic-progress-tracker");
 const progressIntent = document.getElementById("progress-intent");
 const progressTopic = document.getElementById("progress-topic");
 const progressDetails = document.getElementById("progress-details");
@@ -268,9 +275,10 @@ const progressOutcome = document.getElementById("progress-outcome");
 const progressIdentity = document.getElementById("progress-identity");
 const progressMailing = document.getElementById("progress-mailing");
 const progressResolution = document.getElementById("progress-resolution");
+let contextualFaqController = null;
 
 function getCurrentWorkflow() {
-  return WORKFLOWS[state.intent] || WORKFLOWS.report;
+  return state.intent ? WORKFLOWS[state.intent] || null : null;
 }
 
 function isBusinessPhoneRequired() {
@@ -318,6 +326,108 @@ function populateStateOptions() {
   mailingStateInput.insertAdjacentHTML("beforeend", options);
 }
 
+function getContextualFaqTerms() {
+  const workflow = getCurrentWorkflow();
+  const selectedTopic = workflow?.topics.find((topic) => topic.value === state.topic);
+  return [
+    state.intent,
+    state.topic,
+    selectedTopic?.title || "",
+    selectedTopic?.detail || "",
+    workflow?.heading || "",
+  ]
+    .join(" ")
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
+}
+
+function getContextualFaqSuggestions(articles, terms, limit = 3) {
+  if (!terms.length) {
+    return [];
+  }
+  const ranked = articles
+    .map((article) => {
+      const question = (article.question || "").toLowerCase();
+      const summary = (article.summary || "").toLowerCase();
+      const topicText = Array.isArray(article.topics)
+        ? article.topics.map((topic) => (topic?.label || "").toLowerCase()).join(" ")
+        : "";
+      let score = 0;
+      for (const term of terms) {
+        if (question.includes(term)) score += 6;
+        if (topicText.includes(term)) score += 4;
+        if (summary.includes(term)) score += 1;
+      }
+      return { article, score };
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  const picked = [];
+  const seen = new Set();
+  for (const entry of ranked) {
+    const key = entry.article?.urlName || entry.article?.id;
+    if (!key || seen.has(key)) continue;
+    picked.push(entry.article);
+    seen.add(key);
+    if (picked.length >= limit) break;
+  }
+  return picked;
+}
+
+function renderContextualFaqFallback() {
+  if (!contextualFaqWrapper || !contextualFaqList) {
+    return;
+  }
+  contextualFaqList.innerHTML = "";
+  contextualFaqWrapper.hidden = true;
+}
+
+function renderContextualFaqSuggestions() {
+  if (!contextualFaqWrapper || !contextualFaqList) {
+    return;
+  }
+  if (!state.topic) {
+    renderContextualFaqFallback();
+    return;
+  }
+  if (contextualFaqController) {
+    contextualFaqController.abort();
+  }
+  contextualFaqController = new AbortController();
+  contextualFaqWrapper.hidden = false;
+  contextualFaqList.innerHTML = "<li><span>Loading related FAQs...</span></li>";
+
+  fetch(FAQ_DATA_PATH, { signal: contextualFaqController.signal })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Unable to load FAQs.");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const articles = Array.isArray(data?.articles) ? data.articles : [];
+      const suggestions = getContextualFaqSuggestions(articles, getContextualFaqTerms(), 3);
+      if (!suggestions.length) {
+        renderContextualFaqFallback();
+        return;
+      }
+      contextualFaqList.innerHTML = suggestions
+        .map((article) => {
+          const hash = `faq-${article.urlName || article.id}`;
+          const href = `faq.html#${hash}`;
+          const label = escapeHtml(stripQuestionPrefix(article.question || "Untitled FAQ"));
+          return `<li><a href="${href}">${label}</a></li>`;
+        })
+        .join("");
+    })
+    .catch((error) => {
+      if (error?.name === "AbortError") return;
+      renderContextualFaqFallback();
+    });
+}
+
 function renderIntentGroup() {
   intentGroup.setConfig(
     {
@@ -348,7 +458,29 @@ function renderIntentGroup() {
 
 function renderTopicAndOutcome() {
   const workflow = getCurrentWorkflow();
+  if (!workflow) {
+    if (progressTracker) {
+      progressTracker.hidden = true;
+      progressTracker.classList.remove("is-active");
+    }
+    heading.textContent = defaultHeading;
+    subcopy.textContent = defaultSubcopy;
+    topicWrapper.hidden = true;
+    detailsWrapper.hidden = true;
+    outcomeWrapper.hidden = true;
+    identityWrapper.hidden = true;
+    mailingWrapper.hidden = true;
+    resolutionWrapper.hidden = true;
+    endpointWrapper.hidden = true;
+    renderContextualFaqFallback();
+    updateStepState();
+    return;
+  }
 
+  if (progressTracker) {
+    progressTracker.hidden = false;
+    progressTracker.classList.add("is-active");
+  }
   heading.textContent = workflow.heading;
   subcopy.textContent = workflow.subcopy;
   detailsLegend.innerHTML = `${workflow.detailsLegend} <span class="report-required-marker" aria-hidden="true">*</span>`;
@@ -387,12 +519,13 @@ function renderTopicAndOutcome() {
   businessPhoneRequiredMarker.hidden = !businessPhoneInput.required;
 
   updateEndpoint();
+  renderContextualFaqSuggestions();
   updateStepState();
 }
 
 function updateEndpoint() {
   const workflow = getCurrentWorkflow();
-  const selectedTopic = workflow.topics.find((topic) => topic.value === state.topic);
+  const selectedTopic = workflow?.topics.find((topic) => topic.value === state.topic);
 
   if (!selectedTopic || !state.outcome) {
     endpointWrapper.hidden = true;
@@ -411,26 +544,21 @@ function updateEndpoint() {
   }
 
   endpointCopy.textContent = `Based on your selections, your request will be routed to ${endpoint.label} (${endpoint.queueCode}).`;
-  endpointLinkWrap.textContent = "No additional form handoff is required.";
+  endpointLinkWrap.textContent = "";
 }
 
 function updateStepState() {
   const workflow = getCurrentWorkflow();
-  const selectedTopic = workflow.topics.find((topic) => topic.value === state.topic);
+  const selectedTopic = workflow?.topics.find((topic) => topic.value === state.topic);
 
-  const checks = [
-    Boolean(state.intent),
-    Boolean(selectedTopic),
-    Boolean(state.details.trim()),
-    Boolean(state.outcome),
-    isIdentityComplete(),
-    isMailingComplete(),
-    Boolean(state.desiredResolution.trim()),
-  ];
-  const completeCount = checks.filter(Boolean).length;
-
-  const setProgressItem = (node, label, complete, isCurrentStep) => {
+  const setProgressItem = (node, label, complete, isCurrentStep, targetId, visible) => {
     if (!node) {
+      return;
+    }
+    node.hidden = !visible;
+    if (!visible) {
+      node.removeAttribute("aria-current");
+      node.removeAttribute("aria-label");
       return;
     }
     node.classList.toggle("is-complete", complete);
@@ -440,31 +568,46 @@ function updateStepState() {
       node.setAttribute("aria-current", "step");
     }
     node.setAttribute("aria-label", `${label}: ${complete ? "Complete" : "Not started"}`);
-    node.innerHTML = `<span class="progress-label">${label}</span>`;
+    node.innerHTML = `<a class="progress-link" href="#${targetId}"><span class="progress-label">${label}</span></a>`;
   };
 
   const progressItems = [
-    { node: progressIntent, label: "What you need help with", complete: Boolean(state.intent) },
-    { node: progressTopic, label: "Concern topic", complete: Boolean(selectedTopic) },
-    { node: progressDetails, label: "Issue details", complete: Boolean(state.details.trim()) },
-    { node: progressOutcome, label: "Desired outcome", complete: Boolean(state.outcome) },
-    { node: progressIdentity, label: "Contact information", complete: isIdentityComplete() },
-    { node: progressMailing, label: "Mailing address", complete: isMailingComplete() },
-    { node: progressResolution, label: "Desired resolution details", complete: Boolean(state.desiredResolution.trim()) },
+    { node: progressIntent, label: "What you need help with", complete: Boolean(state.intent), targetId: "intent-group", visible: true },
+    { node: progressTopic, label: "Concern topic", complete: Boolean(selectedTopic), targetId: "topic-wrapper", visible: !topicWrapper.hidden },
+    { node: progressDetails, label: "Issue details", complete: Boolean(state.details.trim()), targetId: "details-wrapper", visible: !detailsWrapper.hidden },
+    { node: progressOutcome, label: "Desired outcome", complete: Boolean(state.outcome), targetId: "outcome-wrapper", visible: !outcomeWrapper.hidden },
+    { node: progressIdentity, label: "Contact information", complete: isIdentityComplete(), targetId: "identity-wrapper", visible: !identityWrapper.hidden },
+    { node: progressMailing, label: "Mailing address", complete: isMailingComplete(), targetId: "mailing-wrapper", visible: !mailingWrapper.hidden },
+    { node: progressResolution, label: "Desired resolution details", complete: Boolean(state.desiredResolution.trim()), targetId: "resolution-wrapper", visible: !resolutionWrapper.hidden },
   ];
-  const firstIncompleteIndex = progressItems.findIndex((item) => !item.complete);
+  const visibleItems = progressItems.filter((item) => item.visible);
+  const completeCount = visibleItems.filter((item) => item.complete).length;
+  const remainingCount = visibleItems.length - completeCount;
+  const firstIncompleteIndex = visibleItems.findIndex((item) => !item.complete);
+  const currentStepNode = firstIncompleteIndex === -1 ? null : visibleItems[firstIncompleteIndex]?.node || null;
 
-  for (let index = 0; index < progressItems.length; index += 1) {
-    const item = progressItems[index];
-    setProgressItem(item.node, item.label, item.complete, index === firstIncompleteIndex);
+  for (const item of progressItems) {
+    setProgressItem(
+      item.node,
+      item.label,
+      item.complete,
+      item.node === currentStepNode,
+      item.targetId,
+      item.visible,
+    );
   }
 
-  liveStatus.textContent = `Progress updated. ${completeCount} of 7 required sections complete.`;
+  liveStatus.textContent = `Progress updated. ${completeCount} of ${visibleItems.length} visible required sections complete.`;
 
   if (reviewSubmissionButton) {
     const complete = isFormComplete();
     reviewSubmissionButton.disabled = !complete;
     reviewSubmissionButton.setAttribute("aria-disabled", complete ? "false" : "true");
+    if (reviewSubmitHelper) {
+      reviewSubmitHelper.textContent = complete
+        ? "All required sections are complete. Select Review your submission to continue."
+        : `Complete ${remainingCount} more required ${remainingCount === 1 ? "section" : "sections"} to continue.`;
+    }
   }
 }
 
@@ -568,10 +711,10 @@ function validateForm() {
 function showSummary() {
   summary.hidden = false;
   const workflow = getCurrentWorkflow();
-  const topic = workflow.topics.find((item) => item.value === state.topic);
+  const topic = workflow?.topics.find((item) => item.value === state.topic);
   const outcome = OUTCOME_OPTIONS.find((item) => item.value === state.outcome);
 
-  summaryCopy.textContent = `You are requesting to ${workflow.heading.toLowerCase()}. Topic: ${topic?.title || "Not selected"}. Desired outcome: ${outcome?.title || "Not selected"}.`; 
+  summaryCopy.textContent = `You are requesting to ${(workflow?.heading || defaultHeading).toLowerCase()}. Topic: ${topic?.title || "Not selected"}. Desired outcome: ${outcome?.title || "Not selected"}.`;
 }
 
 function handleIntentChange(value) {
@@ -660,14 +803,14 @@ form.addEventListener("submit", (event) => {
   updateEndpoint();
 
   const workflow = getCurrentWorkflow();
-  const selectedTopic = workflow.topics.find((topic) => topic.value === state.topic) || null;
+  const selectedTopic = workflow?.topics.find((topic) => topic.value === state.topic) || null;
   const outcome = OUTCOME_OPTIONS.find((item) => item.value === state.outcome) || null;
   const endpoint = selectedTopic ? ENDPOINTS[selectedTopic.endpointKey] || null : null;
 
   const draft = {
     intent: state.intent,
-    workflowHeading: workflow.heading,
-    workflowSubcopy: workflow.subcopy,
+    workflowHeading: workflow?.heading || defaultHeading,
+    workflowSubcopy: workflow?.subcopy || defaultSubcopy,
     topic: state.topic,
     topicTitle: selectedTopic?.title || "",
     topicDetail: selectedTopic?.detail || "",
@@ -691,6 +834,13 @@ form.addEventListener("submit", (event) => {
 
   sessionStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(draft));
   window.location.href = `review-submission.html?mode=${encodeURIComponent(state.intent)}`;
+});
+
+window.addEventListener("pagehide", () => {
+  if (contextualFaqController) {
+    contextualFaqController.abort();
+    contextualFaqController = null;
+  }
 });
 
 renderIntentGroup();

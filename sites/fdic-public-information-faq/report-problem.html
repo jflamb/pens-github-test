@@ -3,155 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FDIC Report a Problem</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Open+Sans:wght@400;600;700&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <link rel="stylesheet" href="styles.css" />
+    <title>FDIC Support Intake</title>
+    <script>
+      const query = window.location.search || "";
+      const target = `index.html${query}`;
+      window.location.replace(target);
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=index.html" />
+    </noscript>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
-    <fdic-site-header></fdic-site-header>
-
-    <div class="grid-container bg-fdic-white">
-      <div class="ds-region-abovecontent">
-        <fdic-breadcrumb crumbs='[{"label":"Home","href":"https://www.fdic.gov"},{"label":"Information and Support Center","href":"index.html"},{"label":"Report a Problem or Concern"}]'></fdic-breadcrumb>
-
-        <h1>Information and Support Center</h1>
-        <p class="support-intro">Get help with questions, concerns, or issues involving FDIC-insured banks, deposit insurance, or bank failures</p>
-
-        <fdic-share-bar></fdic-share-bar>
-      </div>
-
-      <main id="main-content" class="report-layout report-layout--single" aria-label="Report a problem flow">
-        <section class="report-main">
-          <h2 id="intake-heading">What do you need help with?</h2>
-          <p id="intake-subcopy" class="support-subcopy">We’ll ask only the questions needed to route your request.</p>
-          <p class="report-required-note"><span aria-hidden="true">*</span> Required fields</p>
-          <div class="report-content-grid">
-            <div class="report-form-pane">
-              <div id="form-errors" class="report-error-summary" role="alert" aria-live="assertive" hidden></div>
-
-              <form id="support-intake-form" novalidate>
-                <fdic-choice-group id="intent-group"></fdic-choice-group>
-
-                <div id="topic-wrapper" class="report-section" hidden>
-                  <fdic-choice-group id="topic-group"></fdic-choice-group>
-                </div>
-
-                <div id="details-wrapper" class="report-section" hidden>
-                  <fieldset class="report-fieldset">
-                    <legend id="details-legend">Briefly describe your issue or question <span class="report-required-marker" aria-hidden="true">*</span></legend>
-                    <p id="details-help" class="report-subcopy">Use plain language and include only details needed to understand your issue. Do not include Social Security numbers or full account numbers.</p>
-                    <section class="legal-note legal-note--compact" aria-label="Privacy and records notice">
-                      <p><strong>Privacy and records notice:</strong> Submit only information needed to review and respond to your request. Your submission may become an agency record and may be disclosed if required by law, including FOIA.</p>
-                      <p>Read our <a href="https://www.fdic.gov/about/privacy-program" target="_blank" rel="noopener noreferrer">Privacy Program</a>, <a href="https://www.fdic.gov/foia" target="_blank" rel="noopener noreferrer">FOIA information</a>, and <a href="https://www.fdic.gov/about/website-policies" target="_blank" rel="noopener noreferrer">Website Policies</a>.</p>
-                    </section>
-                    <label for="details-input" class="visually-hidden">Briefly describe your issue or question</label>
-                    <textarea id="details-input" class="report-textarea" required aria-required="true" aria-describedby="details-help"></textarea>
-                  </fieldset>
-                </div>
-
-                <div id="outcome-wrapper" class="report-section" hidden>
-                  <fdic-choice-group id="outcome-group"></fdic-choice-group>
-                </div>
-
-                <div id="identity-wrapper" class="report-section" hidden>
-                  <fieldset class="report-fieldset">
-                    <legend>Your contact information <span class="report-required-marker" aria-hidden="true">*</span></legend>
-                    <p class="report-subcopy">We use this information only to follow up on your request.</p>
-                    <p class="report-subcopy report-subcopy--tight">Providing contact information is voluntary, but we may not be able to follow up if required details are missing.</p>
-                    <div class="report-inline-grid">
-                      <fdic-labeled-input label="First name" input-id="first-name-input" input-type="text" autocomplete="given-name" required></fdic-labeled-input>
-                      <fdic-labeled-input label="Last name" input-id="last-name-input" input-type="text" autocomplete="family-name" required></fdic-labeled-input>
-                      <fdic-labeled-input label="Email" input-id="email-input" input-type="email" autocomplete="email" required></fdic-labeled-input>
-                      <fdic-labeled-input label="Confirm email" input-id="email-confirm-input" input-type="email" autocomplete="email" required></fdic-labeled-input>
-                    </div>
-                  </fieldset>
-                </div>
-
-                <div id="mailing-wrapper" class="report-section" hidden>
-                  <fieldset class="report-fieldset">
-                    <legend>Mailing address <span class="report-required-marker" aria-hidden="true">*</span></legend>
-                    <p class="report-subcopy">Required for request follow-up and document delivery when needed.</p>
-                    <div class="report-inline-grid">
-                      <fdic-labeled-input label="Street address" input-id="mailing-street-input" input-type="text" autocomplete="address-line1" wrapper-class="report-inline-grid__full" required></fdic-labeled-input>
-                      <fdic-labeled-input label="City" input-id="mailing-city-input" input-type="text" autocomplete="address-level2" required></fdic-labeled-input>
-                      <fdic-labeled-input
-                        label="State or territory"
-                        input-id="mailing-state-input"
-                        input-tag="select"
-                        input-type="select"
-                        required
-                        options='[{"value":"","label":"Select a state or territory"}]'
-                      ></fdic-labeled-input>
-                      <fdic-labeled-input label="ZIP or postal code" input-id="mailing-postal-input" input-type="text" autocomplete="postal-code" required></fdic-labeled-input>
-                      <fdic-labeled-input
-                        label="Country"
-                        input-id="mailing-country-input"
-                        input-tag="select"
-                        input-type="select"
-                        required
-                        options='[{"value":"United States","label":"United States"},{"value":"Puerto Rico","label":"Puerto Rico"},{"value":"U.S. Virgin Islands","label":"U.S. Virgin Islands"},{"value":"Other","label":"Other"}]'
-                      ></fdic-labeled-input>
-                      <fdic-labeled-input
-                        label="Business phone"
-                        input-id="business-phone-input"
-                        input-type="tel"
-                        autocomplete="tel"
-                        required-marker-id="business-phone-required-marker"
-                        required-marker-hidden
-                      ></fdic-labeled-input>
-                    </div>
-                  </fieldset>
-                </div>
-
-                <div id="resolution-wrapper" class="report-section" hidden>
-                  <fieldset class="report-fieldset">
-                    <legend>What is your desired resolution? <span class="report-required-marker" aria-hidden="true">*</span></legend>
-                    <p class="report-subcopy">Describe the outcome you want in your own words.</p>
-                    <label for="resolution-input" class="visually-hidden">What is your desired resolution?</label>
-                    <textarea id="resolution-input" class="report-textarea report-textarea--short" required aria-required="true"></textarea>
-                  </fieldset>
-                </div>
-
-                <section id="submission-disclosure" class="legal-note report-section">
-                  <p>By selecting <strong>Review your submission</strong>, you confirm that the information provided is accurate to the best of your knowledge and you understand this request may be retained as a federal record.</p>
-                </section>
-
-                <div id="endpoint-wrapper" class="report-section" hidden>
-                  <h3 class="report-endpoint-title">Routing destination</h3>
-                  <p id="endpoint-copy" class="report-subcopy"></p>
-                  <p id="endpoint-link-wrap" class="report-endpoint-link-wrap"></p>
-                </div>
-
-                <fdic-step-actions
-                  back-href="index.html"
-                  back-label="Back"
-                  next-id="review-submission-btn"
-                  next-label="Review your submission"
-                  next-type="submit"
-                  actions-label="Form actions"
-                ></fdic-step-actions>
-              </form>
-            </div>
-
-            <fdic-progress-tracker
-              steps='[{"id":"progress-intent","label":"What you need help with"},{"id":"progress-topic","label":"Concern topic"},{"id":"progress-details","label":"Issue details"},{"id":"progress-outcome","label":"Desired outcome"},{"id":"progress-identity","label":"Contact information"},{"id":"progress-mailing","label":"Mailing address"},{"id":"progress-resolution","label":"Desired resolution details"}]'
-            ></fdic-progress-tracker>
-          </div>
-          <div id="intake-status" class="visually-hidden" aria-live="polite"></div>
-          <div id="flow-summary" class="report-summary" hidden>
-            <h3>Draft summary</h3>
-            <p id="flow-summary-copy"></p>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <fdic-site-footer></fdic-site-footer>
-    <script src="components.js"></script>
-    <script type="module" src="support-intake.js"></script>
+    <p>
+      Redirecting to support intake.
+      <a href="index.html">Continue</a>.
+    </p>
   </body>
 </html>

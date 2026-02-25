@@ -23,15 +23,26 @@
         <p class="support-intro">Track the status of requests submitted in this prototype.</p>
       </div>
 
-      <main id="main-content" class="report-layout report-layout--single" aria-label="View my cases">
+      <main id="main-content" class="report-layout" aria-label="View my cases">
+        <fdic-support-nav active="view-cases.html"></fdic-support-nav>
+
         <section class="report-main">
           <h2>My cases</h2>
           <p class="support-subcopy">Cases are stored in this browser for prototype review. Sensitive personal details are not stored in case history.</p>
 
+          <div class="cases-controls">
+            <label for="cases-sort">Sort by recency</label>
+            <select id="cases-sort" class="report-select">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+          </div>
+
           <div id="cases-empty" class="report-error-summary" hidden>
-            <p>No submitted cases found.</p>
+            <p>You have no submitted cases yet.</p>
             <ul>
-              <li><a href="report-problem.html?mode=report">Start a new request</a></li>
+              <li><a href="index.html">Start a new request</a></li>
+              <li><a href="faq.html">Browse frequently asked questions</a></li>
             </ul>
           </div>
 

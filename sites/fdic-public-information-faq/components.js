@@ -155,15 +155,16 @@ class FDICSupportNav extends HTMLElement {
     };
     const activePath = getPath(active);
     const items = [
-      { label: "Information and Support Center", href: ROUTES.home },
-      { label: "Report a Problem", href: ROUTES.reportMode("report") },
-      { label: "Ask a Question", href: ROUTES.askQuestion },
-      { label: "Get Help with a Failed Bank", href: ROUTES.failedBank },
+      { label: "Information & Support Center", href: ROUTES.home },
+      { label: "Frequently Asked Questions", href: ROUTES.faq },
       { label: "View My Cases", href: ROUTES.viewCases },
     ];
 
     this.innerHTML = `<nav class="support-sidenav" aria-label="Support navigation">${items
-      .map((item) => `<a class="support-nav-item${getPath(item.href) === activePath ? " selected" : ""}" href="${item.href}">${item.label}</a>`)
+      .map((item) => {
+        const selected = getPath(item.href) === activePath;
+        return `<a class="support-nav-item${selected ? " selected" : ""}" href="${item.href}">${item.label}</a>`;
+      })
       .join("")}</nav>`;
   }
 }
@@ -258,7 +259,7 @@ class FDICProgressTracker extends HTMLElement {
 
     this.innerHTML = `<aside class="report-progress-aside" aria-label="Form progress">
       <div class="report-progress" aria-live="polite">
-        <h3 class="report-progress-title">Your progress</h3>
+        <h3 class="report-progress-title">Sections in this request</h3>
         <ul id="progress-list" class="report-progress-list">${steps
           .map(
             (step) =>

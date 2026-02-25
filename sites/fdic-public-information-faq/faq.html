@@ -23,29 +23,31 @@
         <fdic-share-bar></fdic-share-bar>
       </div>
 
-      <div class="faq-controls" aria-label="FAQ Search and filters">
-        <label for="faq-search" class="visually-hidden">Search FAQs</label>
-        <div class="search-input-wrap">
-          <input id="faq-search" type="search" placeholder="Search by keyword, topic, or phrase" autocomplete="off" />
-          <button id="faq-search-inline-clear" class="faq-search-inline-clear" type="button" aria-label="Clear search text" hidden></button>
-        </div>
-        <button id="clear-search" type="button">Clear</button>
-        <p id="result-count" aria-live="polite">Loading FAQs...</p>
-        <a class="source-link" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/public-information?language=en_US" target="_blank" rel="noopener noreferrer">View source experience</a>
-      </div>
-
-      <div class="ds-region-content">
-        <aside class="ds-region-left" aria-label="Topic navigation">
-          <div class="sidebar-container navigation">
+      <main id="main-content" class="report-layout" aria-label="Frequently asked questions">
+        <aside class="report-side-rail" aria-label="Support navigation and topic navigation">
+          <fdic-support-nav active="faq.html"></fdic-support-nav>
+          <section class="sidebar-container navigation" aria-label="Topic navigation">
             <div id="category-tree" class="category-tree" role="tree"></div>
-          </div>
+          </section>
         </aside>
 
-        <main id="main-content" class="ds-region-middle" aria-labelledby="questions-heading">
-          <h2 id="questions-heading">Questions and Answers</h2>
-          <div id="faq-list" class="faq-list"></div>
-        </main>
-      </div>
+        <section class="report-main" aria-labelledby="questions-heading">
+          <div class="faq-controls" aria-label="FAQ Search and filters">
+            <label for="faq-search" class="visually-hidden">Search FAQs</label>
+            <div class="search-input-wrap">
+              <input id="faq-search" type="search" placeholder="Search by keyword, topic, or phrase" autocomplete="off" />
+              <button id="faq-search-inline-clear" class="faq-search-inline-clear" type="button" aria-label="Clear search text" hidden></button>
+            </div>
+            <button id="clear-search" type="button">Clear</button>
+            <p id="result-count" aria-live="polite">Loading FAQs...</p>
+            <a class="source-link" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/public-information?language=en_US" target="_blank" rel="noopener noreferrer">View source experience</a>
+          </div>
+          <section class="ds-region-middle" aria-labelledby="questions-heading">
+            <h2 id="questions-heading">Questions and Answers</h2>
+            <div id="faq-list" class="faq-list"></div>
+          </section>
+        </section>
+      </main>
     </div>
     <fdic-site-footer></fdic-site-footer>
     <script src="components.js"></script>

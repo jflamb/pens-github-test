@@ -930,6 +930,20 @@ button,
   padding-bottom: 2.5rem;
 }
 
+.report-side-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  align-self: start;
+  position: sticky;
+  top: 0.75rem;
+  height: fit-content;
+}
+
+.report-side-rail fdic-progress-tracker:not(.is-active) {
+  display: none;
+}
+
 .report-layout--single {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -952,6 +966,11 @@ button,
   gap: 0.95rem 1.25rem;
 }
 
+.report-content-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "main";
+}
+
 .report-form-pane {
   grid-area: main;
 }
@@ -959,8 +978,8 @@ button,
 .report-progress-aside {
   grid-area: aside;
   align-self: start;
-  position: sticky;
-  top: 0.9rem;
+  position: static;
+  top: auto;
 }
 
 .report-required-note {
@@ -1039,6 +1058,25 @@ button,
   color: #1f2934;
 }
 
+.progress-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.progress-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  color: var(--fdic-blue-800);
+}
+
+.progress-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  outline: 2px solid var(--fdic-blue-700);
+  outline-offset: 2px;
+}
+
 .report-required-marker {
   color: #a21b1b;
 }
@@ -1077,6 +1115,37 @@ button,
 
 .report-subcopy--tight {
   margin-bottom: 0.6rem;
+}
+
+.contextual-faq-suggestions {
+  margin-top: 1rem;
+  max-width: none;
+  padding: 0 0 0 1rem;
+  border: 0;
+  border-left: 4px solid var(--fdic-gray-300);
+  background: transparent;
+}
+
+.contextual-faq-suggestions h3 {
+  margin: 0 0 0.45rem;
+  font-size: var(--type-h3-size);
+}
+
+.contextual-faq-suggestions p {
+  margin: 0 0 0.45rem;
+  line-height: 1.45;
+}
+
+.contextual-faq-suggestions p:last-child {
+  margin-bottom: 0;
+}
+
+.contextual-faq-suggestions .review-faq-list {
+  margin-bottom: 0.9rem;
+}
+
+.contextual-faq-more {
+  margin-top: 0;
 }
 
 .report-grid {
@@ -1183,6 +1252,17 @@ button,
   font: inherit;
   line-height: 1.35;
   background: var(--fdic-white);
+}
+
+.report-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2.2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath fill='none' stroke='%233d4551' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M1 1.25 7 7.25 13 1.25'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 14px 9px;
 }
 
 .report-label {
@@ -1343,6 +1423,19 @@ fdic-choice-group {
   margin: 0;
 }
 
+.report-submit-note {
+  margin: 1rem 0 0.35rem;
+  color: var(--fdic-gray-700);
+  line-height: 1.45;
+}
+
+.report-submit-helper {
+  margin: 0 0 0.25rem;
+  font-size: var(--type-body-secondary);
+  color: var(--fdic-gray-700);
+  line-height: 1.4;
+}
+
 .report-summary {
   margin-top: 1.2rem;
   border-top: 1px solid var(--border-subtle);
@@ -1419,6 +1512,18 @@ fdic-choice-group {
   margin-top: 0.75rem;
 }
 
+.legal-note--full {
+  max-width: none;
+  border: 0;
+  border-left: 4px solid var(--fdic-gray-300);
+  background: transparent;
+  padding: 0 0 0 1rem;
+}
+
+.legal-note--full p {
+  max-width: 68ch;
+}
+
 .legal-note p {
   margin: 0 0 0.55rem;
   font-size: var(--type-body-secondary);
@@ -1448,6 +1553,23 @@ fdic-choice-group {
 .cases-table th {
   background: #f6f8fa;
   font-weight: 700;
+}
+
+.cases-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 0 0.85rem;
+}
+
+.cases-controls label {
+  font-weight: 600;
+  color: var(--fdic-gray-700);
+}
+
+.cases-controls .report-select {
+  width: auto;
+  min-width: 12rem;
 }
 
 #confirm-case {
@@ -1542,6 +1664,12 @@ fdic-choice-group {
 
   .report-progress-aside {
     position: static;
+  }
+
+  .report-side-rail {
+    position: static;
+    top: auto;
+    height: auto;
   }
 
   .report-actions {
