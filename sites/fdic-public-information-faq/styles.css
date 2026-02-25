@@ -13,6 +13,19 @@
   --fdic-gray-200: #dfe1e2;
   --fdic-gray-100: #f0f0f0;
   --fdic-white: #ffffff;
+  --fdic-black-900: #1b1d20;
+  --surface-muted: #f0f2f5;
+  --surface-soft: #f8fbff;
+  --surface-soft-hover: #eef4fc;
+  --surface-selected: #eef6ff;
+  --border-subtle: #dfe1e2;
+  --border-control: #c9cdd1;
+  --border-emphasis: #b9cbe1;
+  --control-height-compact: 2rem;
+  --control-height-regular: 2.25rem;
+  --control-height-large: 2.6rem;
+  --control-pad-y: 0.45rem;
+  --control-pad-x: 0.9rem;
   --type-h1-size: 2.25rem;
   --type-h1-line: 1.25;
   --type-h2-size: 1.5rem;
@@ -535,14 +548,14 @@ button,
   position: absolute;
   top: 0.75rem;
   right: 0.875rem;
-  min-height: 2rem;
-  border: 1px solid #b9cbe1;
-  background: #f8fbff;
+  min-height: var(--control-height-regular);
+  border: 1px solid var(--border-emphasis);
+  background: var(--surface-soft);
   color: var(--fdic-blue-800);
   border-radius: 999px;
   font-size: 0.9rem;
   line-height: 1;
-  padding: 0.35rem 0.65rem;
+  padding: 0.35rem 0.7rem;
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
@@ -559,7 +572,7 @@ button,
 
 .copy-link-btn:hover,
 .copy-link-btn:focus-visible {
-  background: #eef4fc;
+  background: var(--surface-soft-hover);
   border-color: #8fb0d8;
 }
 
@@ -689,8 +702,8 @@ button,
   background: var(--fdic-gold);
   color: var(--fdic-white);
   text-decoration: none;
-  padding: 0.45rem 0.9rem;
-  min-height: 2.6rem;
+  padding: var(--control-pad-y) var(--control-pad-x);
+  min-height: var(--control-height-large);
   min-width: 180px;
   font-weight: 700;
   line-height: 1.2;
@@ -706,8 +719,8 @@ button,
 }
 
 .subscribe-form input {
-  min-height: 2.6rem;
-  border: 1px solid var(--fdic-gray-300);
+  min-height: var(--control-height-large);
+  border: 1px solid var(--border-control);
   border-radius: 0;
   padding: 0.4rem 0.6rem;
   font: inherit;
@@ -719,8 +732,8 @@ button,
 }
 
 .footer-secondary {
-  border-top: 2px solid #ffffff;
-  background: #1b1d20;
+  border-top: 2px solid var(--fdic-white);
+  background: var(--fdic-black-900);
   padding: 1rem 0;
 }
 
@@ -1055,7 +1068,7 @@ button,
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
-  background: #f0f2f5;
+  background: var(--surface-muted);
   border: 1px solid transparent;
   color: #30363f;
   padding: 0.55rem 0.65rem;
@@ -1125,14 +1138,14 @@ button,
 
 .report-option.is-selected {
   border-color: #70b6f1;
-  background: #eef6ff;
+  background: var(--surface-selected);
 }
 
 .report-textarea {
   width: 100%;
   min-height: 220px;
   resize: vertical;
-  border: 1px solid #c9cdd1;
+  border: 1px solid var(--border-control);
   padding: 0.7rem;
   font: inherit;
   line-height: 1.45;
@@ -1142,8 +1155,8 @@ button,
 .report-input,
 .report-select {
   width: 100%;
-  min-height: 2.7rem;
-  border: 1px solid #c9cdd1;
+  min-height: var(--control-height-large);
+  border: 1px solid var(--border-control);
   padding: 0.5rem 0.65rem;
   font: inherit;
   line-height: 1.35;
@@ -1213,12 +1226,12 @@ button,
 .step-btn {
   font: inherit;
   border: 0;
-  background: #f0f2f5;
+  background: var(--surface-muted);
   color: #2f3540;
   text-decoration: none;
-  min-height: 2.2rem;
+  min-height: var(--control-height-regular);
   min-width: 7.2rem;
-  padding: 0.45rem 0.7rem;
+  padding: var(--control-pad-y) 0.7rem;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -1241,8 +1254,8 @@ button,
 
 .step-btn.next {
   justify-self: end;
-  background: #0d7cb8;
-  color: #fff;
+  background: var(--fdic-blue-800);
+  color: var(--fdic-white);
   cursor: pointer;
 }
 
@@ -1271,7 +1284,7 @@ button,
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  border-top: 1px solid #dfe1e2;
+  border-top: 1px solid var(--border-subtle);
   margin-top: 1.4rem;
   padding-top: 1rem;
 }
@@ -1310,7 +1323,7 @@ fdic-choice-group {
 
 .report-summary {
   margin-top: 1.2rem;
-  border-top: 1px solid #dfe1e2;
+  border-top: 1px solid var(--border-subtle);
   padding-top: 1rem;
 }
 
@@ -1325,7 +1338,7 @@ fdic-choice-group {
 
 .review-summary {
   margin: 0;
-  border: 1px solid #dfe1e2;
+  border: 1px solid var(--border-subtle);
   background: #f9fafb;
 }
 
@@ -1340,7 +1353,7 @@ fdic-choice-group {
 .review-summary dd {
   margin: 0;
   padding: 0 1rem 0.85rem;
-  border-bottom: 1px solid #dfe1e2;
+  border-bottom: 1px solid var(--border-subtle);
   line-height: 1.45;
 }
 
