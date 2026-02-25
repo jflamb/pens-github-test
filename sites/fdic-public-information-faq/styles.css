@@ -141,6 +141,7 @@ a {
 .tbm-main .tbm-link {
   color: var(--fdic-white);
   text-decoration: none;
+  font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
   font-size: 1.2rem;
   font-weight: 400;
   letter-spacing: 0.083em;
@@ -441,6 +442,17 @@ button,
   padding: 0;
 }
 
+.faq-list-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.faq-list-item {
+  margin: 0;
+  padding: 0;
+}
+
 .faq-item {
   position: relative;
   border: 0;
@@ -521,6 +533,7 @@ button,
   font-size: 0.9rem;
   line-height: 1;
   padding: 0.35rem 0.65rem;
+  visibility: hidden;
   opacity: 0;
   pointer-events: none;
   transition: opacity 120ms ease, background-color 120ms ease, border-color 120ms ease;
@@ -529,6 +542,7 @@ button,
 .faq-item:hover .copy-link-btn,
 .faq-item:focus-within .copy-link-btn,
 .faq-item:has(details[open]) .copy-link-btn {
+  visibility: visible;
   opacity: 1;
   pointer-events: auto;
 }
@@ -1038,7 +1052,48 @@ button,
 }
 
 .report-option input[type="radio"] {
-  margin: 0.15rem 0 0;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0.18rem 0 0;
+  width: 1.12rem;
+  height: 1.12rem;
+  font-size: 1rem;
+  border: 2px solid #7b8794;
+  border-radius: 50%;
+  background: #fff;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-content: center;
+}
+
+.report-option input[type="radio"]::before {
+  content: "";
+  width: 0.53rem;
+  height: 0.53rem;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 120ms ease-in-out;
+  background: #0d7cb8;
+}
+
+.report-option input[type="radio"]:checked {
+  border-color: #0d7cb8;
+}
+
+.report-option input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.report-option input[type="radio"]:focus-visible {
+  outline: 2px solid var(--fdic-blue-700);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .report-option input[type="radio"]::before {
+    transition: none;
+  }
 }
 
 .report-option__text {
@@ -1159,8 +1214,12 @@ button,
 }
 
 .step-btn .icon {
-  font-size: 1.1rem;
+  font-size: 1.68rem;
   line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-2px);
 }
 
 .step-btn.next {
