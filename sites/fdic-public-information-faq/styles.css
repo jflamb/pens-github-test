@@ -196,6 +196,22 @@ a {
   text-align: left;
 }
 
+.ds-region-abovecontent .fdic-breadcrumb {
+  margin: 0 0 0.75rem;
+}
+
+.ds-region-abovecontent .content-subtitle {
+  margin: 0 0 0.45rem;
+}
+
+.ds-region-abovecontent h1 {
+  margin: 0 0 0.75rem;
+}
+
+.ds-region-abovecontent .support-intro {
+  margin: 0 auto 0.9rem;
+}
+
 .fdic-breadcrumb {
   margin: 0 0 0.75rem;
   font-size: var(--type-caption-size);

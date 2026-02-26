@@ -1,5 +1,20 @@
 # TODO
 
+## Current Task (Header Spacing Consistency)
+- [x] Normalize hero/header spacing between breadcrumb, subtitle, title, and intro text.
+- [x] Apply shared spacing rules across all pages via `.ds-region-abovecontent`.
+- [x] Eliminate margin-driven layout shifts when navigating between sidebar pages.
+
+## Review / Results (Header Spacing Consistency)
+- Added scoped spacing rules for hero elements in `.ds-region-abovecontent`:
+  - breadcrumb
+  - gold subtitle
+  - page `h1`
+  - optional intro copy
+- Removed reliance on mixed default margins for these elements in header context.
+- Verification:
+  - Reviewed selector coverage against all page templates using `ds-region-abovecontent`.
+
 ## Current Task (Intake Heading Rhythm and Subcopy Placement)
 - [x] Move intake helper sentence into the form area above `* Required fields`.
 - [x] Apply heading spacing rule in form content (`1.5em` above / `0.5em` below).
