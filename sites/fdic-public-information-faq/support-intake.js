@@ -263,6 +263,7 @@ const contextualFaqList = document.getElementById("contextual-faq-list");
 const form = document.getElementById("support-intake-form");
 const reviewSubmissionButton = document.getElementById("review-submission-btn");
 const reviewSubmitHelper = document.getElementById("review-submit-helper");
+const submissionDisclosure = document.getElementById("submission-disclosure");
 const errorSummary = document.getElementById("form-errors");
 const liveStatus = document.getElementById("intake-status");
 const summary = document.getElementById("flow-summary");
@@ -582,9 +583,10 @@ function updateStepState() {
   ];
   const visibleItems = progressItems.filter((item) => item.visible);
   const completeCount = visibleItems.filter((item) => item.complete).length;
-  const remainingCount = visibleItems.length - completeCount;
   const firstIncompleteIndex = visibleItems.findIndex((item) => !item.complete);
   const currentStepNode = firstIncompleteIndex === -1 ? null : visibleItems[firstIncompleteIndex]?.node || null;
+  const currentStepId = currentStepNode?.id || "";
+  const complete = isFormComplete();
 
   for (const item of progressItems) {
     setProgressItem(
@@ -599,14 +601,26 @@ function updateStepState() {
 
   liveStatus.textContent = `Progress updated. ${completeCount} of ${visibleItems.length} visible required sections complete.`;
 
+  if (submissionDisclosure) {
+    submissionDisclosure.hidden = !complete;
+  }
+
   if (reviewSubmissionButton) {
-    const complete = isFormComplete();
     reviewSubmissionButton.disabled = !complete;
     reviewSubmissionButton.setAttribute("aria-disabled", complete ? "false" : "true");
     if (reviewSubmitHelper) {
+      const helperByStep = {
+        "progress-intent": "Make a selection to continue.",
+        "progress-topic": "Make a selection to continue.",
+        "progress-outcome": "Make a selection to continue.",
+        "progress-details": "Enter details to continue.",
+        "progress-identity": "Complete this section to continue.",
+        "progress-mailing": "Complete this section to continue.",
+        "progress-resolution": "Enter details to continue.",
+      };
       reviewSubmitHelper.textContent = complete
         ? "All required sections are complete. Select Review your submission to continue."
-        : `Complete ${remainingCount} more required ${remainingCount === 1 ? "section" : "sections"} to continue.`;
+        : helperByStep[currentStepId] || "Complete this section to continue.";
     }
   }
 }

@@ -1,5 +1,18 @@
 # TODO
 
+## Current Task (Progressive Guidance Copy)
+- [x] Replace section-count helper copy with progressive-disclosure helper guidance.
+- [x] Show `Make a selection to continue.` when the current required step is radio-based.
+- [x] Remove redundant static submit-note copy near the CTA.
+
+## Review / Results (Progressive Guidance Copy)
+- Updated helper messaging logic in intake step-state handling to be current-step aware.
+- Radio steps now use: `Make a selection to continue.`
+- Text entry steps now use concise guidance (`Enter details to continue.` / `Complete this section to continue.`).
+- Removed static line: `You can review and edit your answers before final submission.`
+- Verification:
+  - `node --check sites/fdic-public-information-faq/support-intake.js`
+
 ## Current Task (Form Rhythm Tuning)
 - [x] Audit intake-page vertical spacing tokens after intro content.
 - [x] Adjust intake CSS spacing to keep consistent rhythm from intro through form sections.
