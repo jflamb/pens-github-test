@@ -78,6 +78,7 @@ function wireEvents() {
     state.query = "";
     updateInlineClearVisibility();
     render();
+    els.search.focus();
   });
 
   window.addEventListener("hashchange", openByHash);
@@ -340,8 +341,7 @@ function renderCategoryTree(counts) {
       type="button"
       data-topic-id="__all__"
       data-depth="0"
-      role="treeitem"
-      aria-level="1"
+      role="option"
       aria-selected="${state.selectedTopicId === "__all__"}"
       tabindex="${state.activeTreeItemId === "__all__" ? "0" : "-1"}"
     >
@@ -366,8 +366,7 @@ function renderCategoryTree(counts) {
         style="padding-left:${TREE_BASE_INDENT_PX + indent}px"
         data-topic-id="${topic.id}"
         data-depth="${topic.depth}"
-        role="treeitem"
-        aria-level="${topic.depth + 1}"
+        role="option"
         aria-selected="${isSelected}"
         tabindex="${state.activeTreeItemId === topic.id ? "0" : "-1"}"
       >
@@ -423,24 +422,6 @@ function handleCategoryTreeKeydown(event) {
     return;
   }
 
-  if (key === "ArrowRight") {
-    event.preventDefault();
-    const childIndex = firstChildIndex(buttons, currentIndex);
-    if (childIndex !== -1) {
-      focusTreeButtonByIndex(buttons, childIndex);
-    }
-    return;
-  }
-
-  if (key === "ArrowLeft") {
-    event.preventDefault();
-    const parentIndex = parentIndexOf(buttons, currentIndex);
-    if (parentIndex !== -1) {
-      focusTreeButtonByIndex(buttons, parentIndex);
-    }
-    return;
-  }
-
   if (key === "Enter" || key === " ") {
     event.preventDefault();
     selectTopic(target.dataset.topicId || "__all__", true);
@@ -471,26 +452,6 @@ function focusTreeButtonByIndex(buttons, index) {
     candidate.tabIndex = candidate === button ? 0 : -1;
   }
   button.focus();
-}
-
-function firstChildIndex(buttons, currentIndex) {
-  const currentDepth = Number(buttons[currentIndex].dataset.depth || "0");
-  for (let i = currentIndex + 1; i < buttons.length; i += 1) {
-    const depth = Number(buttons[i].dataset.depth || "0");
-    if (depth === currentDepth + 1) return i;
-    if (depth <= currentDepth) return -1;
-  }
-  return -1;
-}
-
-function parentIndexOf(buttons, currentIndex) {
-  const currentDepth = Number(buttons[currentIndex].dataset.depth || "0");
-  if (currentDepth === 0) return -1;
-  for (let i = currentIndex - 1; i >= 0; i -= 1) {
-    const depth = Number(buttons[i].dataset.depth || "0");
-    if (depth === currentDepth - 1) return i;
-  }
-  return -1;
 }
 
 function cssEscape(value) {

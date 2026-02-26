@@ -39,11 +39,11 @@ function renderCases(cases, sortValue = "newest") {
     .map((item) => {
       const submitted = item.submittedAt ? new Date(item.submittedAt).toLocaleString() : "Unknown";
       return `<tr>
-        <td>${item.caseId || "Unknown"}</td>
-        <td>${submitted}</td>
-        <td>${item.workflowHeading || "Unknown"}</td>
-        <td>${item.topicTitle || "Unknown"}</td>
-        <td>${item.status || "Submitted"}</td>
+        <td>${escapeHtml(item.caseId || "Unknown")}</td>
+        <td>${escapeHtml(submitted)}</td>
+        <td>${escapeHtml(item.workflowHeading || "Unknown")}</td>
+        <td>${escapeHtml(item.topicTitle || "Unknown")}</td>
+        <td>${escapeHtml(item.status || "Submitted")}</td>
       </tr>`;
     })
     .join("");

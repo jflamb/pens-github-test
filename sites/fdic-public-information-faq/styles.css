@@ -385,8 +385,7 @@ a {
 }
 
 button,
-.usa-button,
-.back-link {
+.usa-button {
   font: inherit;
 }
 
@@ -783,8 +782,7 @@ button,
   padding-right: 0.8rem;
 }
 
-.footer-secondary-menu a,
-.back-link {
+.footer-secondary-menu a {
   color: var(--fdic-white);
   text-decoration: none;
   font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
@@ -795,14 +793,8 @@ button,
 }
 
 .footer-secondary-menu a:hover,
-.footer-secondary-menu a:focus-visible,
-.back-link:hover,
-.back-link:focus-visible {
+.footer-secondary-menu a:focus-visible {
   text-decoration: underline;
-}
-
-.back-link {
-  font-weight: 600;
 }
 
 .support-intro {

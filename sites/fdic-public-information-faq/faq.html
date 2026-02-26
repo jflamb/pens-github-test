@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FDIC Public Information FAQ</title>
+    <title>Frequently Asked Questions | FDIC</title>
+    <meta name="description" content="Browse and search frequently asked questions about FDIC deposit insurance, banking, and consumer services." />
+    <link rel="icon" href="https://www.fdic.gov/favicon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Open+Sans:wght@400;600;700&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet" />
@@ -18,7 +20,7 @@
       <div class="ds-region-abovecontent">
         <fdic-breadcrumb crumbs='[{"label":"Home","href":"https://www.fdic.gov"},{"label":"Information and Support Center","href":"index.html"},{"label":"Frequently Asked Questions"}]'></fdic-breadcrumb>
 
-        <div class="content-subtitle">Information and Support Center</div>
+        <p class="content-subtitle">Information and Support Center</p>
         <h1>Frequently Asked Questions</h1>
         <fdic-share-bar></fdic-share-bar>
       </div>
@@ -27,7 +29,7 @@
         <aside class="report-side-rail report-side-rail--faq" aria-label="Support navigation and topic navigation">
           <fdic-support-nav active="faq.html"></fdic-support-nav>
           <section class="sidebar-container navigation" aria-label="Topic navigation">
-            <div id="category-tree" class="category-tree" role="tree"></div>
+            <div id="category-tree" class="category-tree" role="listbox" aria-label="Filter by topic"></div>
           </section>
         </aside>
 

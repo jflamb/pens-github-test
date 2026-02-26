@@ -227,7 +227,6 @@ class FDICChoiceGroup extends HTMLElement {
         ${this.config.help ? `<p class="report-subcopy">${this.config.help}</p>` : ""}
         <div class="report-grid">${radios}</div>
       </fieldset>`;
-    this.setAttribute("aria-required", this.config.required ? "true" : "false");
   }
 }
 
@@ -489,6 +488,8 @@ function renderIntentGroup() {
 }
 
 function renderTopicAndOutcome() {
+  const wasTopicHidden = topicWrapper.hidden;
+  const wasDetailsHidden = detailsWrapper.hidden;
   const workflow = getCurrentWorkflow();
   if (!workflow) {
     if (progressTracker) {
@@ -509,7 +510,9 @@ function renderTopicAndOutcome() {
     return;
   }
 
+  let progressTrackerBecameVisible = false;
   if (progressTracker) {
+    progressTrackerBecameVisible = progressTracker.hidden;
     progressTracker.hidden = false;
     progressTracker.classList.add("is-active");
   }
@@ -552,7 +555,25 @@ function renderTopicAndOutcome() {
 
   updateEndpoint();
   renderContextualFaqSuggestions();
+  if (progressTrackerBecameVisible) {
+    liveStatus.textContent = "Progress tracker is now visible.";
+  }
   updateStepState();
+
+  const topicBecameVisible = wasTopicHidden && !topicWrapper.hidden;
+  const detailsBecameVisible = wasDetailsHidden && !detailsWrapper.hidden;
+
+  if (detailsBecameVisible) {
+    detailsInput.focus();
+    return;
+  }
+
+  if (topicBecameVisible) {
+    const firstTopicInput = topicGroup.querySelector('input[type="radio"]');
+    if (firstTopicInput instanceof HTMLElement) {
+      firstTopicInput.focus();
+    }
+  }
 }
 
 function updateEndpoint() {
@@ -575,7 +596,7 @@ function updateEndpoint() {
     return;
   }
 
-  endpointCopy.textContent = `Based on your selections, your request will be routed to ${endpoint.label} (${endpoint.queueCode}).`;
+  endpointCopy.textContent = `Based on your selections, your request will be routed to the ${endpoint.label}.`;
   endpointLinkWrap.textContent = "";
 }
 

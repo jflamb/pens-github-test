@@ -42,9 +42,7 @@ function renderSubmitted(data) {
   phoneNode.textContent = data.businessPhone || "Not provided";
   addressNode.textContent = formatAddress(data);
   resolutionNode.textContent = data.desiredResolution || "Not provided";
-  endpointNode.textContent = data.endpointLabel
-    ? `${data.endpointLabel}${data.queueCode ? ` (${data.queueCode})` : ""}`
-    : "Not provided";
+  endpointNode.textContent = data.endpointLabel || "Not provided";
 
   summaryNode.hidden = false;
 }
@@ -67,9 +65,24 @@ function formatAddress(data) {
   return parts.join(" • ") || "Not provided";
 }
 
+function updateBreadcrumb(data) {
+  const breadcrumb = document.querySelector("fdic-breadcrumb");
+  if (!breadcrumb || !data?.workflowHeading) {
+    return;
+  }
+  const crumbs = [
+    { label: "Home", href: "https://www.fdic.gov" },
+    { label: "Information and Support Center", href: "index.html" },
+    { label: data.workflowHeading, href: "report-problem.html" },
+    { label: "Submission Confirmation" },
+  ];
+  breadcrumb.setAttribute("crumbs", JSON.stringify(crumbs));
+}
+
 const submitted = loadSubmitted();
 if (!submitted || !submitted.caseId) {
   renderMissing();
 } else {
+  updateBreadcrumb(submitted);
   renderSubmitted(submitted);
 }

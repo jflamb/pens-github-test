@@ -100,7 +100,6 @@ class FDICSiteFooter extends HTMLElement {
               <li><a href="https://www.fdicoig.gov" target="_blank" rel="noopener noreferrer">Inspector General</a></li>
             </ul>
           </nav>
-          <a class="back-link" href="../../index.html">Back to all sites</a>
         </div>
       </div>
     </footer>`;
@@ -163,7 +162,7 @@ class FDICSupportNav extends HTMLElement {
     this.innerHTML = `<nav class="support-sidenav" aria-label="Support navigation">${items
       .map((item) => {
         const selected = getPath(item.href) === activePath;
-        return `<a class="support-nav-item${selected ? " selected" : ""}" href="${item.href}">${item.label}</a>`;
+        return `<a class="support-nav-item${selected ? " selected" : ""}" href="${item.href}"${selected ? ' aria-current="page"' : ""}>${item.label}</a>`;
       })
       .join("")}</nav>`;
   }
@@ -249,7 +248,7 @@ class FDICStepActions extends HTMLElement {
       ? `<a${nextId ? ` id="${nextId}"` : ""} class="step-btn next" href="${escapeHtml(nextHref)}">${nextLabel}<span class="icon" aria-hidden="true">&#8250;</span></a>`
       : `<button${nextId ? ` id="${nextId}"` : ""} type="${nextType}" class="step-btn next">${nextLabel}<span class="icon" aria-hidden="true">&#8250;</span></button>`;
 
-    this.innerHTML = `<div class="report-actions${extraClass ? ` ${escapeHtml(extraClass)}` : ""}" aria-label="${actionsLabel}">${backButton}${nextControl}</div>`;
+    this.innerHTML = `<div role="group" class="report-actions${extraClass ? ` ${escapeHtml(extraClass)}` : ""}" aria-label="${actionsLabel}">${backButton}${nextControl}</div>`;
   }
 }
 
@@ -257,7 +256,7 @@ class FDICProgressTracker extends HTMLElement {
   connectedCallback() {
     const steps = parseJsonAttribute(this.getAttribute("steps"), []);
 
-    this.innerHTML = `<aside class="report-progress-aside" aria-label="Form progress">
+    this.innerHTML = `<section class="report-progress-aside" aria-label="Form progress">
       <div class="report-progress" aria-live="polite">
         <h3 class="report-progress-title">Sections in this request</h3>
         <ul id="progress-list" class="report-progress-list">${steps
@@ -267,7 +266,7 @@ class FDICProgressTracker extends HTMLElement {
           )
           .join("")}</ul>
       </div>
-    </aside>`;
+    </section>`;
   }
 }
 
