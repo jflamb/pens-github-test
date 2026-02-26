@@ -1,5 +1,28 @@
 # TODO
 
+## Current Task (Intake Heading Rhythm and Subcopy Placement)
+- [x] Move intake helper sentence into the form area above `* Required fields`.
+- [x] Apply heading spacing rule in form content (`1.5em` above / `0.5em` below).
+- [x] Increase form vertical spacing cadence to reduce visual tightness.
+
+## Review / Results (Intake Heading Rhythm and Subcopy Placement)
+- Moved `#intake-subcopy` from hero region into `.report-main`, directly above the required-fields note.
+- Applied `1.5em` top and `0.5em` bottom spacing for report-area headings.
+- Increased required-note, section, and option-grid spacing for a looser vertical rhythm.
+- Verification:
+  - Reviewed HTML/CSS diff for updated placement and spacing selectors.
+
+## Current Task (Step Actions Consistency)
+- [x] Standardize `fdic-step-actions` button sizing in shared component styles.
+- [x] Remove page-specific height override now covered by shared rules.
+- [x] Ensure "My cases" action buttons align with form-page button sizing.
+
+## Review / Results (Step Actions Consistency)
+- Moved large-control sizing to `.report-actions .step-btn` so component actions render consistently across pages.
+- Removed redundant `.review-actions .step-btn` min-height override.
+- Verification:
+  - Reviewed selector scope to ensure changes affect web-component action rows (`fdic-step-actions`) and not unrelated controls.
+
 ## Current Task (FDIC Hero Heading Pattern)
 - [x] Apply gold section subtitle (`Information and Support Center`) in page hero regions.
 - [x] Set page/task title as `h1` in hero area on task pages.

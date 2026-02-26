@@ -954,9 +954,15 @@ button,
   margin-inline: auto;
 }
 
-.report-main h2 {
-  margin-top: 0.3rem;
-  margin-bottom: 1.15rem;
+.report-main h2,
+.report-main h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.report-main h2:first-child,
+.report-main h3:first-child {
+  margin-top: 0;
 }
 
 .report-content-grid {
@@ -983,7 +989,7 @@ button,
 }
 
 .report-required-note {
-  margin: 0 0 1.6rem;
+  margin: 0.2rem 0 1.9rem;
   font-size: var(--type-body-secondary);
   color: var(--fdic-gray-700);
 }
@@ -1103,7 +1109,7 @@ button,
 }
 
 .report-section {
-  margin-top: 2rem;
+  margin-top: 2.25rem;
 }
 
 .report-subcopy {
@@ -1151,7 +1157,7 @@ button,
 .report-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem 1rem;
+  gap: 1rem 1.1rem;
 }
 
 .report-option {
@@ -1395,6 +1401,11 @@ button,
   padding-top: 1.2rem;
 }
 
+.report-actions .step-btn {
+  min-height: var(--control-height-large);
+  padding: var(--control-pad-y) var(--control-pad-x);
+}
+
 fieldset.report-fieldset {
   border: 0;
   margin: 0;
@@ -1404,7 +1415,7 @@ fieldset.report-fieldset {
 fieldset.report-fieldset legend {
   display: block;
   padding: 0;
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.5em;
   font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
   font-size: var(--type-h2-size);
   line-height: 1.25;
@@ -1482,10 +1493,6 @@ fdic-choice-group {
 
 .review-actions {
   margin-top: 1.15rem;
-}
-
-.review-actions .step-btn {
-  min-height: var(--control-height-large);
 }
 
 .review-faq-suggestions {
