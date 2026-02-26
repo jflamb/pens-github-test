@@ -353,6 +353,10 @@ function renderCategoryTree(counts) {
   for (const topic of state.allTopics) {
     const count = counts.get(topic.id) || 0;
     const isSelected = state.selectedTopicId === topic.id;
+    const isSubtopic = topic.depth > 0;
+    if (isSubtopic && count === 0 && !isSelected) {
+      continue;
+    }
     const indent = topic.depth * TREE_DEPTH_INDENT_PX;
 
     rows.push(`

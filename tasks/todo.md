@@ -1,5 +1,16 @@
 # TODO
 
+## Current Task (FAQ Rail Scroll and Zero-Count Topics)
+- [x] Prevent FAQ left-rail clipping by making topic navigation independently scrollable.
+- [x] Keep support nav usable while topic list can scroll within viewport height.
+- [x] Hide subtopics with zero matching questions in the topic tree.
+
+## Review / Results (FAQ Rail Scroll and Zero-Count Topics)
+- Added FAQ-specific side-rail behavior with sticky container + internal scroll on topic section.
+- Updated topic-tree rendering to omit zero-count subtopics unless currently selected.
+- Verification:
+  - Reviewed FAQ HTML/CSS/JS diffs for scoped behavior (`report-side-rail--faq`, topic tree render rules).
+
 ## Current Task (Header Spacing Consistency)
 - [x] Normalize hero/header spacing between breadcrumb, subtitle, title, and intro text.
 - [x] Apply shared spacing rules across all pages via `.ds-region-abovecontent`.

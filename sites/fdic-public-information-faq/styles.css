@@ -956,6 +956,17 @@ button,
   height: fit-content;
 }
 
+.report-side-rail--faq {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: calc(100vh - 1.5rem);
+}
+
+.report-side-rail--faq .sidebar-container.navigation {
+  min-height: 0;
+  overflow-y: auto;
+}
+
 .report-side-rail fdic-progress-tracker:not(.is-active) {
   display: none;
 }
