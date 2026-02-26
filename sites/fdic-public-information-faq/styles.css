@@ -581,7 +581,7 @@ button,
   font-size: 1.12rem;
   line-height: 1.34;
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: normal;
   color: #15334f;
   transition: color 150ms ease;
 }
