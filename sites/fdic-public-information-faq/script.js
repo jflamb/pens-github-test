@@ -334,6 +334,8 @@ function renderResultCount(count) {
 
 function renderCategoryTree(counts) {
   const rows = [];
+  const topicsById = new Map(state.allTopics.map((topic) => [topic.id, topic]));
+  const expandedRootTopicId = getExpandedRootTopicId(topicsById);
 
   rows.push(`
     <button
@@ -354,6 +356,12 @@ function renderCategoryTree(counts) {
     const count = counts.get(topic.id) || 0;
     const isSelected = state.selectedTopicId === topic.id;
     const isSubtopic = topic.depth > 0;
+    const topicRootId = isSubtopic ? getRootTopicId(topic.id, topicsById) : topic.id;
+    const isInExpandedBranch = Boolean(expandedRootTopicId && topicRootId === expandedRootTopicId);
+
+    if (isSubtopic && !isInExpandedBranch && !isSelected) {
+      continue;
+    }
     if (isSubtopic && count === 0 && !isSelected) {
       continue;
     }
@@ -384,6 +392,26 @@ function renderCategoryTree(counts) {
       selectTopic(topicId, false);
     });
   }
+}
+
+function getExpandedRootTopicId(topicsById) {
+  if (state.selectedTopicId === "__all__") return null;
+  return getRootTopicId(state.selectedTopicId, topicsById);
+}
+
+function getRootTopicId(topicId, topicsById) {
+  let currentId = topicId;
+  const visited = new Set();
+
+  while (currentId && !visited.has(currentId)) {
+    visited.add(currentId);
+    const topic = topicsById.get(currentId);
+    if (!topic) return null;
+    if (!topic.parentId) return topic.id;
+    currentId = topic.parentId;
+  }
+
+  return null;
 }
 
 function handleCategoryTreeKeydown(event) {

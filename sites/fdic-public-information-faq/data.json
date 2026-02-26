@@ -241,8 +241,8 @@
       "expanded": false
     },
     {
-      "name": "Help Using Ask FDIC Page",
-      "label": "Help Using Ask FDIC Page",
+      "name": "Using the Information and Support Center",
+      "label": "Using the Information and Support Center",
       "items": [],
       "id": "0TOt0000000kCATGA2",
       "href": "https://ask.fdic.gov/fdicinformationandsupportcenter/s/detail/0TOt0000000kCATGA2",
@@ -4495,6 +4495,71 @@
         {
           "id": "0TOt000000003LMGAY",
           "label": "Industry Information and Data Tools"
+        }
+      ]
+    },
+    {
+      "id": "local-isc-001",
+      "urlName": "Q-What-is-the-difference-between-reporting-a-problem-and-asking-a-question",
+      "question": "Q: What is the difference between reporting a problem and asking a question?",
+      "summary": "A: Use Report a problem or concern when you believe a bank may have treated you unfairly or violated a rule. Use Ask a question or get guidance when you need information or are unsure where to start.",
+      "answerHtml": "A: Use <strong>Report a problem or concern</strong> when you believe a bank may have treated you unfairly or may have violated a rule. Use <strong>Ask a question or get guidance</strong> when you need information, are not sure which process applies, or need help finding the right FDIC resource.",
+      "topics": [
+        {
+          "id": "0TOt0000000kCATGA2",
+          "label": "Using the Information and Support Center"
+        }
+      ]
+    },
+    {
+      "id": "local-isc-002",
+      "urlName": "Q-How-do-I-choose-the-right-option-to-start-my-request",
+      "question": "Q: How do I choose the right option to start my request?",
+      "summary": "A: Start by selecting the option that best matches your goal: report a concern, ask a question, get failed bank help, or submit a DIR data request. The form reveals only the sections needed for your selection.",
+      "answerHtml": "A: Pick the option that best matches your goal:<br>• <strong>Report a problem or concern</strong> for possible unfair treatment or misconduct.<br>• <strong>Ask a question or get guidance</strong> for general information requests.<br>• <strong>Get help with a failed bank</strong> for claims, records, or lien release support.<br>• <strong>Request FDIC Bank Data and Research (DIR)</strong> for QBP, Call Report, and industry analysis requests.<br><br>After you choose, the form shows only the sections needed to route your request.",
+      "topics": [
+        {
+          "id": "0TOt0000000kCATGA2",
+          "label": "Using the Information and Support Center"
+        }
+      ]
+    },
+    {
+      "id": "local-isc-003",
+      "urlName": "Q-Can-I-review-and-edit-my-answers-before-submitting",
+      "question": "Q: Can I review and edit my answers before submitting?",
+      "summary": "A: Yes. Select Review your submission once required sections are complete. On the review page, use Back to edit to make changes before final submission.",
+      "answerHtml": "A: Yes. Once required sections are complete, select <strong>Review your submission</strong>. On the review page, use <strong>Back to edit</strong> to return to the form and update your answers before you submit.",
+      "topics": [
+        {
+          "id": "0TOt0000000kCATGA2",
+          "label": "Using the Information and Support Center"
+        }
+      ]
+    },
+    {
+      "id": "local-isc-004",
+      "urlName": "Q-How-do-I-track-a-request-after-submission",
+      "question": "Q: How do I track a request after submission?",
+      "summary": "A: After you submit, use View My Cases to see submitted requests and status. In this prototype, case history is stored locally in your browser.",
+      "answerHtml": "A: After submitting, go to <a href=\"view-cases.html\">View My Cases</a> to see your submitted requests and status. In this prototype, case history is stored locally in your browser.",
+      "topics": [
+        {
+          "id": "0TOt0000000kCATGA2",
+          "label": "Using the Information and Support Center"
+        }
+      ]
+    },
+    {
+      "id": "local-isc-005",
+      "urlName": "Q-What-information-should-I-avoid-including-in-my-request",
+      "question": "Q: What information should I avoid including in my request?",
+      "summary": "A: Share only what is needed to process your request. Do not include sensitive data such as full Social Security numbers, account numbers, PINs, passwords, or other credentials.",
+      "answerHtml": "A: Provide only the information needed to process your request. Do <strong>not</strong> include sensitive data such as full Social Security numbers, full account numbers, PINs, passwords, or other security credentials in open text fields.",
+      "topics": [
+        {
+          "id": "0TOt0000000kCATGA2",
+          "label": "Using the Information and Support Center"
         }
       ]
     }

@@ -1,5 +1,28 @@
 # TODO
 
+## Current Task (FAQ Help Topic Content + Naming)
+- [x] Rename the empty "Help Using Ask FDIC Page" topic to align with Information and Support Center language.
+- [x] Add starter FAQs for common navigation and form-usage questions under that topic.
+- [x] Keep FAQ content plain-language and user-task oriented.
+
+## Review / Results (FAQ Help Topic Content + Naming)
+- Renamed topic to `Using the Information and Support Center`.
+- Added five new FAQs covering option selection, edit-before-submit, case tracking, and sensitive-data guidance.
+- Verification:
+  - JSON parse check via Node on `sites/fdic-public-information-faq/data.json`.
+
+## Current Task (FAQ Topic Branch Collapse)
+- [x] Collapse topic tree by default to top-level topics only.
+- [x] Reveal sub-topics only for the currently selected parent topic.
+- [x] Keep zero-count subtopic filtering and listbox keyboard behavior intact.
+
+## Review / Results (FAQ Topic Branch Collapse)
+- Updated FAQ topic rendering to treat the sidebar as collapsed-by-default.
+- Subtopics now render only for the currently selected top-level branch.
+- Preserved zero-count subtopic suppression (unless currently selected) and existing listbox keyboard navigation.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
 ## Current Task (FAQ Rail Scroll and Zero-Count Topics)
 - [x] Prevent FAQ left-rail clipping by making topic navigation independently scrollable.
 - [x] Keep support nav usable while topic list can scroll within viewport height.
