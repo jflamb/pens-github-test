@@ -926,7 +926,7 @@ button,
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
   gap: 1.35rem;
-  padding-top: 0.9rem;
+  padding-top: 1.2rem;
   padding-bottom: 2.5rem;
 }
 
@@ -956,7 +956,7 @@ button,
 
 .report-main h2 {
   margin-top: 0.3rem;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1rem;
 }
 
 .report-content-grid {
@@ -983,7 +983,7 @@ button,
 }
 
 .report-required-note {
-  margin: 0 0 1rem;
+  margin: 0 0 1.4rem;
   font-size: var(--type-body-secondary);
   color: var(--fdic-gray-700);
 }
@@ -1107,9 +1107,9 @@ button,
 }
 
 .report-subcopy {
-  margin: 0 0 0.9rem;
+  margin: 0 0 1.25rem;
   font-size: 1.02rem;
-  line-height: 1.4;
+  line-height: 1.5;
   color: var(--fdic-gray-700);
 }
 

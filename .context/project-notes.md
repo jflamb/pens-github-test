@@ -78,6 +78,63 @@ Implemented in `script.js` + `faq.html`.
 - `view-cases.html` reads browser-local history only.
 
 ## Accessibility/UX Notes
+
+## Session Learnings (2026-02-26)
+
+### Canonical page model
+- `index.html` is now the canonical intake page (not a marketing/home hub).
+- `report-problem.html` remains a compatibility entry point and can forward/preserve mode query usage.
+- Keep breadcrumb/page title semantics aligned with actual page purpose to avoid "Report a Problem" labeling when users enter via other intents.
+
+### Left rail IA pattern (standardized)
+- Left rail is now:
+  - `Information & Support Center`
+  - `Frequently Asked Questions`
+  - `View My Cases`
+- This same nav should appear on intake, FAQ, and cases pages.
+- On FAQ, topic tree lives beneath the global support nav in the same left rail.
+
+### Progress model (single source of truth)
+- Progress should not be duplicated in nav and panel.
+- Progress panel behavior:
+  - Hidden until user selects an intent (`report` / `ask` / `failed`).
+  - Shows only currently visible sections (conditional disclosure aware).
+  - Items behave as in-page anchors for visible sections.
+- Sticky behavior is applied to `.report-side-rail` (more reliable than sticky on inner tracker in current layout).
+
+### In-flow FAQ deflection pattern
+- Show contextual FAQ suggestions only after topic selection.
+- Suggestions should be real question links to `faq.html#faq-...`, not topic-only links.
+- Include a clear escape hatch link: "Browse all FAQs".
+- Spacing needs explicit list-bottom gap before "Browse all FAQs".
+
+### Content callout styling decision
+- For full-width form sections with constrained text, avoid full background-filled boxes that create awkward right-side whitespace.
+- Adopt inset/callout style:
+  - left rule only
+  - no fill
+  - no full border
+  - constrained readable measure for text (currently ~68ch)
+- Use neutral FDIC gray accent for inset rules to avoid excessive navy bars competing across the page.
+
+### Cases page improvements implemented
+- Added "Sort by recency" control (`Newest first` / `Oldest first`) with timestamp-based sort.
+- Added stronger empty state with next actions:
+  - start a request
+  - browse FAQs
+- Disable sort control when there are zero cases.
+
+### Routing copy behavior (prototype)
+- Bottom routing sentence is rule-based in `support-intake.js`:
+  - selected topic provides `endpointKey`
+  - `endpointKey` maps into static `ENDPOINTS` object (`label`, `queueCode`)
+- This is not backend routing; it is deterministic prototype logic.
+
+### Known gotchas
+- If progress appears before intent selection, verify:
+  - no `?mode=` query preselecting intent
+  - tracker has both `hidden` attribute in HTML and inactive guard class behavior in JS/CSS.
+- Browser cache can present stale component behavior; use cache-busting query params during QA.
 - Preserve strong visible focus states.
 - Avoid clipped focus rings and border/fill misalignment.
 - Use fieldset/legend semantics for grouped controls.

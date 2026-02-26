@@ -59,5 +59,6 @@ Detailed product/context history lives in `.context/project-notes.md`.
 
 ## Key Docs
 - Detailed implementation history and decisions: `.context/project-notes.md`
+- Most recent session deltas and UX decisions: see "Session Learnings (2026-02-26)" in `.context/project-notes.md`
 - Current task plan/log: `tasks/todo.md`
 - Cross-session lessons: `tasks/lessons.md`

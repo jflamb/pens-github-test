@@ -1,5 +1,20 @@
 # TODO
 
+## Current Task (Form Rhythm Tuning)
+- [x] Audit intake-page vertical spacing tokens after intro content.
+- [x] Adjust intake CSS spacing to keep consistent rhythm from intro through form sections.
+- [x] Verify updated spacing in desktop and mobile breakpoints.
+
+## Review / Results (Form Rhythm Tuning)
+- Aligned intake-page rhythm with the intro section by increasing:
+  - top spacing into the intake layout (`.report-layout` `padding-top`)
+  - heading-to-body separation in the intake panel (`.report-main h2`)
+  - spacing before first form block (`.report-required-note`)
+  - subcopy breathing room and readability (`.report-subcopy` margin + line-height)
+- Verification:
+  - Checked for CSS syntax regressions by reviewing exact diff.
+  - Confirmed these selectors are not overridden in responsive media queries, so the rhythm update applies consistently on desktop and mobile breakpoints.
+
 ## Current Task
 - [x] Define Phase 1 implementation scope from gap-closure plan.
 - [x] Add Phase 1 baseline fields to intake UI (identity, contact verification, mailing block, desired resolution).
