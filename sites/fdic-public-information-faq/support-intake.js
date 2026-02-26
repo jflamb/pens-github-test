@@ -94,8 +94,8 @@ const WORKFLOWS = {
       },
       {
         value: "bank_data",
-        title: "Bank history, location, or data tools",
-        detail: "BankFind, failed-bank records, or published financial reports.",
+        title: "FDIC Bank Data and Research (DIR)",
+        detail: "Includes QBP, Call Reports, and industry analysis requests.",
         endpointKey: "fdicdirform",
       },
       {
@@ -444,7 +444,7 @@ function renderIntentGroup() {
         {
           value: "ask",
           title: "Ask a question or get guidance",
-          detail: "For help understanding FDIC services, insurance, or requirements.",
+          detail: "For FDIC service questions, including FDIC Bank Data and Research (DIR), QBP, Call Reports, and industry analysis.",
         },
         {
           value: "failed",

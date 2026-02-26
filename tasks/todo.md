@@ -1,5 +1,16 @@
 # TODO
 
+## Current Task (DIR Discoverability Copy)
+- [x] Make DIR discoverable in the top-level "Ask a question or get guidance" intent description.
+- [x] Rename the ask-flow data topic to explicitly reference FDIC Bank Data and Research (DIR).
+- [x] Keep phrasing concise while adding key examples (QBP, Call Reports, industry analysis).
+
+## Review / Results (DIR Discoverability Copy)
+- Updated intent option detail copy so users see DIR terms at first decision point.
+- Updated ask-flow topic copy to a clearly named DIR option with concise examples.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/support-intake.js`
+
 ## Current Task (Progressive Guidance Copy)
 - [x] Replace section-count helper copy with progressive-disclosure helper guidance.
 - [x] Show `Make a selection to continue.` when the current required step is radio-based.
