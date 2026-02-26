@@ -616,3 +616,23 @@
   - `data.json` parse check passes
   - `0` remaining split-bullet pairs matching the target pattern
   - `0` remaining empty `<li>` artifacts
+
+## Current Task (Footer Visual Alignment)
+- [x] Update `FDICSiteFooter` markup to better match FDIC.gov footer structure.
+- [x] Revise footer styles for column layout, typography, CTA controls, social icons, and responsive behavior.
+- [x] Validate component syntax and class/style wiring.
+
+## Review / Results (Footer Visual Alignment)
+- Updated footer component to mirror the FDIC.gov three-column pattern:
+  - `Contact the FDIC` CTA column
+  - `Stay informed` email subscribe + social icons column
+  - `How can we help you?` stacked selection controls + `Get Started` CTA column
+- Refined footer CSS to match screenshot style cues:
+  - stronger heading scale and vertical rhythm
+  - gold pill-like action controls
+  - center-column divider lines
+  - stacked faux-select controls with gold caret blocks
+  - responsive single-column collapse under tablet width
+- Validation:
+  - `node --check sites/fdic-public-information-faq/components.js`
+  - class reference checks for new footer selectors in component and stylesheet

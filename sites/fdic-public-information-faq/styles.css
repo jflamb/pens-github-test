@@ -687,10 +687,9 @@ button,
 }
 
 .footer-primary {
-  display: flex;
   border-top: 1px solid #234e86;
   border-bottom: 1px solid #234e86;
-  padding: 1.5rem 0;
+  padding: 2.4rem 0 2.1rem;
   background-image: url("https://www.fdic.gov/themes/custom/fdic_theme/assets/images/bg-informed.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -700,66 +699,169 @@ button,
 .footer-primary-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 0;
 }
 
-.footer-primary section {
-  min-height: 132px;
+.footer-col {
+  min-height: 280px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  padding: 0 0.75rem;
+  padding: 0 1.6rem;
 }
 
-.footer-primary section:nth-child(2) {
+.footer-col-subscribe {
   border-left: 1px solid rgba(255, 255, 255, 0.35);
   border-right: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .footer-title {
-  margin: 0 0 0.85rem;
+  margin: 0 0 1.35rem;
   font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  font-weight: 300;
+  color: #f7f8f9;
   letter-spacing: normal;
 }
 
-.usa-button {
+.usa-footer .usa-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 0;
-  background: var(--fdic-gold);
+  background: #8a7a3f;
   color: var(--fdic-white);
   text-decoration: none;
-  padding: var(--control-pad-y) var(--control-pad-x);
-  min-height: var(--control-height-large);
-  min-width: 180px;
-  font-weight: 700;
+  padding: 0.62rem 1.35rem;
+  min-height: 2.65rem;
+  min-width: 198px;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
   line-height: 1.2;
   cursor: pointer;
-  border-radius: 0;
+  border-radius: 6px;
+  white-space: nowrap;
 }
 
 .subscribe-form {
   width: 100%;
-  max-width: 275px;
+  max-width: 742px;
   display: grid;
-  gap: 0.6rem;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.subscribe-input-wrap {
+  width: 100%;
 }
 
 .subscribe-form input {
-  min-height: var(--control-height-large);
+  width: 100%;
+  min-height: 2.75rem;
   border: 1px solid var(--border-control);
-  border-radius: 0;
-  padding: 0.4rem 0.6rem;
-  font: inherit;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: #4b4e52;
 }
 
-.usa-button:hover,
-.usa-button:focus-visible {
+.subscribe-form input::placeholder {
+  color: #6b6d70;
+  opacity: 1;
+}
+
+.footer-social {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.footer-social-link {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #8a7a3f;
+  color: var(--fdic-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.footer-faux-selects {
+  width: 100%;
+  max-width: 705px;
+  display: grid;
+  gap: 0.62rem;
+  margin-bottom: 1rem;
+}
+
+.footer-faux-select {
+  width: 100%;
+  min-height: 2.8rem;
+  border: 1px solid #c8cbd0;
+  border-radius: 4px;
+  background: #f4f4f4;
+  color: #22262b;
+  display: grid;
+  grid-template-columns: 1fr 52px;
+  align-items: center;
+  padding: 0;
+  font-family: "Merriweather", "Merriweather Web", Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1rem;
+  line-height: 1;
+  text-align: left;
+}
+
+.footer-faux-select-label {
+  padding: 0.4rem 1rem;
+}
+
+.footer-faux-select-caret {
+  background: #8a7a3f;
+  color: var(--fdic-white);
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  line-height: 0;
+}
+
+.footer-faux-select-caret::before {
+  content: "";
+  width: 0.62rem;
+  height: 0.62rem;
+  border-right: 3px solid var(--fdic-white);
+  border-bottom: 3px solid var(--fdic-white);
+  transform: rotate(45deg) translateY(-1px);
+  transform-origin: center;
+}
+
+.usa-footer .usa-button:hover,
+.usa-footer .usa-button:focus-visible,
+.footer-social-link:hover,
+.footer-social-link:focus-visible,
+.footer-faux-select:hover,
+.footer-faux-select:focus-visible {
   background: var(--fdic-brass);
+}
+
+.footer-faux-select:focus-visible,
+.footer-social-link:focus-visible,
+.usa-footer .usa-button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .footer-secondary {
@@ -1677,6 +1779,35 @@ fdic-choice-group {
     grid-template-columns: 1fr;
   }
 
+  .footer-col {
+    min-height: auto;
+    padding: 0.75rem 0.6rem;
+  }
+
+  .footer-col-subscribe {
+    border-left: 0;
+    border-right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+
+  .footer-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .subscribe-form {
+    max-width: 520px;
+  }
+
+  .subscribe-form input,
+  .footer-faux-select,
+  .usa-footer .usa-button {
+    font-size: 1rem;
+  }
+
   .support-layout {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -1735,15 +1866,6 @@ fdic-choice-group {
 
   .step-btn.next {
     justify-self: start;
-  }
-
-  .footer-primary section:nth-child(2) {
-    border-left: 0;
-    border-right: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.35);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-    padding-top: 1rem;
-    padding-bottom: 1rem;
   }
 }
 

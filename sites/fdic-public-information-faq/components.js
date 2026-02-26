@@ -64,19 +64,46 @@ class FDICSiteFooter extends HTMLElement {
     this.innerHTML = `<footer class="usa-footer usa-footer--medium">
       <div class="footer-primary">
         <div class="grid-container footer-primary-grid">
-          <section>
+          <section class="footer-col footer-col-contact">
             <p class="footer-title">CONTACT THE FDIC</p>
             <a class="usa-button" href="https://www.fdic.gov/contact" target="_blank" rel="noopener noreferrer">Contact Us</a>
           </section>
-          <section>
+          <section class="footer-col footer-col-subscribe">
             <p class="footer-title">STAY INFORMED</p>
             <form class="subscribe-form" action="https://public.govdelivery.com/accounts/USFDIC/subscribers/qualify" method="post" target="_blank">
-              <label><span class="visually-hidden">Enter your email address</span><input name="email" type="email" placeholder="Enter your email address" /></label>
+              <label class="subscribe-input-wrap"><span class="visually-hidden">Enter your email address</span><input name="email" type="email" placeholder="Enter your email address:" /></label>
               <button class="usa-button" type="submit">Subscribe</button>
             </form>
+            <div class="footer-social" aria-label="Social media">
+              <a class="footer-social-link" href="https://www.facebook.com/FDICgov/" target="_blank" rel="noopener noreferrer" aria-label="FDIC on Facebook">
+                <span class="fa-brands fa-facebook-f" aria-hidden="true"></span>
+              </a>
+              <a class="footer-social-link" href="https://x.com/FDICgov" target="_blank" rel="noopener noreferrer" aria-label="FDIC on X">
+                <span class="fa-brands fa-x-twitter" aria-hidden="true"></span>
+              </a>
+              <a class="footer-social-link" href="https://www.instagram.com/fdicgov/" target="_blank" rel="noopener noreferrer" aria-label="FDIC on Instagram">
+                <span class="fa-brands fa-instagram" aria-hidden="true"></span>
+              </a>
+              <a class="footer-social-link" href="https://www.linkedin.com/company/fdic/" target="_blank" rel="noopener noreferrer" aria-label="FDIC on LinkedIn">
+                <span class="fa-brands fa-linkedin-in" aria-hidden="true"></span>
+              </a>
+              <a class="footer-social-link" href="https://www.youtube.com/user/FDICchannel" target="_blank" rel="noopener noreferrer" aria-label="FDIC on YouTube">
+                <span class="fa-brands fa-youtube" aria-hidden="true"></span>
+              </a>
+            </div>
           </section>
-          <section>
+          <section class="footer-col footer-col-help">
             <p class="footer-title">HOW CAN WE HELP YOU?</p>
+            <div class="footer-faux-selects" aria-label="Help options">
+              <button class="footer-faux-select" type="button" aria-label="I am a...">
+                <span class="footer-faux-select-label">I am a ...</span>
+                <span class="footer-faux-select-caret" aria-hidden="true">&#8964;</span>
+              </button>
+              <button class="footer-faux-select" type="button" aria-label="I want to...">
+                <span class="footer-faux-select-label">I want to...</span>
+                <span class="footer-faux-select-caret" aria-hidden="true">&#8964;</span>
+              </button>
+            </div>
             <a class="usa-button" href="https://ask.fdic.gov/fdicinformationandsupportcenter/s/?language=en_US" target="_blank" rel="noopener noreferrer">Get Started</a>
           </section>
         </div>
