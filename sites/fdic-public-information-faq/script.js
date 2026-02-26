@@ -107,6 +107,35 @@ function flattenTopics(items, depth = 0, parentId = null, list = []) {
   return list;
 }
 
+function buildTopicIndex() {
+  const topicsById = new Map(state.allTopics.map((topic) => [topic.id, topic]));
+  const childrenById = new Map();
+
+  for (const topic of state.allTopics) {
+    childrenById.set(topic.id, []);
+  }
+
+  for (const topic of state.allTopics) {
+    if (!topic.parentId) continue;
+    if (!childrenById.has(topic.parentId)) {
+      childrenById.set(topic.parentId, []);
+    }
+    childrenById.get(topic.parentId).push(topic.id);
+  }
+
+  return { topicsById, childrenById };
+}
+
+function collectBranchTopicIds(topicId, childrenById, branch = new Set()) {
+  if (!topicId || branch.has(topicId)) return branch;
+  branch.add(topicId);
+  const children = childrenById.get(topicId) || [];
+  for (const childId of children) {
+    collectBranchTopicIds(childId, childrenById, branch);
+  }
+  return branch;
+}
+
 function stripHtml(html) {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
@@ -167,10 +196,12 @@ function filterArticles() {
   const tokens = tokenizeQuery(query);
   const normalizedQuery = normalizeText(query);
   const hasTopicFilter = state.selectedTopicId !== "__all__";
+  const { childrenById } = buildTopicIndex();
+  const allowedTopicIds = hasTopicFilter ? collectBranchTopicIds(state.selectedTopicId, childrenById) : null;
   const ranked = [];
 
   for (const article of state.data.articles) {
-    const matchesTopic = !hasTopicFilter || article.topics.some((topic) => topic.id === state.selectedTopicId);
+    const matchesTopic = !hasTopicFilter || article.topics.some((topic) => allowedTopicIds.has(topic.id));
     if (!matchesTopic) continue;
 
     const { matches, score } = evaluateQueryMatch(article, tokens, normalizedQuery);
@@ -188,21 +219,49 @@ function filterArticles() {
 }
 
 function topicCountsForQuery() {
-  const counts = new Map();
+  const directArticleIdsByTopic = new Map();
   const query = state.query;
   const tokens = tokenizeQuery(query);
   const normalizedQuery = normalizeText(query);
+  const { childrenById } = buildTopicIndex();
+  const matchingArticleIds = new Set();
 
   for (const article of state.data.articles) {
     const { matches } = evaluateQueryMatch(article, tokens, normalizedQuery);
     if (!matches) continue;
+    const articleId = article.id || article.urlName || article.question;
+    matchingArticleIds.add(articleId);
 
     for (const topic of article.topics) {
-      counts.set(topic.id, (counts.get(topic.id) || 0) + 1);
+      if (!directArticleIdsByTopic.has(topic.id)) {
+        directArticleIdsByTopic.set(topic.id, new Set());
+      }
+      directArticleIdsByTopic.get(topic.id).add(articleId);
     }
   }
 
-  return counts;
+  const displayCounts = new Map();
+  for (const topic of state.allTopics) {
+    const children = childrenById.get(topic.id) || [];
+    if (!children.length) {
+      displayCounts.set(topic.id, (directArticleIdsByTopic.get(topic.id) || new Set()).size);
+      continue;
+    }
+
+    const branchTopicIds = collectBranchTopicIds(topic.id, childrenById);
+    const branchArticleIds = new Set();
+    for (const branchTopicId of branchTopicIds) {
+      const ids = directArticleIdsByTopic.get(branchTopicId);
+      if (!ids) continue;
+      for (const articleId of ids) branchArticleIds.add(articleId);
+    }
+    displayCounts.set(topic.id, branchArticleIds.size);
+  }
+
+  return {
+    counts: displayCounts,
+    totalCount: matchingArticleIds.size,
+  };
 }
 
 function render() {
@@ -217,7 +276,9 @@ function renderResultCount(count) {
   els.resultCount.textContent = `${count} of ${total} FAQs`;
 }
 
-function renderCategoryTree(counts) {
+function renderCategoryTree(countData) {
+  const counts = countData?.counts || new Map();
+  const allTopicsCount = countData?.totalCount ?? state.data.articles.length;
   const rows = [];
   const topicsById = new Map(state.allTopics.map((topic) => [topic.id, topic]));
   const expandedRootTopicId = getExpandedRootTopicId(topicsById);
@@ -233,7 +294,7 @@ function renderCategoryTree(counts) {
       tabindex="${state.activeTreeItemId === "__all__" ? "0" : "-1"}"
     >
       <span>All topics</span>
-      <span class="category-count">${state.data.articles.length}</span>
+      <span class="category-count">${allTopicsCount}</span>
     </button>
   `);
 

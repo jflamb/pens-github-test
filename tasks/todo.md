@@ -636,3 +636,15 @@
 - Validation:
   - `node --check sites/fdic-public-information-faq/components.js`
   - class reference checks for new footer selectors in component and stylesheet
+
+## Current Task (FAQ Parent Distinct Counts)
+- [x] Update topic count logic so parent topics display distinct totals across all descendant questions.
+- [x] Align selected-topic filtering to include descendant topics for parent selections.
+- [x] Sanity-check topic totals against FAQ data and verify JS syntax.
+
+## Review / Results (FAQ Parent Distinct Counts)
+- Implemented branch-aware topic counting in `script.js` using distinct article-id sets, so parent topic counts now represent unique questions across the full branch.
+- Updated topic filtering so selecting a parent topic includes questions tagged to descendant subtopics.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+  - data sanity script run against `data.json` for parent/subtopic totals.
