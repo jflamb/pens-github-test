@@ -659,7 +659,16 @@ button,
   padding-left: 1.5rem;
 }
 
+.answer ul {
+  list-style: disc outside;
+}
+
+.answer ol {
+  list-style: decimal outside;
+}
+
 .answer li {
+  display: list-item;
   margin: 0.35rem 0;
 }
 

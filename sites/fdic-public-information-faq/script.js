@@ -111,121 +111,6 @@ function stripHtml(html) {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
-function isBulletLine(text) {
-  return /^\s*(?:•|●|▪|◦|·||-)\s*/.test(text || "");
-}
-
-function stripBulletPrefixFromLineHtml(lineHtml) {
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = lineHtml;
-
-  if (wrapper.firstChild && wrapper.firstChild.nodeType === Node.TEXT_NODE) {
-    wrapper.firstChild.textContent = wrapper.firstChild.textContent.replace(/^\s*(?:•|●|▪|◦|·||-)\s*/, "");
-  } else {
-    wrapper.innerHTML = wrapper.innerHTML.replace(
-      /^\s*(?:&nbsp;|\u00a0)*(?:&bull;|&#8226;|•|●|▪|◦|·||-)\s*/i,
-      "",
-    );
-  }
-
-  return wrapper.innerHTML.trim();
-}
-
-function buildSemanticFragmentFromLines(lineParts) {
-  const fragment = document.createDocumentFragment();
-  let paragraphBuffer = [];
-  let listBuffer = [];
-
-  const flushParagraph = () => {
-    if (!paragraphBuffer.length) return;
-    const p = document.createElement("p");
-    p.innerHTML = paragraphBuffer.join("<br>");
-    fragment.appendChild(p);
-    paragraphBuffer = [];
-  };
-
-  const flushList = () => {
-    if (!listBuffer.length) return;
-    const ul = document.createElement("ul");
-    for (const item of listBuffer) {
-      const li = document.createElement("li");
-      li.innerHTML = item;
-      ul.appendChild(li);
-    }
-    fragment.appendChild(ul);
-    listBuffer = [];
-  };
-
-  for (const line of lineParts) {
-    if (!line) continue;
-    if (isBulletLine(stripHtml(line))) {
-      flushParagraph();
-      listBuffer.push(stripBulletPrefixFromLineHtml(line));
-    } else {
-      flushList();
-      paragraphBuffer.push(line);
-    }
-  }
-
-  flushParagraph();
-  flushList();
-  return fragment;
-}
-
-function semanticizeAnswerHtml(answerHtml) {
-  const root = document.createElement("div");
-  root.innerHTML = answerHtml || "";
-  stripLeadingAnswerPrefix(root);
-
-  for (const paragraph of root.querySelectorAll("p")) {
-    const lineParts = paragraph.innerHTML.split(/<br\s*\/?>/i).map((line) => line.trim());
-    const bulletLines = lineParts.filter((line) => isBulletLine(stripHtml(line)));
-
-    if (bulletLines.length < 2) continue;
-    paragraph.replaceWith(buildSemanticFragmentFromLines(lineParts));
-  }
-
-  // Some answers are raw text with <br> bullet lines and no <p> wrappers.
-  if (!root.querySelector("p, ul, ol, li")) {
-    const lineParts = root.innerHTML.split(/<br\s*\/?>/i).map((line) => line.trim());
-    const bulletLines = lineParts.filter((line) => isBulletLine(stripHtml(line)));
-    if (bulletLines.length >= 2) {
-      root.replaceChildren(buildSemanticFragmentFromLines(lineParts));
-    }
-  }
-
-  // Normalize media/link URLs from source HTML so they work outside ask.fdic.gov.
-  for (const img of root.querySelectorAll("img[src]")) {
-    const src = img.getAttribute("src") || "";
-    if (src.startsWith("/")) {
-      img.setAttribute("src", `https://ask.fdic.gov${src}`);
-    }
-  }
-
-  for (const link of root.querySelectorAll("a[href]")) {
-    const href = link.getAttribute("href") || "";
-    if (href.startsWith("/")) {
-      link.setAttribute("href", `https://ask.fdic.gov${href}`);
-    }
-  }
-
-  return root.innerHTML;
-}
-
-function stripLeadingAnswerPrefix(root) {
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-  let node = walker.nextNode();
-
-  while (node) {
-    const value = node.nodeValue || "";
-    if (value.trim()) {
-      node.nodeValue = value.replace(/^\s*A:\s*/i, "");
-      break;
-    }
-    node = walker.nextNode();
-  }
-}
-
 function normalizeText(value) {
   return value
     .normalize("NFD")
@@ -514,7 +399,7 @@ function renderFaqList(articles) {
                   <h3>${escapeHtml(stripQuestionPrefix(article.question))}</h3>
                 </div>
               </summary>
-              <div class="answer">${semanticizeAnswerHtml(article.answerHtml)}</div>
+              <div class="answer">${article.answerHtml || ""}</div>
             </details>
             <button
               class="copy-link-btn"
@@ -531,12 +416,6 @@ function renderFaqList(articles) {
     .join("");
 
   els.faqList.innerHTML = `<ul class="faq-list-items" role="list">${listItems}</ul>`;
-
-  for (const link of els.faqList.querySelectorAll(".answer a[target='_blank']")) {
-    if (!link.getAttribute("rel")) {
-      link.setAttribute("rel", "noopener noreferrer");
-    }
-  }
 
   for (const button of els.faqList.querySelectorAll(".copy-link-btn")) {
     button.addEventListener("click", async () => {

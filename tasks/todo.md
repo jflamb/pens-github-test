@@ -1,5 +1,222 @@
 # TODO
 
+## Current Task (FAQ JSON Deep Cleanup: Links then Structure)
+- [x] Inventory malformed-link patterns in `data.json` (`</a><a`, anchor text spanning sentence bodies, broken href/text pairs, trailing `website*` style labels).
+- [x] Repair highest-risk malformed links directly in `data.json` without renderer-side fallback transforms.
+- [x] Normalize `<br>`-driven pseudo-structure into semantic `<p>`, `<ul>`, and `<ol>` where implied by content.
+- [x] Run validation checks (JSON parse + pattern counts) and spot-check representative FAQ anchors by `urlName`.
+- [x] Log results and residuals in this file.
+
+## Review / Results (FAQ JSON Deep Cleanup: Links then Structure)
+- Source cleanup was applied directly in `sites/fdic-public-information-faq/data.json` for all FAQ `answerHtml` entries.
+- High-risk malformed-link patterns were repaired:
+  - adjacent/split anchor fragments
+  - malformed or whitespace-corrupted hrefs
+  - over-extended anchor text swallowing sentence content
+- Structural normalization was applied in-source:
+  - removed `<br>`-based pseudo-formatting from answers
+  - promoted bullet-style content into semantic lists
+  - split multi-block answers into semantic paragraphs
+- Targeted manual rewrites were applied to remaining outliers where automatic repair risked content loss.
+- Validation:
+  - `JSON.parse(...)` passes for `data.json`
+- pattern checks on `answerHtml` now report:
+  - `split_anchor: 0`
+  - `br: 0`
+  - `leading_A: 0`
+  - `href_space: 0`
+
+## Current Task (FAQ Link Rehydration From Source Summary)
+- [x] Fix the reported missing-link entry for `Q-What-are-some-banking-services-that-may-not-require-me-to-go-into-a-bank-branch`.
+- [x] Identify answers where `summary` includes URLs but `answerHtml` has no anchors.
+- [x] Rehydrate missing links in `answerHtml` using source URLs from `summary` with descriptive labels.
+- [x] Validate JSON and spot-check key questions in the browser-targeted set.
+
+## Review / Results (FAQ Link Rehydration From Source Summary)
+- Restored the missing link in the reported answer (`FDIC Consumer News September 2022` now anchors to `https://www.fdic.gov/resources/consumers/consumer-news/2022-09.html`).
+- Added a deterministic source cleanup rule across `answerHtml` entries:
+  - plain `FDIC Consumer News <Month> <Year>` strings are converted to anchors using `https://www.fdic.gov/resources/consumers/consumer-news/YYYY-MM.html`.
+- Global checks after update:
+  - `data.json` parses successfully.
+  - No broken structural regressions reintroduced (`<br>` and split-anchor checks remain clean).
+
+## Current Task (FAQ Answers Proofreading Pass)
+- [x] Run a full-lint scan across all FAQ `answerHtml` entries for structural and copy defects.
+- [x] Fix malformed links and broken anchors (run-away links, adjacent split anchors, missing hrefs).
+- [x] Correct punctuation/grammar defects that are objective and non-substantive.
+- [x] Repair incomplete \"To learn more\" endings and unescaped non-breaking-space artifacts.
+- [x] Re-run validation checks and targeted residual scan.
+
+## Review / Results (FAQ Answers Proofreading Pass)
+- Completed a source-level proofreading pass on all FAQ answers in `sites/fdic-public-information-faq/data.json`.
+- Applied non-substantive corrections only:
+  - link and anchor integrity fixes
+  - punctuation and spacing normalization
+  - cleanup of malformed \"To learn more\" follow-ons
+  - replacement of escaped `&amp;nbsp;` artifacts
+- Validation checks after pass:
+  - `data.json` parse check passes
+  - no residual split anchors (`</a><a`)
+  - no anchors missing `href`
+  - no embedded `<br>` line-break formatting artifacts
+
+## Current Task (Global Semantic Normalization Pass)
+- [x] Add renderer-level sanitization to strip non-semantic attributes (`class`, `id`) from answer content.
+- [x] Flatten generic wrapper `<div>` elements that only provide presentational grouping.
+- [x] Remove/unwrap empty anchors left behind by legacy source HTML.
+
+## Review / Results (Global Semantic Normalization Pass)
+- Added a global semantic normalization layer in FAQ rendering before text/link structure passes.
+- Legacy presentational wrappers/attributes are removed at render time so answers consistently normalize to semantic paragraph/list/link structures.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (Label+Link List Normalization)
+- [x] Convert `label paragraph + link paragraph` pairs into semantic bullet lists.
+- [x] Run conversion before trailing-link merge so intended list items are preserved.
+- [x] Apply globally for repeated FAQ article-link patterns.
+
+## Review / Results (Label+Link List Normalization)
+- Added renderer pass that detects repeated `P(label)` followed by `P(link-only)` patterns and converts them into `<ul><li><a>Label</a></li></ul>`.
+- Placed this pass before trailing-link merge so list-style recommendations are not collapsed into inline sentence links.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (Trailing Link Block Merge)
+- [x] Detect link-only trailing blocks rendered as standalone `<div>/<p>` elements.
+- [x] Merge those links into the preceding paragraph text and remove wrapper blocks.
+- [x] Apply globally across FAQ answers to eliminate embedded layout wrappers in answer bodies.
+
+## Review / Results (Trailing Link Block Merge)
+- Added renderer logic to merge standalone link-only blocks into the immediately preceding paragraph.
+- This removes patterns like `<div><p><a ...></a></p></div>` in answer bodies and keeps the link inline with sentence flow.
+- Added punctuation/spacing guardrails so merged links end with a complete sentence when needed.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (Parenthetical Link Label Cleanup)
+- [x] Normalize list/sentence patterns where plain label wraps a generic link in parentheses.
+- [x] Move descriptive entity names into the anchor text for better readability and accessibility.
+- [x] Preserve external-link annotation while removing redundant `(...website...)` constructions.
+
+## Review / Results (Parenthetical Link Label Cleanup)
+- Added renderer logic to transform patterns like `Label (<a>Generic Website</a>)` into `<a>Label</a> (external)`.
+- Scoped the rule to generic link labels (`website`, `webpage`, `resource`) to avoid changing already descriptive anchors.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (Remove Inline Answer Styles)
+- [x] Strip all inline `style` attributes from rendered FAQ answer HTML.
+- [x] Keep structural cleanup intact so removing styles does not regress readability.
+- [x] Validate renderer syntax after sanitization change.
+
+## Review / Results (Remove Inline Answer Styles)
+- Added a renderer-level sanitization step that removes all inline `style` attributes from FAQ answer content before other normalization passes.
+- This eliminates inline styling on links and other answer elements across the full FAQ corpus.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (FAQ Asterisk + Paragraph Edge Cases)
+- [x] Remove trailing asterisk markers that remain after external-link annotation.
+- [x] Apply BR-paragraph splitting to root/div content, not only existing `<p>` tags.
+- [x] Verify ABLE-account answer pattern and similar answers normalize cleanly.
+
+## Review / Results (FAQ Asterisk + Paragraph Edge Cases)
+- Expanded footnote-marker cleanup to remove inline `*` tokens adjacent to punctuation (for example `*.`) after links.
+- Updated paragraph splitting so double-break patterns are converted to `<p>` blocks even when source text is not already wrapped in paragraphs.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (External Link Annotation Cleanup)
+- [x] Remove standalone external-link footnote lines from FAQ answers.
+- [x] Annotate external anchors inline so context stays with each link.
+- [x] Keep accessibility context on external links without trailing boilerplate blocks.
+
+## Review / Results (External Link Annotation Cleanup)
+- Updated FAQ rendering cleanup to remove standalone external-footnote lines instead of converting them to visible boilerplate.
+- Added inline external-link annotation directly on each non-`fdic.gov` anchor (`(external)` suffix + `aria-label` context).
+- Kept security attributes for opened links (`target="_blank"` with `rel="noopener noreferrer"`).
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (FAQ Paragraph Break Normalization)
+- [x] Convert BR-based paragraph breaks to semantic `<p>` elements across answer rendering.
+- [x] Keep `<br>` only for intentional inline line breaks after structural normalization.
+- [x] Validate that list and callout content still renders correctly.
+
+## Review / Results (FAQ Paragraph Break Normalization)
+- Added paragraph split logic that converts `<br><br>` paragraph separators into separate `<p>` elements.
+- Kept subsequent paragraph/line-break normalization so stray boundary `<br>` tags are removed.
+- Preserved list semantics and existing callout/link normalization passes in the render pipeline.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (Targeted FAQ Cleanup Pass)
+- [x] Unwrap legacy presentational span/font wrappers in answer HTML.
+- [x] Normalize external-link footnote markers and remove stray asterisk artifacts.
+- [x] Repair known split-word/link artifacts and improve descriptive labels for frequent resource URLs.
+
+## Review / Results (Targeted FAQ Cleanup Pass)
+- Added wrapper cleanup to strip non-semantic `font` and presentational `span` elements before further normalization.
+- Normalized external footnote markers (`*website external to the FDIC`) into clean text and removed stray inline asterisks.
+- Added targeted split-word repair for malformed anchor boundaries (for example `h<a>ow...` -> `how...`).
+- Expanded curated URL-to-label mapping for frequent FTC/CFPB credit-report resources to produce clearer link labels.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (FAQ Paragraph + Line Break Cleanup)
+- [x] Remove extraneous `<br>` tags used as spacing around block elements.
+- [x] Wrap loose inline/text answer content in semantic `<p>` tags.
+- [x] Preserve intentional list and paragraph structure while normalizing layout.
+
+## Review / Results (FAQ Paragraph + Line Break Cleanup)
+- Added paragraph-markup normalization pass after structural cleanup in FAQ answer rendering.
+- Loose inline/text runs are now wrapped in semantic `<p>` elements (without disturbing lists/tables).
+- Removed boundary/adjacent `<br>` elements that were only being used as vertical spacing around block content.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (FAQ Typography + Accessible Link Text)
+- [x] Normalize punctuation/spacing artifacts in rendered FAQ answers (extra spaces before punctuation, double spaces after periods).
+- [x] Replace generic link text (for example, "website") with descriptive accessible labels.
+- [x] Ensure link targets are clickable even when source content has malformed/empty href values.
+- [x] Promote multi-line alert definitions to ordered lists where structure implies sequence.
+
+## Review / Results (FAQ Typography + Accessible Link Text)
+- Added typography cleanup for rendered answer text nodes to remove space-before-punctuation errors and collapse double spacing after sentence-ending punctuation.
+- Replaced generic anchor text like `website`/`webpage` with descriptive labels using context/domain mapping (for example, `FTC website`, `CFPB website`).
+- Added fallback href generation so malformed links with URL text but empty href are made clickable.
+- Added structural cleanup that promotes grouped `...Alert is...` lines into ordered lists for clearer scanning.
+- Refined link-label resolution to prioritize destination-based labels, preventing wrong labels in mixed-sentence references.
+- Added curated descriptive labels for high-visibility FTC/CFPB servicemember fraud resources.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (FAQ Linking + Formatting Consistency)
+- [x] Ensure embedded URLs render as clickable links (including bare `www`/domain patterns).
+- [x] Apply sparse emphasis to key lead phrases in bullet content when safe.
+- [x] Normalize answer formatting artifacts for more consistent structure.
+
+## Review / Results (FAQ Linking + Formatting Consistency)
+- Expanded URL parsing/linkification to cover `http(s)`, `www.*`, and common bare domains in answer text.
+- Added conservative lead-phrase emphasis for bullet items that start with a short `Label:` pattern.
+- Normalized paragraph break spacing (`3+` line breaks collapsed to `2`) for cleaner structure.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (FAQ Answer Formatting Cleanup)
+- [x] Replace image-only "learn more" answer links with concise text links.
+- [x] Convert raw URL text in answers to inline links with readable labels.
+- [x] Remove legacy layout artifacts (empty positioned divs/leftover thumbnails) from answer rendering.
+
+## Review / Results (FAQ Answer Formatting Cleanup)
+- Added answer-content normalization in FAQ rendering (`semanticizeAnswerHtml`) so legacy HTML is cleaned up at display time.
+- Image-only anchors now render as concise text links; large inline thumbnails are removed.
+- Plain-text URLs in answers are linkified and relabeled to readable resource text.
+- Removed empty positioned div/p blocks that were source-system artifacts.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+
 ## Current Task (FAQ Help Topic Content + Naming)
 - [x] Rename the empty "Help Using Ask FDIC Page" topic to align with Information and Support Center language.
 - [x] Add starter FAQs for common navigation and form-usage questions under that topic.
@@ -220,3 +437,182 @@
 - Verification:
   - `node --check` passed for all support/FAQ scripts.
   - Reference grep confirmed old removed field IDs are no longer referenced.
+
+## Current Task (FAQ Answer Consistency Sweep)
+- [x] Audit remaining FAQ answer patterns for malformed paragraph/list/link structure.
+- [x] Expand renderer normalization to repair repeated legacy patterns without per-answer one-offs.
+- [x] Patch any remaining outlier answers directly in `data.json` when source text is malformed.
+- [x] Re-validate FAQ script syntax and `data.json` parse integrity.
+
+## Review / Results (FAQ Answer Consistency Sweep)
+- Added a new semantic pass (`promoteResourceLabelLinkRuns`) to convert repeated label+link line runs into proper unordered lists.
+- Hardened parenthetical-link normalization so URL-in-parentheses patterns are normalized to descriptive agency-name links.
+- Ran a second list-promotion pass after trailing-link merge to catch list candidates created during merge.
+- Directly repaired two high-noise outlier answers in `data.json`:
+  - `Q-Are-there-other-federal-banking-regulatory-agencies-besides-the-FDIC`
+  - `Q-FDIC-insured-banks-have-identified-an-increase-in-unemployment-insurance-fraud...`
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+  - `node -e "JSON.parse(require('fs').readFileSync('sites/fdic-public-information-faq/data.json','utf8')); console.log('data.json ok')"`
+
+## Current Task (Plain URL Link-Text Cleanup)
+- [x] Identify remaining answer bodies with plain parenthetical URLs or raw URL text.
+- [x] Replace obvious high-value occurrences with clickable links and descriptive link text.
+- [x] Extend URL label mapping for recurring BankFind/SOD help destinations.
+- [x] Re-validate script syntax and `data.json` integrity.
+
+## Review / Results (Plain URL Link-Text Cleanup)
+- Added explicit label mapping in renderer for:
+  - `banks.data.fdic.gov/bankfind-suite/help` -> `BankFind Suite Help`
+  - `www7.fdic.gov/sod/dynaDownload.asp` -> `Summary of Deposits (SOD) Download`
+- Updated in-source FAQ answers with title-style links for recurring plain URL patterns, including:
+  - EDIE help article link
+  - Homebuyer resource and game links
+  - Failed-bank acquisitions resource
+  - FDIC-insured account article link
+  - `You Can Bank On It` game link
+- Verification:
+  - `node --check sites/fdic-public-information-faq/script.js`
+  - `node -e "JSON.parse(require('fs').readFileSync('sites/fdic-public-information-faq/data.json','utf8')); console.log('data.json ok')"`
+
+## Current Task (Source-First URL Normalization)
+- [x] Normalize remaining plain URL patterns directly in `data.json` answer content.
+- [x] Replace raw URL anchor text with descriptive labels in source content.
+- [x] Keep render-time transformations as fallback only.
+- [x] Validate JSON/script integrity after bulk source updates.
+
+## Review / Results (Source-First URL Normalization)
+- Applied a bulk source cleanup pass across `answerHtml` entries to convert:
+  - parenthetical plain URLs into explicit anchors
+  - raw URL anchor text into descriptive link labels
+  - remaining plain URL text nodes into clickable anchors
+- Updated 52 FAQ answer entries in `data.json` during this pass.
+- Verification:
+  - `node -e "JSON.parse(require('fs').readFileSync('sites/fdic-public-information-faq/data.json','utf8')); console.log('data.json ok')"`
+  - `node --check sites/fdic-public-information-faq/script.js`
+
+## Current Task (Full JSON Hygiene Pass)
+- [x] Audit `data.json` for malformed or low-quality answer HTML patterns at corpus level.
+- [x] Apply source-level normalization for recurring structural artifacts (empty links, footnote remnants, presentational wrappers, embedded media artifacts).
+- [x] Preserve semantic meaning while simplifying answer markup.
+- [x] Re-run integrity checks and summarize residual exceptions, if any.
+
+## Review / Results (Full JSON Hygiene Pass)
+- Ran a corpus-wide cleanup directly in `data.json` `answerHtml` fields (source-first) to remove legacy presentational and malformed markup:
+  - removed embedded media tags (`img`, `iframe`) and stale wrapper artifacts
+  - removed inline presentational attributes (`style`, `class`, `id`) and wrapper tags (`font`, `span`, generic `div`)
+  - normalized malformed link structures (empty anchors, split anchors, orphan `</a>` artifacts)
+  - normalized external-footnote remnants and duplicate `A: A:` prefix artifacts
+  - collapsed excessive `<br>` runs and removed trailing break-only endings
+- Ran follow-up repairs for link integrity after the bulk pass:
+  - rebuilt anchor closure consistency
+  - filled all previously empty `<a ...></a>` nodes with meaningful link text
+- Final validation checks:
+  - `node -e "JSON.parse(require('fs').readFileSync('sites/fdic-public-information-faq/data.json','utf8')); console.log('data.json ok')"`
+  - corpus audit reports zero remaining `answerHtml` instances of:
+    - `<img>`, `<iframe>`, inline `style`, `<span>`, `<div>`
+    - empty `href` / empty anchors
+    - raw unlinked `http(s)` text
+    - anchor open/close imbalance
+
+## Current Task (EDIE Link Boundary Repairs)
+- [x] Identify EDIE FAQ answers where entire prose blocks were wrapped by a single anchor.
+- [x] Rewrite affected `answerHtml` entries so only meaningful phrases are linked.
+- [x] Validate JSON parse and spot-check updated EDIE entries.
+
+## Review / Results (EDIE Link Boundary Repairs)
+- Repaired 8 EDIE-related answers with malformed over-wrapped links.
+- Updated copy so:
+  - `EDIE` is linked as a short in-sentence term
+  - “To learn more” links point to the intended resource with descriptive text
+- Verification:
+  - `node -e "JSON.parse(require('fs').readFileSync('sites/fdic-public-information-faq/data.json','utf8')); console.log('data.json ok')"`
+
+## Current Task (Source-Only FAQ Answer Reformat)
+- [x] Confirm `script.js` render path has no runtime answer transforms in use.
+- [x] Reformat all FAQ `answerHtml` entries in `data.json` to consistent semantic HTML (`<p>`, `<ul>/<ol>`, clean anchors) without changing substantive language.
+- [x] Remove structural artifacts in source content (`<br>` paragraph hacks, `&nbsp;`/`&amp;nbsp;`, split/runaway anchors, empty wrappers, malformed link labels).
+- [x] Run thorough corpus checks and spot-check known-problem FAQ anchors for structural integrity.
+- [x] Record results and any residual manual-review items.
+
+## Review / Results (Source-Only FAQ Answer Reformat)
+- Removed all residual render-time FAQ answer transform code from `script.js`; FAQ answers now render directly from `data.json` source markup.
+- Performed a source-only normalization pass plus targeted manual rewrites for known malformed outliers in `data.json`:
+  - converted image/iframe-based answer artifacts into text-link content
+  - repaired missing/empty anchors and malformed “To learn more” stubs
+  - normalized problematic list/link structures in high-noise answers (regulatory agencies, servicemember alerts, unemployment fraud, EDIE, prepaid card, scam guidance)
+  - removed remaining external footnote boilerplate and plain-text URL remnants
+- Validation:
+  - `JSON.parse(...)` passes for `sites/fdic-public-information-faq/data.json`
+  - `node --check sites/fdic-public-information-faq/script.js`
+  - corpus checks now report zero instances of:
+    - `<br>`, `&nbsp;`, `<img>`, `<iframe>`, `<div>`, `<span>`, `<font>`
+    - empty/missing `href` anchors
+    - split-anchor adjacency
+    - bare “To learn more, visit:” stubs
+    - external-footnote leftovers
+    - plain unlinked URL text in answer content
+
+## Current Task (Hyperlink Spacing + Full Link Verification)
+- [x] Detect and fix missing spaces immediately before `<a>` tags in FAQ `answerHtml`.
+- [x] Validate every answer hyperlink for markup integrity and URL format correctness.
+- [x] Run live URL reachability checks for all unique answer links and patch obvious broken URL typos.
+- [x] Re-run corpus validation and log residual manual review items.
+
+## Review / Results (Hyperlink Spacing + Full Link Verification)
+- Fixed all detected missing-space-before-link issues in `answerHtml`.
+- Repaired malformed hyperlink outliers:
+  - nested anchor wrappers
+  - invalid placeholder URLs (`https://www`, `https://www.SSA.gov.*`)
+  - truncated PDF URL suffix (`.pd` -> `.pdf`)
+  - truncated FDIC path (`/consumers/consumer`)
+- Verification summary:
+  - total links scanned: `298` (`154` unique)
+  - structural validation: `0` missing spaces, `0` nested anchors, `0` empty/missing `href`, `0` target/rel mismatches
+  - local relative-link check: `0` issues
+  - live external checks: `30` URLs return `404/403` or network `ERR` (legacy/retired resources and a few hosts not reachable from runtime)
+
+## Current Task (Website Reference Hyperlinking)
+- [x] Add explicit hyperlinks where answers referenced named websites/webpages but provided plain text.
+- [x] Patch the reported credit-report-dispute answer and similar FTC/CFPB website reference patterns.
+- [x] Fix remaining named-site references (FDIC BankFind, ask.fdic.gov, IRS, EDD, CFPB) with anchored links.
+- [x] Re-scan for unresolved named website/webpage references without anchors.
+
+## Review / Results (Website Reference Hyperlinking)
+- Updated website/webpage references to linked anchors in 36 FAQ answers, including the reported dispute-information question.
+- Added/normalized links for:
+  - FTC and CFPB website/webpage references
+  - FDIC BankFind / FDIC website / ask.fdic.gov mentions
+  - IRS webpage references for QTP content
+  - EDD debit card website reference
+- Validation:
+  - `data.json` parse check passes
+  - zero remaining high-confidence named-site website/webpage references without anchors
+
+## Current Task (Replace FDIC Resource Link Text)
+- [x] Find all FAQ answer links labeled `FDIC resource`.
+- [x] Replace each with the title of its target page.
+- [x] Ensure sentence-ending links end with a period when they close a sentence.
+- [x] Re-validate JSON and scan for replacement/punctuation regressions.
+
+## Review / Results (Replace FDIC Resource Link Text)
+- Replaced all `FDIC resource` link labels in `data.json` (`42` occurrences across `23` unique URLs) with target-page titles.
+- Applied sentence-end punctuation normalization where a link closes a paragraph/list-item sentence.
+- Validation:
+  - `data.json` parse check passes
+  - `0` remaining `FDIC resource` link labels
+  - no obvious double/invalid punctuation patterns after link replacement
+
+## Current Task (Split-Bullet Sweep)
+- [x] Detect high-confidence split-bullet pairs (`<li>label</li><li><a...`) across all FAQ answers.
+- [x] Apply safe list-item merges in-source for those pairs only.
+- [x] Remove any empty list-item artifacts introduced or exposed by merges.
+- [x] Run sanity checks on changed answers (JSON parse + residual split-pattern scan + output spot checks).
+
+## Review / Results (Split-Bullet Sweep)
+- Applied targeted split-bullet merges to `11` FAQ answers in `data.json`.
+- Removed one empty bullet artifact found during sanity review.
+- Validation:
+  - `data.json` parse check passes
+  - `0` remaining split-bullet pairs matching the target pattern
+  - `0` remaining empty `<li>` artifacts
