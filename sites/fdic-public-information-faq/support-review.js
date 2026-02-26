@@ -51,6 +51,31 @@ const FAQ_HINTS = {
     "accounts insured",
     "is my bank insured",
   ],
+  process_help: [
+    "FDIC services",
+    "banking guidance",
+  ],
+  dir: [
+    "bank data",
+    "DIR",
+    "QBP",
+    "Call Report",
+  ],
+  qbp_analysis: [
+    "Quarterly Banking Profile",
+    "QBP",
+    "industry analysis",
+  ],
+  call_report_data: [
+    "Call Report",
+    "reporting data",
+    "series definitions",
+  ],
+  bank_history_records: [
+    "bank history",
+    "BankFind",
+    "failed bank records",
+  ],
   bank_data: [
     "bank data",
     "bank history",
@@ -74,6 +99,46 @@ const FAQ_HINTS = {
     "deposit insurance",
   ],
 };
+
+const FAQ_TOPIC_CONTEXT = {
+  report: ["Information About My Bank", "Bank Regulations"],
+  bank_issue: ["Information About My Bank", "Bank Regulations"],
+  fdic_issue: ["About FDIC"],
+  appraisal: ["Mortgages", "More About Loans"],
+  ask: ["About FDIC", "Bank Regulations"],
+  deposit_question: ["Understanding Deposit Insurance", "What's Covered?", "Is My Bank Insured?", "Are My Accounts Insured?"],
+  general_question: ["Bank Regulations", "About FDIC"],
+  process_help: ["About FDIC", "Bank Regulations"],
+  dir: ["Industry Information and Data Tools"],
+  qbp_analysis: ["Industry Information and Data Tools"],
+  call_report_data: ["Industry Information and Data Tools"],
+  bank_history_records: ["Industry Information and Data Tools", "Information About My Bank", "Bank Failures"],
+  failed: ["When a Bank Fails", "Bank Failures"],
+  depositor_claim: ["When a Bank Fails", "Bank Failures"],
+  lien_release: ["Lien Releases from Failed Banks", "Institution & Asset Sales"],
+  insured_status: ["Is My Bank Insured?", "Understanding Deposit Insurance"],
+};
+
+function getContextTopicLabels(draft) {
+  return [...new Set([
+    ...(FAQ_TOPIC_CONTEXT[draft.intent] || []),
+    ...(FAQ_TOPIC_CONTEXT[draft.topic] || []),
+  ])];
+}
+
+function hasContextTopicMatch(article, contextLabels) {
+  if (!contextLabels.length) {
+    return false;
+  }
+  const articleLabels = Array.isArray(article?.topics)
+    ? article.topics.map((topic) => (topic?.label || "").trim().toLowerCase()).filter(Boolean)
+    : [];
+  if (!articleLabels.length) {
+    return false;
+  }
+  const contextLabelSet = new Set(contextLabels.map((label) => label.toLowerCase()));
+  return articleLabels.some((label) => contextLabelSet.has(label));
+}
 
 function loadDraft() {
   try {
@@ -160,6 +225,12 @@ function renderFallbackTopicHints(draft) {
 }
 
 function getFaqSuggestions(articles, draft, limit = 3) {
+  const contextLabels = getContextTopicLabels(draft);
+  const narrowed = contextLabels.length
+    ? articles.filter((article) => hasContextTopicMatch(article, contextLabels))
+    : [];
+  const candidatePool = narrowed.length >= limit ? narrowed : articles;
+
   const keywords = [
     ...(FAQ_HINTS[draft.topic] || []),
     ...(FAQ_HINTS[draft.intent] || []),
@@ -176,15 +247,17 @@ function getFaqSuggestions(articles, draft, limit = 3) {
     return [];
   }
 
-  const ranked = articles
+  const ranked = candidatePool
     .map((article) => {
       const question = (article.question || "").toLowerCase();
       const summary = (article.summary || "").toLowerCase();
       const topicText = Array.isArray(article.topics)
         ? article.topics.map((topic) => (topic?.label || "").toLowerCase()).join(" ")
         : "";
-      const haystack = `${question} ${summary} ${topicText}`;
       let score = 0;
+      const contextMatch = hasContextTopicMatch(article, contextLabels);
+
+      if (contextMatch) score += 15;
 
       for (const term of keywords) {
         if (question.includes(term)) score += 6;

@@ -19,14 +19,13 @@
       <div class="ds-region-abovecontent">
         <fdic-breadcrumb crumbs='[{"label":"Home","href":"https://www.fdic.gov"},{"label":"Information and Support Center","href":"index.html"},{"label":"Report a Problem or Concern","href":"report-problem.html"},{"label":"Review Submission"}]'></fdic-breadcrumb>
 
-        <h1>Information and Support Center</h1>
-        <p class="support-intro">Review your responses before you submit your request.</p>
+        <p class="content-subtitle">Information and Support Center</p>
+        <h1>Review your submission</h1>
       </div>
 
       <main id="main-content" class="report-layout report-layout--single" aria-label="Review submission">
         <section class="report-main review-main">
-          <h2>Review your submission</h2>
-          <p class="support-subcopy">Check each answer below. If anything needs to change, go back and edit it before you submit. This prototype submits directly in this flow with no legacy form handoff.</p>
+          <p class="support-subcopy">Review your answers below. Use Back to edit if anything needs to change before you submit.</p>
 
           <div id="review-missing" class="report-error-summary" role="alert" hidden>
             <p>We could not find a completed draft to review.</p>
@@ -37,14 +36,14 @@
 
           <fdic-review-summary dl-id="review-summary"></fdic-review-summary>
 
-          <section id="faq-suggestions" class="review-faq-suggestions" hidden>
-            <h3>Before you submit, these FAQs may help</h3>
-            <p class="report-subcopy">If one of these answers resolves your question, you may not need to submit a request.</p>
+          <section id="faq-suggestions" class="contextual-faq-suggestions report-section" hidden>
+            <h3>Related FAQs</h3>
+            <p>If one of these answers resolves your question, you may not need to submit a request.</p>
             <ul id="faq-suggestions-list" class="review-faq-list"></ul>
           </section>
 
-          <section class="legal-note legal-note--compact" aria-label="Submission and legal notice">
-            <p><strong>Before you submit:</strong> Your request may be shared within FDIC or with other agencies as needed to respond, and may be disclosed if required by law. Submit only information needed to process your request.</p>
+          <section class="legal-note legal-note--full report-section" aria-label="Submission and legal notice">
+            <p><strong>Privacy and records notice:</strong> Your request may be shared within FDIC or with other agencies as needed to respond, and may be disclosed if required by law. Submit only information needed to process your request.</p>
             <p>See <a href="https://www.fdic.gov/about/privacy-program" target="_blank" rel="noopener noreferrer">Privacy Program</a>, <a href="https://www.fdic.gov/foia" target="_blank" rel="noopener noreferrer">FOIA</a>, and <a href="https://www.fdic.gov/about/website-policies" target="_blank" rel="noopener noreferrer">Website Policies</a>.</p>
           </section>
 

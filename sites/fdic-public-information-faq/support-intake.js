@@ -93,19 +93,45 @@ const WORKFLOWS = {
         endpointKey: "fdicdiform",
       },
       {
-        value: "bank_data",
-        title: "FDIC Bank Data and Research (DIR)",
-        detail: "Includes QBP, Call Reports, and industry analysis requests.",
-        endpointKey: "fdicdirform",
-      },
-      {
         value: "general_question",
         title: "General regulatory question",
         detail: "A broad question about FDIC-supervised banking topics.",
         endpointKey: "fdiccaform",
       },
+      {
+        value: "process_help",
+        title: "Not sure which option applies",
+        detail: "Guidance when your request does not fit a clear category.",
+        endpointKey: "fdiccaform",
+      },
     ],
     detailsLegend: "What question do you need answered?",
+  },
+  dir: {
+    heading: "Request FDIC Bank Data and Research information",
+    subcopy: "Use this for DIR-directed requests such as QBP, Call Reports, and industry analysis.",
+    topicLegend: "What data or research do you need?",
+    topics: [
+      {
+        value: "qbp_analysis",
+        title: "Quarterly Banking Profile (QBP) or industry analysis",
+        detail: "Questions on QBP trends, tables, and related analysis.",
+        endpointKey: "fdicdirform",
+      },
+      {
+        value: "call_report_data",
+        title: "Call Report data",
+        detail: "Requests involving Call Report definitions, series, or extracts.",
+        endpointKey: "fdicdirform",
+      },
+      {
+        value: "bank_history_records",
+        title: "Bank history, BankFind, or failed-bank records",
+        detail: "Historical institution data, location history, and failed-bank information.",
+        endpointKey: "fdicdirform",
+      },
+    ],
+    detailsLegend: "Describe the DIR information you need",
   },
   failed: {
     heading: "Get help with a failed bank",
@@ -444,7 +470,12 @@ function renderIntentGroup() {
         {
           value: "ask",
           title: "Ask a question or get guidance",
-          detail: "For FDIC service questions, including FDIC Bank Data and Research (DIR), QBP, Call Reports, and industry analysis.",
+          detail: "For help understanding FDIC services, insurance, or requirements.",
+        },
+        {
+          value: "dir",
+          title: "Request FDIC Bank Data and Research (DIR) information",
+          detail: "For DIR-directed requests, including QBP, Call Reports, and industry analysis.",
         },
         {
           value: "failed",

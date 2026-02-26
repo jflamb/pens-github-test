@@ -1,5 +1,93 @@
 # TODO
 
+## Current Task (FDIC Hero Heading Pattern)
+- [x] Apply gold section subtitle (`Information and Support Center`) in page hero regions.
+- [x] Set page/task title as `h1` in hero area on task pages.
+- [x] Remove duplicate in-content `h1` headings where hero already carries the page title.
+
+## Review / Results (FDIC Hero Heading Pattern)
+- Updated intake, review, cases, confirmation, and legacy step page templates to use:
+  - hero subtitle: `Information and Support Center`
+  - hero `h1`: page/task title
+- Kept existing `support-intro` copy under hero titles where applicable.
+- Preserved JS bindings by keeping `#intake-heading` and `#intake-subcopy` IDs on the intake page after moving them to the hero region.
+- Verification:
+  - Reviewed resulting heading structure and duplicates across HTML templates.
+
+## Current Task (Task-First Page Headings)
+- [x] Make each page's `h1` the primary task/action heading.
+- [x] Remove redundant section-level `h1` headings where a task heading exists in content.
+- [x] Preserve existing visual scale by applying task-heading styles to `h1` in report-main areas.
+
+## Review / Results (Task-First Page Headings)
+- Updated intake, review, cases, confirmation, and legacy step pages to use task-first `h1` headings.
+- Removed redundant top-of-page `Information and Support Center` headings on task pages.
+- Updated CSS selector scope so `.report-main h1` receives the same spacing as prior `.report-main h2`.
+- Verification:
+  - Reviewed heading hierarchy across page templates with grep (`<h1`, `<h2`).
+
+## Current Task (FAQ Relevance Narrowing)
+- [x] Add context narrowing by selected intent/topic before lexical FAQ ranking.
+- [x] Keep lexical scoring in place as a secondary ranking signal.
+- [x] Preserve graceful fallback when context filters are too narrow.
+
+## Review / Results (FAQ Relevance Narrowing)
+- Added intent/topic-to-FAQ-topic context mapping in review scoring.
+- Candidate pool now narrows to context-matching FAQ topics when enough matches exist, then applies lexical scoring.
+- Added context-match score boost so aligned topics are preferred even when fallback to full pool occurs.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/support-review.js`
+
+## Current Task (Review Page Callout Cleanup)
+- [x] Replace duplicate "Before you submit" framing with concise, non-repetitive copy.
+- [x] Reuse intake-page inset callout styling for the review FAQ and notice blocks.
+- [x] Keep FAQ deflection and legal links intact while simplifying language.
+
+## Review / Results (Review Page Callout Cleanup)
+- Updated review FAQ callout to use the same inset left-rule treatment as the intake page.
+- Rewrote FAQ and legal notice copy to be shorter and less repetitive.
+- Preserved FAQ suggestion list IDs and all legal-policy links.
+- Verification:
+  - Reviewed rendered-structure diff for class/ID continuity.
+
+## Current Task (DIR Intent Split)
+- [x] Add a dedicated fourth top-level intent for DIR-directed requests.
+- [x] Restore general wording for `Ask a question or get guidance`.
+- [x] Move DIR-specific topics under the new intent while keeping routing and review hints coherent.
+
+## Review / Results (DIR Intent Split)
+- Added new `dir` workflow and intent option in intake flow.
+- Restored general ask intent detail copy and removed DIR-heavy phrasing from that option.
+- Added DIR-specific topic options under the new workflow, all routed to `fdicdirform`.
+- Updated review-page fallback FAQ hints for new `dir` intent and DIR topic keys.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/support-intake.js`
+  - `node --check sites/fdic-public-information-faq/support-review.js`
+
+## Current Task (CTA Typography Alignment)
+- [x] Match `Review your submission` button height to footer button sizing.
+- [x] Increase CTA button font weight while keeping existing blue background.
+- [x] Normalize completion-helper typography so it does not appear undersized.
+
+## Review / Results (CTA Typography Alignment)
+- Updated `.step-btn.next` to use large control height and heavier button typography consistent with footer buttons.
+- Kept primary CTA blue fill (`var(--fdic-blue-800)`) unchanged.
+- Updated `.report-submit-helper` to body-size text for stronger visual consistency.
+- Verification:
+  - Reviewed CSS diff and selector scope.
+
+## Current Task (Form Rhythm Pass 2)
+- [x] Rebalance intake spacing between headings, legends, and option groups.
+- [x] Increase radio-card internal spacing and row gaps for readability.
+- [x] Improve separation between helper text and CTA actions.
+
+## Review / Results (Form Rhythm Pass 2)
+- Increased spacing cadence across form sections and fieldset legends.
+- Increased option-grid row/column gap and option-card padding for less visual crowding.
+- Increased helper-to-actions separation so the CTA row does not feel cramped.
+- Verification:
+  - Reviewed exact CSS diff for selector scope and consistency.
+
 ## Current Task (DIR Discoverability Copy)
 - [x] Make DIR discoverable in the top-level "Ask a question or get guidance" intent description.
 - [x] Rename the ask-flow data topic to explicitly reference FDIC Bank Data and Research (DIR).
