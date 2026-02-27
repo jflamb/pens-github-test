@@ -1,5 +1,24 @@
 # TODO
 
+## Current Task (VS Code Live Preview Workspace Defaults)
+- [x] Configure workspace-level Live Preview defaults for the support site root and default page.
+- [x] Add a one-click VS Code task to run Live Preview for the support site folder.
+- [x] Add extension recommendations so workspace collaborators get prompted for Live Preview.
+- [x] Verify JSON syntax for new workspace config files.
+
+## Review / Results (VS Code Live Preview Workspace Defaults)
+- Added workspace settings in `.vscode/settings.json`:
+  - `livePreview.serverRoot: "sites/fdic-public-information-faq"`
+  - `livePreview.defaultPreviewPath: "/index.html"`
+  - `livePreview.openPreviewTarget: "External Browser"`
+  - `livePreview.tasks.runTaskWithExternalPreview: true`
+  - `livePreview.portNumber: 4173`
+  - `livePreview.hostIP: "127.0.0.1"`
+- Added `.vscode/tasks.json` with task label `Live Preview: Info & Support Center` using task `type: "Live Preview"` and `workspacePath: "sites/fdic-public-information-faq"`.
+- Added `.vscode/extensions.json` recommending `ms-vscode.live-server`.
+- Validation:
+  - `node -e "JSON.parse(require('fs').readFileSync('.vscode/settings.json','utf8')); JSON.parse(require('fs').readFileSync('.vscode/tasks.json','utf8')); JSON.parse(require('fs').readFileSync('.vscode/extensions.json','utf8')); console.log('vscode config json ok')"`
+
 ## Current Task (FAQ JSON Deep Cleanup: Links then Structure)
 - [x] Inventory malformed-link patterns in `data.json` (`</a><a`, anchor text spanning sentence bodies, broken href/text pairs, trailing `website*` style labels).
 - [x] Repair highest-risk malformed links directly in `data.json` without renderer-side fallback transforms.
@@ -648,3 +667,63 @@
 - Verification:
   - `node --check sites/fdic-public-information-faq/script.js`
   - data sanity script run against `data.json` for parent/subtopic totals.
+
+## Current Task (FAQ Expanded Q/A Unified Highlight)
+- [x] Update FAQ expanded-state styling so question and answer render as one visual unit.
+- [x] Extend the left stripe/bar across both summary and answer when open.
+- [x] Remove the divider between question and answer in expanded state and tune paragraph spacing for natural flow.
+- [x] Verify CSS syntax and confirm selector scope is FAQ-only.
+
+## Review / Results (FAQ Expanded Q/A Unified Highlight)
+- Updated FAQ item open-state styling in `styles.css` so highlight treatment is applied on `details[open]`, not just `summary`.
+- Extended the left stripe across the full expanded block by moving the open-state accent border to `.faq-item details[open]`.
+- Removed the answer top divider and reduced answer top padding to create tighter, natural question-to-answer paragraph flow.
+- Verification:
+  - reviewed `git diff -- sites/fdic-public-information-faq/styles.css`
+  - confirmed selector scope is FAQ-only (`.faq-item details`, `.faq-item details[open]`, `.answer`)
+
+## Current Task (FAQ Spacing and Motion Polish)
+- [x] Tighten spacing between FAQ question and answer in expanded state.
+- [x] Balance bottom spacing so expanded item padding feels symmetrical.
+- [x] Add subtle expanded/collapsed motion treatment with reduced-motion fallback.
+- [x] Verify scoped selector impact in FAQ styles only.
+
+## Review / Results (FAQ Spacing and Motion Polish)
+- Tightened question/answer proximity by reducing summary bottom padding and answer top padding in expanded items.
+- Rebalanced expanded block vertical rhythm by reducing answer bottom padding to align with top spacing.
+- Added subtle answer reveal motion (`opacity` + slight `translateY`) in expanded state.
+- Added reduced-motion fallback to disable FAQ motion and keep content fully visible.
+- Verification:
+  - reviewed `git diff -- sites/fdic-public-information-faq/styles.css`
+  - confirmed changes are scoped to FAQ selectors (`.faq-item summary`, `.answer`, `.faq-item details[open] > .answer`, FAQ reduced-motion block)
+
+## Current Task (FAQ Focus Ring Container Scope)
+- [x] Move FAQ keyboard focus ring from summary-only to the full FAQ details container.
+- [x] Keep existing hover/open visual styling intact.
+- [x] Verify selector scope remains limited to FAQ question blocks.
+
+## Review / Results (FAQ Focus Ring Container Scope)
+- Updated FAQ focus styles so `summary:focus-visible` no longer draws its own inset ring.
+- Added container-level ring on `.faq-item details:has(> summary:focus-visible)` so focus wraps both question and answer area.
+- Verification:
+  - reviewed CSS diff for FAQ selectors only in `styles.css`
+
+## Current Task (FAQ List Web Component Refactor)
+- [x] Create a reusable `fdic-faq-list` web component for rendering and interaction of FAQ question/answer items.
+- [x] Move FAQ list behaviors (copy link, keyboard navigation, active summary management, hash deep-link expansion) into the component.
+- [x] Update `faq.html` to use the new custom element for the FAQ list container.
+- [x] Refactor `script.js` to pass filtered articles into the component and remove duplicate list-behavior logic.
+- [x] Run JS syntax checks for `components.js` and `script.js`.
+
+## Review / Results (FAQ List Web Component Refactor)
+- Added new web component `FDICFAQList` (`fdic-faq-list`) in `components.js` that owns FAQ list rendering and item interactions.
+- Moved FAQ item behavior into the component:
+  - copy-link button behavior with clipboard fallback
+  - roving-tabindex keyboard navigation (`ArrowUp/Down`, `Home`, `End`, `Enter`/`Space`)
+  - active summary tracking
+  - hash deep-link expansion and scroll-to-target
+- Replaced FAQ list container in `faq.html` with `<fdic-faq-list id="faq-list" class="faq-list"></fdic-faq-list>`.
+- Simplified `script.js` FAQ-list responsibilities to data filtering + `renderArticles(...)` calls into the component.
+- Verification:
+  - `node --check sites/fdic-public-information-faq/components.js`
+  - `node --check sites/fdic-public-information-faq/script.js`

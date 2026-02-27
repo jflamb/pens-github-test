@@ -3,7 +3,6 @@ const state = {
   query: "",
   selectedTopicId: "__all__",
   activeTreeItemId: "__all__",
-  activeFaqItemId: null,
   allTopics: [],
   searchDebounceId: null,
 };
@@ -46,7 +45,9 @@ async function init() {
     wireEvents();
     updateInlineClearVisibility();
     render();
-    openByHash();
+    if (typeof els.faqList.openByHash === "function") {
+      els.faqList.openByHash(window.location.hash);
+    }
   } catch (error) {
     console.error(error);
     els.resultCount.textContent = "Unable to load FAQ content.";
@@ -81,11 +82,12 @@ function wireEvents() {
     els.search.focus();
   });
 
-  window.addEventListener("hashchange", openByHash);
+  window.addEventListener("hashchange", () => {
+    if (typeof els.faqList.openByHash === "function") {
+      els.faqList.openByHash(window.location.hash);
+    }
+  });
   els.categoryTree.addEventListener("keydown", handleCategoryTreeKeydown);
-  els.faqList.addEventListener("keydown", handleFaqListKeydown);
-  els.faqList.addEventListener("focusin", handleFaqListFocusIn);
-  els.faqList.addEventListener("click", handleFaqListClick);
 }
 
 function updateInlineClearVisibility() {
@@ -436,208 +438,15 @@ function cssEscape(value) {
 }
 
 function renderFaqList(articles) {
-  if (!articles.length) {
-    state.activeFaqItemId = null;
-    els.faqList.innerHTML = `
-      <div class="empty-state">
-        <p><strong>No matching FAQs.</strong></p>
-        <p>Try a different keyword or choose a different topic.</p>
-      </div>
-    `;
+  if (typeof els.faqList.renderArticles === "function") {
+    els.faqList.renderArticles(articles);
     return;
   }
 
-  const listItems = articles
-    .map((article) => {
-      const safeId = `faq-${article.urlName}`;
-
-      return `
-        <li class="faq-list-item">
-          <article class="faq-item" id="${safeId}">
-            <details>
-              <summary>
-                <div class="faq-head">
-                  <h3>${escapeHtml(stripQuestionPrefix(article.question))}</h3>
-                </div>
-              </summary>
-              <div class="answer">${article.answerHtml || ""}</div>
-            </details>
-            <button
-              class="copy-link-btn"
-              type="button"
-              data-link="#${safeId}"
-              aria-label="Copy link to: ${escapeHtml(stripQuestionPrefix(article.question))}"
-            >
-              Copy link
-            </button>
-          </article>
-        </li>
-      `;
-    })
-    .join("");
-
-  els.faqList.innerHTML = `<ul class="faq-list-items" role="list">${listItems}</ul>`;
-
-  for (const button of els.faqList.querySelectorAll(".copy-link-btn")) {
-    button.addEventListener("click", async () => {
-      const hash = button.dataset.link;
-      if (!hash) return;
-
-      const url = new URL(hash, window.location.href).href;
-      const copied = await copyToClipboard(url);
-
-      if (copied) {
-        button.textContent = "Copied";
-        button.setAttribute("aria-label", "Link copied to clipboard");
-        setTimeout(() => {
-          button.textContent = "Copy link";
-          const article = button.closest(".faq-item");
-          const question = article?.querySelector("h3")?.textContent?.trim();
-          button.setAttribute("aria-label", question ? `Copy link to: ${question}` : "Copy link to this question");
-        }, 1300);
-      }
-    });
-  }
-
-  setupFaqKeyboardNavigation();
-  openByHash();
-}
-
-function getFaqSummaries() {
-  return Array.from(els.faqList.querySelectorAll(".faq-item summary"));
-}
-
-function setActiveFaqSummary(summary, focus = false) {
-  const summaries = getFaqSummaries();
-  if (!summary || !summaries.includes(summary)) return;
-
-  for (const candidate of summaries) {
-    candidate.tabIndex = candidate === summary ? 0 : -1;
-  }
-
-  const item = summary.closest(".faq-item");
-  state.activeFaqItemId = item?.id || null;
-
-  if (focus) {
-    summary.focus();
-  }
-}
-
-function setupFaqKeyboardNavigation() {
-  const summaries = getFaqSummaries();
-  if (!summaries.length) return;
-
-  let preferred = null;
-
-  if (state.activeFaqItemId) {
-    preferred = els.faqList.querySelector(`#${cssEscape(state.activeFaqItemId)} summary`);
-  }
-
-  if (!preferred && location.hash) {
-    preferred = els.faqList.querySelector(`${location.hash} summary`);
-  }
-
-  setActiveFaqSummary(preferred || summaries[0], false);
-}
-
-function handleFaqListFocusIn(event) {
-  const summary = event.target instanceof HTMLElement ? event.target.closest(".faq-item summary") : null;
-  if (summary instanceof HTMLElement) {
-    setActiveFaqSummary(summary, false);
-  }
-}
-
-function handleFaqListClick(event) {
-  const summary = event.target instanceof HTMLElement ? event.target.closest(".faq-item summary") : null;
-  if (summary instanceof HTMLElement) {
-    setActiveFaqSummary(summary, false);
-  }
-}
-
-function handleFaqListKeydown(event) {
-  const summary = event.target instanceof HTMLElement ? event.target.closest(".faq-item summary") : null;
-  if (!summary) return;
-
-  const summaries = getFaqSummaries();
-  if (!summaries.length) return;
-
-  const currentIndex = summaries.indexOf(summary);
-  if (currentIndex < 0) return;
-
-  if (event.key === "ArrowDown") {
-    event.preventDefault();
-    setActiveFaqSummary(summaries[Math.min(currentIndex + 1, summaries.length - 1)], true);
-    return;
-  }
-
-  if (event.key === "ArrowUp") {
-    event.preventDefault();
-    setActiveFaqSummary(summaries[Math.max(currentIndex - 1, 0)], true);
-    return;
-  }
-
-  if (event.key === "Home") {
-    event.preventDefault();
-    setActiveFaqSummary(summaries[0], true);
-    return;
-  }
-
-  if (event.key === "End") {
-    event.preventDefault();
-    setActiveFaqSummary(summaries[summaries.length - 1], true);
-    return;
-  }
-
-  if (event.key === " " || event.key === "Enter") {
-    event.preventDefault();
-    const details = summary.parentElement;
-    if (details instanceof HTMLDetailsElement) {
-      details.open = !details.open;
-    }
-  }
-}
-
-async function copyToClipboard(value) {
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(value);
-      return true;
-    }
-  } catch (error) {
-    // Fall through to legacy approach.
-  }
-
-  try {
-    const tempInput = document.createElement("input");
-    tempInput.value = value;
-    tempInput.setAttribute("readonly", "");
-    tempInput.style.position = "absolute";
-    tempInput.style.left = "-9999px";
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    const ok = document.execCommand("copy");
-    tempInput.remove();
-    return ok;
-  } catch (error) {
-    console.error("Unable to copy link:", error);
-    return false;
-  }
-}
-
-function openByHash() {
-  if (!location.hash) return;
-  const target = document.querySelector(location.hash);
-  if (!target) return;
-
-  const details = target.querySelector("details");
-  if (details) details.open = true;
-  const summary = target.querySelector("summary");
-  if (summary instanceof HTMLElement) {
-    setActiveFaqSummary(summary, false);
-  }
-
-  // Ensure deep-linked FAQs are brought into view after expansion.
-  requestAnimationFrame(() => {
-    target.scrollIntoView({ block: "start", behavior: "auto" });
-  });
+  els.faqList.innerHTML = `
+    <div class="empty-state">
+      <p><strong>Unable to render FAQ list.</strong></p>
+      <p>Please refresh the page.</p>
+    </div>
+  `;
 }

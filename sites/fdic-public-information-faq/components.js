@@ -37,6 +37,40 @@ function externalLinkAttrs(href) {
   return /^https?:\/\//i.test(href || "") ? ' target="_blank" rel="noopener noreferrer"' : "";
 }
 
+function escapeCssSelector(value) {
+  if (window.CSS && typeof window.CSS.escape === "function") {
+    return window.CSS.escape(value);
+  }
+  return String(value).replace(/["\\]/g, "\\$&");
+}
+
+async function copyTextToClipboard(value) {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
+  } catch {
+    // Fall through to legacy approach.
+  }
+
+  try {
+    const tempInput = document.createElement("input");
+    tempInput.value = value;
+    tempInput.setAttribute("readonly", "");
+    tempInput.style.position = "absolute";
+    tempInput.style.left = "-9999px";
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    const ok = document.execCommand("copy");
+    tempInput.remove();
+    return ok;
+  } catch (error) {
+    console.error("Unable to copy link:", error);
+    return false;
+  }
+}
+
 class FDICSiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `<header class="usa-header usa-header--basic" role="banner">
@@ -195,6 +229,207 @@ class FDICSupportNav extends HTMLElement {
   }
 }
 
+class FDICFAQList extends HTMLElement {
+  constructor() {
+    super();
+    this.activeFaqItemId = null;
+    this.handleClick = this.handleClick.bind(this);
+    this.handleFocusIn = this.handleFocusIn.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.handleClick);
+    this.addEventListener("focusin", this.handleFocusIn);
+    this.addEventListener("keydown", this.handleKeydown);
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("click", this.handleClick);
+    this.removeEventListener("focusin", this.handleFocusIn);
+    this.removeEventListener("keydown", this.handleKeydown);
+  }
+
+  renderArticles(articles) {
+    if (!Array.isArray(articles) || !articles.length) {
+      this.activeFaqItemId = null;
+      this.innerHTML = `
+        <div class="empty-state">
+          <p><strong>No matching FAQs.</strong></p>
+          <p>Try a different keyword or choose a different topic.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const listItems = articles
+      .map((article) => {
+        const safeId = `faq-${article.urlName}`;
+        const question = stripQuestionPrefix(article.question);
+
+        return `
+          <li class="faq-list-item">
+            <article class="faq-item" id="${safeId}">
+              <details>
+                <summary>
+                  <div class="faq-head">
+                    <h3>${escapeHtml(question)}</h3>
+                  </div>
+                </summary>
+                <div class="answer">${article.answerHtml || ""}</div>
+              </details>
+              <button
+                class="copy-link-btn"
+                type="button"
+                data-link="#${safeId}"
+                aria-label="Copy link to: ${escapeHtml(question)}"
+              >
+                Copy link
+              </button>
+            </article>
+          </li>
+        `;
+      })
+      .join("");
+
+    this.innerHTML = `<ul class="faq-list-items" role="list">${listItems}</ul>`;
+    this.setupKeyboardNavigation();
+    this.openByHash(window.location.hash);
+  }
+
+  openByHash(hash = window.location.hash) {
+    if (!hash) return;
+    const selector = hash.startsWith("#") ? hash : `#${hash}`;
+    const target = this.querySelector(selector);
+    if (!target) return;
+
+    const details = target.querySelector("details");
+    if (details instanceof HTMLDetailsElement) details.open = true;
+
+    const summary = target.querySelector("summary");
+    if (summary instanceof HTMLElement) {
+      this.setActiveFaqSummary(summary, false);
+    }
+
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ block: "start", behavior: "auto" });
+    });
+  }
+
+  getFaqSummaries() {
+    return Array.from(this.querySelectorAll(".faq-item summary"));
+  }
+
+  setActiveFaqSummary(summary, focus = false) {
+    const summaries = this.getFaqSummaries();
+    if (!summary || !summaries.includes(summary)) return;
+
+    for (const candidate of summaries) {
+      candidate.tabIndex = candidate === summary ? 0 : -1;
+    }
+
+    const item = summary.closest(".faq-item");
+    this.activeFaqItemId = item?.id || null;
+
+    if (focus) summary.focus();
+  }
+
+  setupKeyboardNavigation() {
+    const summaries = this.getFaqSummaries();
+    if (!summaries.length) return;
+
+    let preferred = null;
+    if (this.activeFaqItemId) {
+      preferred = this.querySelector(`#${escapeCssSelector(this.activeFaqItemId)} summary`);
+    }
+    if (!preferred && window.location.hash) {
+      preferred = this.querySelector(`${window.location.hash} summary`);
+    }
+
+    this.setActiveFaqSummary(preferred || summaries[0], false);
+  }
+
+  async handleCopyLink(button) {
+    const hash = button.dataset.link;
+    if (!hash) return;
+
+    const url = new URL(hash, window.location.href).href;
+    const copied = await copyTextToClipboard(url);
+    if (!copied) return;
+
+    button.textContent = "Copied";
+    button.setAttribute("aria-label", "Link copied to clipboard");
+    window.setTimeout(() => {
+      button.textContent = "Copy link";
+      const article = button.closest(".faq-item");
+      const question = article?.querySelector("h3")?.textContent?.trim();
+      button.setAttribute("aria-label", question ? `Copy link to: ${question}` : "Copy link to this question");
+    }, 1300);
+  }
+
+  handleFocusIn(event) {
+    const summary = event.target instanceof HTMLElement ? event.target.closest(".faq-item summary") : null;
+    if (summary instanceof HTMLElement) this.setActiveFaqSummary(summary, false);
+  }
+
+  handleClick(event) {
+    const target = event.target instanceof HTMLElement ? event.target : null;
+    if (!target) return;
+
+    const copyButton = target.closest(".copy-link-btn");
+    if (copyButton instanceof HTMLButtonElement) {
+      this.handleCopyLink(copyButton);
+      return;
+    }
+
+    const summary = target.closest(".faq-item summary");
+    if (summary instanceof HTMLElement) this.setActiveFaqSummary(summary, false);
+  }
+
+  handleKeydown(event) {
+    const summary = event.target instanceof HTMLElement ? event.target.closest(".faq-item summary") : null;
+    if (!summary) return;
+
+    const summaries = this.getFaqSummaries();
+    if (!summaries.length) return;
+
+    const currentIndex = summaries.indexOf(summary);
+    if (currentIndex < 0) return;
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      this.setActiveFaqSummary(summaries[Math.min(currentIndex + 1, summaries.length - 1)], true);
+      return;
+    }
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      this.setActiveFaqSummary(summaries[Math.max(currentIndex - 1, 0)], true);
+      return;
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      this.setActiveFaqSummary(summaries[0], true);
+      return;
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      this.setActiveFaqSummary(summaries[summaries.length - 1], true);
+      return;
+    }
+
+    if (event.key === " " || event.key === "Enter") {
+      event.preventDefault();
+      const details = summary.parentElement;
+      if (details instanceof HTMLDetailsElement) {
+        details.open = !details.open;
+      }
+    }
+  }
+}
+
 class FDICSupportCard extends HTMLElement {
   connectedCallback() {
     const href = this.getAttribute("href") || "#";
@@ -333,6 +568,7 @@ if (!customElements.get("fdic-site-footer")) customElements.define("fdic-site-fo
 if (!customElements.get("fdic-breadcrumb")) customElements.define("fdic-breadcrumb", FDICBreadcrumb);
 if (!customElements.get("fdic-share-bar")) customElements.define("fdic-share-bar", FDICShareBar);
 if (!customElements.get("fdic-support-nav")) customElements.define("fdic-support-nav", FDICSupportNav);
+if (!customElements.get("fdic-faq-list")) customElements.define("fdic-faq-list", FDICFAQList);
 if (!customElements.get("fdic-support-card")) customElements.define("fdic-support-card", FDICSupportCard);
 if (!customElements.get("fdic-labeled-input")) customElements.define("fdic-labeled-input", FDICLabeledInput);
 if (!customElements.get("fdic-step-actions")) customElements.define("fdic-step-actions", FDICStepActions);
